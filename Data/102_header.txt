@@ -1,0 +1,8 @@
+102m 2 360 650000
+102m.mat 16+24 200/mV 11 1024 984 -28574 0 V5
+102m.mat 16+24 200/mV 11 1024 1025 13743 0 V2
+# 84 F 1525 167 x1
+# Digoxin
+# The rhythm is paced with a demand pacemaker.  The PVCs are multiform.
+#Creator: wfdb2mat
+#Source: record mitdb/102

@@ -1,0 +1,8 @@
+109m 2 360 650000
+109m.mat 16+24 200/mV 11 1024 1059 24085 0 MLII
+109m.mat 16+24 200/mV 11 1024 1151 27089 0 V1
+# 64 M 1508 694 x1
+# Quinidine
+# There is first degree AV block.  The PVCs are multiform.
+#Creator: wfdb2mat
+#Source: record mitdb/109

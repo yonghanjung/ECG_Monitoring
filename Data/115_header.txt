@@ -1,0 +1,7 @@
+115m 2 360 650000
+115m.mat 16+24 200/mV 11 1024 908 1470 0 MLII
+115m.mat 16+24 200/mV 11 1024 957 31935 0 V1
+# 39 F 994 167 x2
+# None
+#Creator: wfdb2mat
+#Source: record mitdb/115

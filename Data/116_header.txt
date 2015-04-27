@@ -1,0 +1,8 @@
+116m 2 360 650000
+116m.mat 16+24 200/mV 11 1024 960 -3609 0 MLII
+116m.mat 16+24 200/mV 11 1024 776 -27349 0 V1
+# 68 M 1453 1629 x2
+# None
+# There are two PVC forms.
+#Creator: wfdb2mat
+#Source: record mitdb/116

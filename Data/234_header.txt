@@ -1,0 +1,8 @@
+234m 2 360 650000
+234m.mat 16+24 200/mV 11 1024 1008 18427 0 MLII
+234m.mat 16+24 200/mV 11 1024 1051 21057 0 V1
+# 56 F 1971 3655 x2
+# None
+# The PVCs are uniform.
+#Creator: wfdb2mat
+#Source: record mitdb/234

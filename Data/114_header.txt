@@ -1,0 +1,8 @@
+114m 2 360 650000
+114m.mat 16+24 200/mV 11 1024 1015 -11371 0 V5
+114m.mat 16+24 200/mV 11 1024 1027 -13230 0 MLII
+# 72 F 750 1629 x1
+# Digoxin
+# The PVCs are uniform.
+#Creator: wfdb2mat
+#Source: record mitdb/114

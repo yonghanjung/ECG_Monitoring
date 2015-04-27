@@ -1,0 +1,7 @@
+100m 2 360 650000
+100m.mat 16+24 200/mV 11 1024 995 -22131 0 MLII
+100m.mat 16+24 200/mV 11 1024 1011 20052 0 V5
+# 69 M 1085 1629 x1
+# Aldomet, Inderal
+#Creator: wfdb2mat
+#Source: record mitdb/100

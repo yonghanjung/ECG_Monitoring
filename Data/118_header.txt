@@ -1,0 +1,8 @@
+118m 2 360 650000
+118m.mat 16+24 200/mV 11 1024 857 8669 0 MLII
+118m.mat 16+24 200/mV 11 1024 921 -25621 0 V1
+# 69 M 1456 653 x2
+# Digoxin, Norpace
+# The PVCs are multiform.
+#Creator: wfdb2mat
+#Source: record mitdb/118

@@ -1,0 +1,9 @@
+219m 2 360 650000
+219m.mat 16+24 200/mV 11 1024 885 19659 0 MLII
+219m.mat 16+24 200/mV 11 1024 833 28558 0 V1
+# -1 M 978 654 x1
+# Digoxin
+# Following some conversions from atrial fibrillation to normal sinus
+# rhythm are pauses up to 3 seconds in duration.  The PVCs are multiform.
+#Creator: wfdb2mat
+#Source: record mitdb/219

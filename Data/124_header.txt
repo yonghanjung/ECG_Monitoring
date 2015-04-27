@@ -1,0 +1,8 @@
+124m 2 360 650000
+124m.mat 16+24 200/mV 11 1024 824 9673 0 MLII
+124m.mat 16+24 200/mV 11 1024 887 29880 0 V4
+# 77 M 1199 653 x2
+# Digoxin, Isordil, Quinidine
+# The PVCs are multiform.  The junctional escape beats follow PVCs.
+#Creator: wfdb2mat
+#Source: record mitdb/124

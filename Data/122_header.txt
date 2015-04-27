@@ -1,0 +1,8 @@
+122m 2 360 650000
+122m.mat 16+24 200/mV 11 1024 868 -14865 0 MLII
+122m.mat 16+24 200/mV 11 1024 877 19763 0 V1
+# 51 M 640 654 x2
+# Digoxin, Lasix, Pronestyl
+# The lower channel has low-amplitude high-frequency noise throughout.
+#Creator: wfdb2mat
+#Source: record mitdb/122

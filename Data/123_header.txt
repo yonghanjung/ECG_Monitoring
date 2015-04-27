@@ -1,0 +1,8 @@
+123m 2 360 650000
+123m.mat 16+24 200/mV 11 1024 863 22856 0 MLII
+123m.mat 16+24 200/mV 11 1024 933 -30643 0 V5
+# 63 F 1482 694 x2
+# Digoxin, Inderal
+# The PVCs are uniform and interpolated.
+#Creator: wfdb2mat
+#Source: record mitdb/123
