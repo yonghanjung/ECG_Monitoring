@@ -2,6 +2,7 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/Simple_Segment.py" line="28" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/150428_Segment_Normalize.py" line="117" mnemonic="0" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42c85b7a-2bd2-4f5b-822e-d2218dc86545" name="Default" comment="" />
@@ -29,16 +30,28 @@
       <file leaf-file-name="Simple_Segment.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Simple_Segment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.72479564" vertical-offset="19" max-vertical-offset="2432">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.21798365" vertical-offset="120" max-vertical-offset="3020">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
               <folding>
                 <element signature="e#24#55#0" expanded="true" />
+                <element signature="e#534#939#0" expanded="false" />
+                <element signature="e#986#1686#0" expanded="false" />
+                <element signature="e#1723#1851#0" expanded="false" />
+                <marker date="1430206877000" expanded="true" signature="3867:3973" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="150428_Segment_Normalize.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/150428_Segment_Normalize.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2233" max-vertical-offset="3450">
+              <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+              <folding>
+                <element signature="e#25#56#0" expanded="true" />
                 <element signature="e#539#944#0" expanded="false" />
                 <element signature="e#991#1691#0" expanded="false" />
-                <element signature="e#1728#1856#0" expanded="false" />
-                <element signature="e#1938#2352#0" expanded="false" />
-                <element signature="e#2441#2933#0" expanded="false" />
-                <marker date="1430100730000" expanded="true" signature="3870:3976" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -62,6 +75,7 @@
         <option value="$PROJECT_DIR$/ECG_beat_segment.py" />
         <option value="$PROJECT_DIR$/Data/105_anno.txt" />
         <option value="$PROJECT_DIR$/Data/233_anno.txt" />
+        <option value="$PROJECT_DIR$/150428_Segment_Normalize.py" />
         <option value="$PROJECT_DIR$/Simple_Segment.py" />
       </list>
     </option>
@@ -130,7 +144,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ML_Study_Implementation/ML_Implementation" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Kaggle_Competition" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/jeong-yonghan/Google-drive/3.학교생활/0.My_Research/실험/ECG/Plot.py" />
@@ -186,24 +200,6 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="ECG_crawler" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ECG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data/ECG_crawler.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
     <configuration default="false" name="ECG_beat_segment" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -235,6 +231,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ECG" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Simple_Segment.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="150428_Segment_Normalize" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ECG" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/150428_Segment_Normalize.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -364,17 +378,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Plot" />
       <item index="1" class="java.lang.String" itemvalue="Python.temp" />
-      <item index="2" class="java.lang.String" itemvalue="Python.ECG_crawler" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ECG_beat_segment" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Simple_Segment" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ECG_beat_segment" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Simple_Segment" />
+      <item index="4" class="java.lang.String" itemvalue="Python.150428_Segment_Normalize" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Simple_Segment" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ECG_beat_segment" />
-        <item index="2" class="java.lang.String" itemvalue="Python.temp" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Plot" />
-        <item index="4" class="java.lang.String" itemvalue="Python.ECG_crawler" />
+        <item index="1" class="java.lang.String" itemvalue="Python.150428_Segment_Normalize" />
+        <item index="2" class="java.lang.String" itemvalue="Python.ECG_beat_segment" />
+        <item index="3" class="java.lang.String" itemvalue="Python.temp" />
+        <item index="4" class="java.lang.String" itemvalue="Python.Plot" />
       </list>
     </recent_temporary>
   </component>
@@ -431,17 +445,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Data/112_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="38355">
-          <caret line="0" column="37" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data/113_anno.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="27045">
@@ -785,18 +792,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Simple_Segment.py">
+    <entry file="file://$PROJECT_DIR$/150428_Segment_Normalize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72479564" vertical-offset="19" max-vertical-offset="2432">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2233" max-vertical-offset="3450">
+          <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
           <folding>
-            <element signature="e#24#55#0" expanded="true" />
+            <element signature="e#25#56#0" expanded="true" />
             <element signature="e#539#944#0" expanded="false" />
             <element signature="e#991#1691#0" expanded="false" />
-            <element signature="e#1728#1856#0" expanded="false" />
-            <element signature="e#1938#2352#0" expanded="false" />
-            <element signature="e#2441#2933#0" expanded="false" />
-            <marker date="1430100730000" expanded="true" signature="3870:3976" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Simple_Segment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21798365" vertical-offset="120" max-vertical-offset="3020">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="e#24#55#0" expanded="true" />
+            <element signature="e#534#939#0" expanded="false" />
+            <element signature="e#986#1686#0" expanded="false" />
+            <element signature="e#1723#1851#0" expanded="false" />
+            <marker date="1430206877000" expanded="true" signature="3867:3973" placeholder="..." />
           </folding>
         </state>
       </provider>

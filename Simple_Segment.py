@@ -5,11 +5,11 @@ import pywt
 import numpy as np
 
 ''' Control variable (Global) '''
-PVC_Data_Num = [105, 106, 116, 119, 200, 201, 203, 208, 210, 213, 215, 217, 219, 221, 223, 228, 233]
+PVC_Data_Num = [105, 106, 116, 119, 201, 203, 208, 210, 213, 215, 217, 219, 221, 223, 228, 233]
 Sampling_rate = 360
 
-datanum = 116
-show_record = 0
+datanum = 233
+show_record = 1
 
 # INDEX = True
 INDEX = False
@@ -83,7 +83,7 @@ def Detail_Coef_Plot_Except_Show(ECG_Segment, ECG_Segment_Type, Test_Segment_num
     Test_ECG_Segment_Type = ECG_Segment_Type[Test_Segment_num]
     DWT_WCs = DWT(data=Test_ECG_Segment, wavelet='db8', scale=scale)
     DWT_Details = np.concatenate((DWT_WCs[1], DWT_WCs[2]))
-    DWT_Details = np.concatenate((DWT_WCs[0], DWT_Details))
+    # DWT_Details = np.concatenate((DWT_WCs[0], DWT_Details))
     # DWT_Details = DWT_WCs[1]
 
     if Test_ECG_Segment_Type == 'N':
