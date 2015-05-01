@@ -12,3 +12,9 @@ Last update : 150501
 : Construct the training set 
 * <code> Compute_Fisher_Score </code> 
 : Compute Fisher score to extract the most seperating wavelet coefficients 
+
+## Issue 
+* Proper selection of Wavelet basis funtion 
+
+## Future work 
+* Construct the statistics 
