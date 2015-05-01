@@ -8,8 +8,8 @@ import numpy as np
 PVC_Data_Num = [105, 106, 116, 119, 201, 203, 208, 210, 213, 215, 217, 219, 221, 223, 228, 233]
 Sampling_rate = 360
 
-datanum = 233
-show_record = 1
+datanum = 119
+show_record = 0
 
 # INDEX = True
 INDEX = False
@@ -29,7 +29,7 @@ elif show_record == 1:
 
 
 def Data_Loading(datanum):
-    mat = scipy.io.loadmat('Data/'+str(datanum)+'_file.mat')
+    mat = scipy.io.loadmat('../Data/'+str(datanum)+'_file.mat')
     if show_record == 0:
         ECG = mat['val'][0]
     else:
@@ -40,7 +40,7 @@ def Data_Loading(datanum):
     return Time_domain, ECG_Dyadic_Sample, Dyad_length
 
 def Index_Loading(datanum, Dyad_length):
-    index_file = open('Data/'+str(datanum)+'_anno.txt','rb')
+    index_file = open('../Data/'+str(datanum)+'_anno.txt','rb')
     Index_dict = {}
     Index_dict['Time'] = []
     Index_dict['Sample'] = []
@@ -71,10 +71,10 @@ def Orig_Plot_Except_Show(ECG_Segment, ECG_Segment_Type, Test_Segment_num):
     Test_ECG_Segment_Type = ECG_Segment_Type[Test_Segment_num]
     DWT_WCs = DWT(data=Test_ECG_Segment, wavelet='db8', scale=scale)
     # DWT_Details = np.concatenate((DWT_WCs[1], DWT_WCs[2]))
-    if Test_ECG_Segment_Type == 'N':
-        plt.plot(Test_ECG_Segment, 'b')
-    elif Test_ECG_Segment_Type == 'V':
-        plt.plot(Test_ECG_Segment, 'r')
+    # if Test_ECG_Segment_Type == 'N':
+        # plt.plot(Test_ECG_Segment, 'b')
+    # elif Test_ECG_Segment_Type == 'V':
+        # plt.plot(Test_ECG_Segment, 'r')
 
     return None
 
@@ -83,13 +83,13 @@ def Detail_Coef_Plot_Except_Show(ECG_Segment, ECG_Segment_Type, Test_Segment_num
     Test_ECG_Segment_Type = ECG_Segment_Type[Test_Segment_num]
     DWT_WCs = DWT(data=Test_ECG_Segment, wavelet='db8', scale=scale)
     DWT_Details = np.concatenate((DWT_WCs[1], DWT_WCs[2]))
-    # DWT_Details = np.concatenate((DWT_WCs[0], DWT_Details))
+    DWT_Details = np.concatenate((DWT_WCs[0], DWT_Details))
     # DWT_Details = DWT_WCs[1]
 
     if Test_ECG_Segment_Type == 'N':
-        plt.plot(DWT_Details,'b')
+        plt.plot(DWT_Details,'bo')
     elif Test_ECG_Segment_Type == 'V':
-        plt.plot(DWT_Details,'r')
+        plt.plot(DWT_Details,'ro')
 
     return None
 

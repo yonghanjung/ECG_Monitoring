@@ -34,7 +34,10 @@ class Data_Preparation:
         '''
         Output : Dictionary for each record frame
         '''
-        index_file = open('Data/'+str(self.record_num)+'_anno.txt','rb')
+        try:
+            index_file = open('Data/'+str(self.record_num)+'_anno.txt','rb')
+        except:
+            index_file = open('../Data/'+str(self.record_num)+'_anno.txt','rb')
         Index_dict = {}
         Index_dict['Time'] = []
         Index_dict['Sample'] = []
@@ -71,8 +74,9 @@ class Data_Preparation:
         for each_r in self.R_Locations_Index:
             if each_r > self.To_the_left and \
                                     each_r + self.To_the_right < Dyad_length:
-                ECG_Segment.update({each_r: ECG_Dyadic_Sample[range(each_r - self.To_the_left, each_r + self.To_the_right)]})
-                ECG_Segment_Type.update({each_r : self.Each_Type[iter_idx]})
+                if self.Each_Type[iter_idx] == 'N' or self.Each_Type[iter_idx] == 'V':
+                    ECG_Segment.update({each_r: ECG_Dyadic_Sample[range(each_r - self.To_the_left, each_r + self.To_the_right)]})
+                    ECG_Segment_Type.update({each_r : self.Each_Type[iter_idx]})
             iter_idx += 1
 
         return ECG_Segment, ECG_Segment_Type

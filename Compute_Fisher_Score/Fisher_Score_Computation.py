@@ -4,7 +4,7 @@ Goal
 - For given matrix data for each classes, compute the fisher score for each features.
 
 Input
-- Dictionary Matrix (List of List)
+- Dictionary Matrix (List of Matrix)
 
 Output
 - Fisher score array
@@ -14,7 +14,7 @@ Output
 from itertools import combinations
 import numpy as np
 
-class Fisher_Score:
+class Fisher_Score_Compute:
     def __init__(self, Training):
         '''
         Training record
@@ -36,16 +36,20 @@ class Fisher_Score:
             Mat_Training_B_T = np.matrix(self.Training[KeySubset[1]]).T
 
             Each_Class_Fisher_score = []
+            idx = 0
 
             for (Feature_A, Feature_B) in zip(Mat_Training_A_T, Mat_Training_B_T):
-                # Each Column is a feature.
+                # All_Feature = np.concatenate([Feature_A[0], Feature_B[0]])
                 Within_Var_each_feature = \
-                    np.var(Feature_A) + np.var(Feature_B)
+                    (np.var(Feature_A) + np.var(Feature_B))
                 Between_Var_each_feature = \
-                    np.abs(np.mean(Feature_A) - np.mean(Feature_B)) ** 2
+                    (np.mean(Feature_A) - np.mean(Feature_B)) ** 2
                 Fisher_Score_each_feature = \
                     Between_Var_each_feature / Within_Var_each_feature
                 Each_Class_Fisher_score.append(Fisher_Score_each_feature)
+                print idx, "A Var", np.var(Feature_A), "B Var", np.var(Feature_B), "A Mean", np.mean(Feature_A), "B Mean", np.mean(Feature_B), "Within", Within_Var_each_feature, "Between", Between_Var_each_feature
+                print ""
+                idx += 1
             All_Class_Fisher_Score.append(Each_Class_Fisher_score)
         return All_Class_Fisher_Score
 

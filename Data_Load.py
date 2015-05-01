@@ -21,7 +21,10 @@ class Data_Loading:
         - ECG_Dyadic_Sample = np.array
         - DyadLenth = integer
         '''
-        mat = scipy.io.loadmat('Data/'+str(self.datanum)+'_file.mat')
+        try:
+            mat = scipy.io.loadmat('Data/'+str(self.datanum)+'_file.mat')
+        except:
+            mat = scipy.io.loadmat('../Data/'+str(self.datanum)+'_file.mat')
         if self.record_type == 0:
             ECG = mat['val'][0]
         else:
