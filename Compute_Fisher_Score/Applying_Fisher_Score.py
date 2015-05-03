@@ -71,14 +71,14 @@ class Fisher_Score:
 if __name__ == "__main__":
     Wavelet_Basis = 'db8'
     Fisher = \
-        Fisher_Score(RecordNum=208, RecordType=0, Seconds=60, WaveletBasis=Wavelet_Basis, Level=4)
+        Fisher_Score(RecordNum=119, RecordType=1, Seconds=120, WaveletBasis=Wavelet_Basis, Level=4)
     FisherVector = Fisher.Fisher_Score_Vector()
     IdxRank, Fisher_Selector = Fisher.Coef_Selector(10)
     for idx in range(len(FisherVector)):
         print idx, FisherVector[idx]
     print ""
+    print pd.DataFrame(Fisher_Selector)
     print IdxRank
-    # print pd.DataFrame(Fisher_Selector)
     Fisher.Plot()
 
 
