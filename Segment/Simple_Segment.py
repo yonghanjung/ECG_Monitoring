@@ -10,6 +10,7 @@ Sampling_rate = 360
 
 datanum = 119
 show_record = 0
+wavelet_basis = 'db16'
 
 # INDEX = True
 INDEX = False
@@ -69,7 +70,7 @@ def DWT(data, wavelet, scale):
 def Orig_Plot_Except_Show(ECG_Segment, ECG_Segment_Type, Test_Segment_num):
     Test_ECG_Segment = ECG_Segment[Test_Segment_num]
     Test_ECG_Segment_Type = ECG_Segment_Type[Test_Segment_num]
-    DWT_WCs = DWT(data=Test_ECG_Segment, wavelet='db8', scale=scale)
+    DWT_WCs = DWT(data=Test_ECG_Segment, wavelet=wavelet_basis, scale=scale)
     # DWT_Details = np.concatenate((DWT_WCs[1], DWT_WCs[2]))
     # if Test_ECG_Segment_Type == 'N':
         # plt.plot(Test_ECG_Segment, 'b')
@@ -81,7 +82,7 @@ def Orig_Plot_Except_Show(ECG_Segment, ECG_Segment_Type, Test_Segment_num):
 def Detail_Coef_Plot_Except_Show(ECG_Segment, ECG_Segment_Type, Test_Segment_num):
     Test_ECG_Segment = ECG_Segment[Test_Segment_num]
     Test_ECG_Segment_Type = ECG_Segment_Type[Test_Segment_num]
-    DWT_WCs = DWT(data=Test_ECG_Segment, wavelet='db8', scale=scale)
+    DWT_WCs = DWT(data=Test_ECG_Segment, wavelet=wavelet_basis, scale=scale)
     DWT_Details = np.concatenate((DWT_WCs[1], DWT_WCs[2]))
     DWT_Details = np.concatenate((DWT_WCs[0], DWT_Details))
     # DWT_Details = DWT_WCs[1]

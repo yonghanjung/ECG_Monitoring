@@ -28,7 +28,7 @@ class Construct_Training(Data_Preparation):
         PVC_Keys = Data_Preparation.KeyNum_Type(self,'V')
         return ECG_Segment, ECG_Segment_Type, NormalKeys, PVC_Keys
 
-    def TrainDataLoad(self, Level):
+    def TrainDataLoad(self, Wavelet_Basis, Level):
         self.Level = Level
         ECG_Segment, ECG_Segment_Type, NormalKeys, PVC_Keys \
             = self.DataLoad()
@@ -40,16 +40,28 @@ class Construct_Training(Data_Preparation):
         ## Wavelet analysis needed
         WC_ECG = {}
         for idx, key in sorted(enumerate(Training_ECG_Segment)):
-            WCExtractor = Wavelet_Coefficient_Extractor(Training_ECG_Segment[key], Wavelet_Basis_Fun='db8',Level=self.Level)
+            WCExtractor = Wavelet_Coefficient_Extractor(Training_ECG_Segment[key], Wavelet_Basis_Fun=Wavelet_Basis,Level=self.Level)
             WC_ECG_elem = WCExtractor.WaveDec()
             WC_ECG[key] = np.concatenate([WC_ECG_elem[0], WC_ECG_elem[1], WC_ECG_elem[2]])
         WC_ECG = pd.DataFrame.from_dict(data=WC_ECG,orient='index')
+
         return WC_ECG, Training_ECG_Type
+
+    def Plot(self, Wavelet_Basis, Level):
+        WCECG, WCType = self.TrainDataLoad(Wavelet_Basis,Level)
+        RowIterable = WCECG.T
+        for row_idx in RowIterable:
+            if WCType[row_idx] == "N":
+                plt.plot(RowIterable[row_idx], 'bo')
+            elif WCType[row_idx] == "V":
+                plt.plot(RowIterable[row_idx], 'ro')
+        plt.grid()
+        plt.show()
 
 
 if __name__ == "__main__":
     MyConstruct = Construct_Training(119,0,300)
-    WCECG, WCType = MyConstruct.TrainDataLoad(4)
+    WCECG, WCType = MyConstruct.TrainDataLoad('db8',4)
     print WCECG, WCType
 
     RowIterable = WCECG.T

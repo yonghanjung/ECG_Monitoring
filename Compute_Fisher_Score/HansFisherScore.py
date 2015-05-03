@@ -13,6 +13,7 @@ Output
 
 from itertools import combinations
 import numpy as np
+import pandas as pd
 
 class Fisher_Score_Compute:
     def __init__(self, Training):
@@ -60,4 +61,13 @@ class Fisher_Score_Compute:
         for each_class_pair in AllClassFisherScore:
             Each_Feature_Score += each_class_pair
         return Each_Feature_Score
+
+    def FeatureSelector(self, Num):
+        FeatureScore = self.Fisher_Score()
+        idx = np.argsort(FeatureScore)[::-1]
+        AllData = np.concatenate([x for x in self.Training.values()])
+        OrderAllData = AllData[:,idx]
+        # print pd.DataFrame(AllData)
+        return idx, OrderAllData[:,:Num]
+
 
