@@ -7,6 +7,8 @@ Comment
 - Compute the fisher score for
 Possible records are =
 [105, 106, 116, 119, 201, 203, 208, 210, 213, 215, 217, 219, 221, 223, 228, 233]
+106 No PVC in 1min
+201 : No PVC in first 10 min
 '''
 
 ''' Library '''
@@ -71,7 +73,7 @@ class Fisher_Score:
 if __name__ == "__main__":
     Wavelet_Basis = 'db8'
     Fisher = \
-        Fisher_Score(RecordNum=119, RecordType=1, Seconds=120, WaveletBasis=Wavelet_Basis, Level=4)
+        Fisher_Score(RecordNum=106, RecordType=0, Seconds=120, WaveletBasis=Wavelet_Basis, Level=4)
     FisherVector = Fisher.Fisher_Score_Vector()
     IdxRank, Fisher_Selector = Fisher.Coef_Selector(10)
     for idx in range(len(FisherVector)):
