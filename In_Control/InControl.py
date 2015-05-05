@@ -28,8 +28,12 @@ class InControl():
         self.WCTrainECG, self.WCTrainLabel \
             = ConstTrain.TrainDataLoad(self.WaveletBasis, self.Level)
 
+
     def TrainData(self):
         return self.WCTrainECG, self.WCTrainLabel
+
+    def TestData(self):
+        return self.WCTestECG, self.WCTestLabel
 
     def NormalExtractor(self):
         Data = self.WCTrainECG.T
@@ -53,7 +57,7 @@ if __name__ == "__main__":
     TrainData, DataLabel = InCObj.TrainData()
     NormalData = InCObj.NormalExtractor()[0]
     PVCData = InCObj.NormalExtractor()[1]
-    
+
 
 
 

@@ -48,8 +48,8 @@ class Fisher_Score_Compute:
                 Fisher_Score_each_feature = \
                     Between_Var_each_feature / Within_Var_each_feature
                 Each_Class_Fisher_score.append(Fisher_Score_each_feature)
-                print idx, "A Var", np.var(Feature_A), "B Var", np.var(Feature_B), "A Mean", np.mean(Feature_A), "B Mean", np.mean(Feature_B), "Within", Within_Var_each_feature, "Between", Between_Var_each_feature
-                print ""
+                # print idx, "A Var", np.var(Feature_A), "B Var", np.var(Feature_B), "A Mean", np.mean(Feature_A), "B Mean", np.mean(Feature_B), "Within", Within_Var_each_feature, "Between", Between_Var_each_feature
+                # print ""
                 idx += 1
             All_Class_Fisher_Score.append(Each_Class_Fisher_score)
         return All_Class_Fisher_Score
