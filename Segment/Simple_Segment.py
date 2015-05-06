@@ -8,7 +8,7 @@ import numpy as np
 PVC_Data_Num = [105, 106, 116, 119, 201, 203, 208, 210, 213, 215, 217, 219, 221, 223, 228, 233]
 Sampling_rate = 360
 
-datanum = 215
+datanum = 210
 show_record = 0
 wavelet_basis = 'db8'
 

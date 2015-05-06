@@ -73,7 +73,7 @@ class Fisher_Score:
 if __name__ == "__main__":
     Wavelet_Basis = 'db8'
     Fisher = \
-        Fisher_Score(RecordNum=106, RecordType=0, Seconds=120, WaveletBasis=Wavelet_Basis, Level=4)
+        Fisher_Score(RecordNum=210, RecordType=0, Seconds=120, WaveletBasis=Wavelet_Basis, Level=4)
     FisherVector = Fisher.Fisher_Score_Vector()
     IdxRank, Fisher_Selector = Fisher.Coef_Selector(10)
     for idx in range(len(FisherVector)):

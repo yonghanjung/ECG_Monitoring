@@ -70,16 +70,20 @@ class MonitorStat:
         Normalizing = float(self.AvgNum) / (float(self.AvgNum + 1) * Sigma)
         ExtractedTestData, TestLabel = self.Extract_Signal()
         InControlData = self.Construct_InControl()
-
+        MonitorStatBox = dict()
         for key in ExtractedTestData.keys():
-            print ExtractedTestData[key] - InControlData
+            result = np.sum((ExtractedTestData[key] - InControlData) ** 2)
+            result *= Normalizing
+            MonitorStatBox.update({key : result})
+        return MonitorStatBox
 
 
 
 if __name__ == "__main__":
-    RecordNum = 233
-    RecordType = 1
-    Seconds = 180
+    # - [105, 106, 116, 119, 201, 203, 208, 210, 213, 215, 219, 221, 223, 228, 233]
+    RecordNum = 119
+    RecordType = 0
+    Seconds = 120
     WaveletBasis = 'db8'
     Level = 4
     NumFeature = 5
@@ -89,16 +93,21 @@ if __name__ == "__main__":
                     Seconds=Seconds, WaveletBasis=WaveletBasis,
                     Level=Level, NumFeature = NumFeature)
 
+
+
     ExtractedTestData, TestLabel = MonitorStatObj.Extract_Signal()
     InControlData = MonitorStatObj.Construct_InControl()
 
-    Result = dict()
-    for key in ExtractedTestData.keys():
-        result = np.sum((ExtractedTestData[key] - InControlData)**2)
-        Result.update({key: result})
-    Label = ['N','V']
-    ColorMarker = ['bo','ro']
+    Result =  MonitorStatObj.MonitorStat(1)
 
+    #
+    # Result = dict()
+    # for key in ExtractedTestData.keys():
+    #     result = np.sum((ExtractedTestData[key] - InControlData)**2)
+    #     Result.update({key: result})
+    # Label = ['N','V']
+    # ColorMarker = ['bo','ro']
+    #
     plt.figure()
     plt.title("Record : {0} // RecordType : {1} // NumFeatures : {2} // Training : {3}".format(RecordNum,RecordType, NumFeature, Seconds ))
     plt.grid()
@@ -109,7 +118,6 @@ if __name__ == "__main__":
             plt.plot(idx,Result[key], 'ro')
 
     plt.show()
-
 
 
 
