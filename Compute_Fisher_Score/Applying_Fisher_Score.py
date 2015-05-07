@@ -58,6 +58,10 @@ class Fisher_Score:
         Fisher_Score = self.Fisher_Score_Vector()
         return Fisher_Object.FeatureSelector(Num=Num)
 
+    def NumFeature(self, Threshold):
+        TrainDict = self.WCTrain_to_ListMatrix()
+        return HansFisherScore.Fisher_Score_Compute(TrainDict).HowMany(Threshold=Threshold)
+
 
     def Plot(self):
         RowIterable = self.WCTrainECG.T

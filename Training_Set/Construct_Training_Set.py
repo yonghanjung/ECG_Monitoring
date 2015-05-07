@@ -41,6 +41,7 @@ class Construct_Training(Data_Preparation):
         for idx, key in sorted(enumerate(Training_ECG_Segment)):
             WCExtractor = Wavelet_Coefficient_Extractor(Training_ECG_Segment[key], Wavelet_Basis_Fun=Wavelet_Basis,Level=Level)
             WC_ECG_elem = WCExtractor.WaveDec()
+            # WC_ECG[key] = np.concatenate([WC_ECG_elem[1], WC_ECG_elem[2]])
             WC_ECG[key] = np.concatenate([WC_ECG_elem[0], WC_ECG_elem[1], WC_ECG_elem[2]])
         WC_ECG = pd.DataFrame.from_dict(data=WC_ECG,orient='index')
 

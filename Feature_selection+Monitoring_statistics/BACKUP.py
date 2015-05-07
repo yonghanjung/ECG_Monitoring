@@ -21,6 +21,7 @@ Comment
 223 Not GOOD
 228 Good
 233 Good
+
 '''
 
 ''' Library '''
@@ -32,6 +33,7 @@ import matplotlib.pyplot as plt
 from Training_Set.Construct_Training_Set import Construct_Training
 from Compute_Fisher_Score.Applying_Fisher_Score import Fisher_Score
 from In_Control.InControl import InControl
+from Compute_Fisher_Score.HansFisherScore import Fisher_Score_Compute
 
 class MonitorStat:
     def __init__(self, RecordNum, RecordType, Seconds, WaveletBasis, Level, NumFeature):
@@ -53,11 +55,13 @@ class MonitorStat:
 
         FisherObj \
             = Fisher_Score(self.RecordNum, self.RecordType, self.Seconds, self.WaveletBasis, self.Level)
+
         self.CoefIdx, self.CoefSelector \
-            = FisherObj.Coef_Selector(NumFeature)
+            = FisherObj.Coef_Selector(self.NumFeature)
 
     def Construct_InControl(self):
         return np.asarray(self.InControlCoef[self.CoefIdx[:self.NumFeature]], dtype='float32')
+
 
     def Extract_Signal(self):
         TestData = self.WCTestECG.T
@@ -80,14 +84,13 @@ class MonitorStat:
 
 if __name__ == "__main__":
     # - [105, 106, 116, 119, 201, 203, 208, 210, 213, 215, 219, 221, 223, 228, 233]
-    RecordNum = 215
-    RecordType = 0
+    RecordNum = 105
+    RecordType = 1
     Seconds = 120
-    Min = Seconds / 60
-    Time = 30 - Min
     WaveletBasis = 'db8'
     Level = 4
     NumFeature = 5
+
 
     MonitorStatObj = \
         MonitorStat(RecordNum=RecordNum, RecordType=RecordType,
@@ -95,13 +98,11 @@ if __name__ == "__main__":
                     Level=Level, NumFeature = NumFeature)
 
 
-
     ExtractedTestData, TestLabel = MonitorStatObj.Extract_Signal()
     InControlData = MonitorStatObj.Construct_InControl()
 
     Result =  MonitorStatObj.MonitorStat(1)
-    TimeDomain = np.linspace(0, Time, num=len(Result))
-    print Result.keys()
+
     #
     # Result = dict()
     # for key in ExtractedTestData.keys():
@@ -111,14 +112,21 @@ if __name__ == "__main__":
     # ColorMarker = ['bo','ro']
     #
     plt.figure()
-    plt.title("Record : {0} // RecordType : {1} // NumFeatures : {2} // Training : {3}".format(RecordNum,RecordType, NumFeature, Seconds ))
+    plt.title("Record : {0} // RecordType : {1} // NumFeatuer : {2} // Training : {3}".format(RecordNum,RecordType,NumFeature, Seconds ))
     plt.grid()
     for idx, key in enumerate(Result):
         if TestLabel[key] == 'N':
-            plt.plot(TimeDomain[idx], Result[key],'bo' )
+            plt.plot(idx, Result[key],'bo' )
         elif TestLabel[key] == 'V':
-            plt.plot(TimeDomain[idx],Result[key], 'ro')
-    plt.xlabel("Minute (Test)")
-    plt.ylabel("Square Sum of selected coefficients")
+            plt.plot(idx,Result[key], 'ro')
+
     plt.show()
+
+
+
+
+
+
+
+
 
