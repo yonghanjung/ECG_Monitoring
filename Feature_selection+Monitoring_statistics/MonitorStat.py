@@ -30,6 +30,7 @@ import matplotlib.pyplot as plt
 
 ''' Function or Class '''
 from Training_Set.Construct_Training_Set import Construct_Training
+from Compute_Fisher_Score.HansFisherScore import Fisher_Score_Compute
 from Compute_Fisher_Score.Applying_Fisher_Score import Fisher_Score
 from In_Control.InControl import InControl
 
@@ -80,14 +81,18 @@ class MonitorStat:
 
 if __name__ == "__main__":
     # - [105, 106, 116, 119, 201, 203, 208, 210, 213, 215, 219, 221, 223, 228, 233]
-    RecordNum = 215
+
+    RecordNum = 119
     RecordType = 0
     Seconds = 120
     Min = Seconds / 60
     Time = 30 - Min
     WaveletBasis = 'db8'
     Level = 4
-    NumFeature = 5
+
+    HansFisher = Fisher_Score(RecordNum, RecordType, Seconds, WaveletBasis, Level)
+    # NumFeature =  HansFisher.NumFeature(0.7)
+    NumFeature = 1
 
     MonitorStatObj = \
         MonitorStat(RecordNum=RecordNum, RecordType=RecordType,
@@ -101,7 +106,7 @@ if __name__ == "__main__":
 
     Result =  MonitorStatObj.MonitorStat(1)
     TimeDomain = np.linspace(0, Time, num=len(Result))
-    print Result.keys()
+    # print Result.keys()
     #
     # Result = dict()
     # for key in ExtractedTestData.keys():
