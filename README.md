@@ -1,5 +1,5 @@
 # Research : ECG Monitoring
-Last update : 150501 
+Last update : 150513 
 
 ## Module in order 
 * <code> Data_Preparation </code>
@@ -12,12 +12,16 @@ Last update : 150501
 : Construct the training set 
 * <code> Compute_Fisher_Score </code> 
 : Compute Fisher score to extract the most seperating wavelet coefficients 
-* <code> Feature_selection+Monitoring_stats </code>
-: Constructing the monitoring statistics with selected features 
+* <code> Monitor_Stat </code>
+: Constructing the monitoring statistics with selected features
+* <code> Statistics </code>
+: Estimate the variance 
+
 
 ## Issue 
 * Proper selection of Wavelet basis funtion 
 * I choose 'db8' as the most proper wavelet basis function
 
 ## Future work 
-* estimating variance 
+* (Done) estimating variance
+* Reduce the dimension of the covariance matrix 

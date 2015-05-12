@@ -28,6 +28,27 @@ class Construct_Training(Data_Preparation):
         PVC_Keys = Data_Preparation.KeyNum_Type(self,'V')
         return ECG_Segment, ECG_Segment_Type, NormalKeys, PVC_Keys
 
+    def NoiseTrainDataLoad(self, Wavelet_Basis, Level):
+        ECG_Segment, ECG_Segment_Type, NormalKeys, PVC_Keys \
+            = self.DataLoad()
+        Training_ECG_Segment \
+            = {R_Idx : ECG_Segment[R_Idx] for R_Idx in ECG_Segment.keys() if R_Idx < self.SecondsToSample}
+        Training_ECG_Type \
+            = {R_Idx : ECG_Segment_Type[R_Idx] for R_Idx in ECG_Segment_Type.keys() if R_Idx < self.SecondsToSample}
+
+        ## Wavelet analysis needed
+        Noise_WC = {}
+        for idx, key in sorted(enumerate(Training_ECG_Segment)):
+            WCExtractor = Wavelet_Coefficient_Extractor(Training_ECG_Segment[key], Wavelet_Basis_Fun=Wavelet_Basis,Level=Level)
+            WC_ECG_elem = WCExtractor.WaveDec()
+            Noise_WC[key] = WC_ECG_elem[Level]
+
+        Noise_WC = pd.DataFrame.from_dict(data = Noise_WC, orient='index')
+
+        return Noise_WC, Training_ECG_Type
+
+
+
     def TrainDataLoad(self, Wavelet_Basis, Level):
         ECG_Segment, ECG_Segment_Type, NormalKeys, PVC_Keys \
             = self.DataLoad()
@@ -46,6 +67,22 @@ class Construct_Training(Data_Preparation):
         WC_ECG = pd.DataFrame.from_dict(data=WC_ECG,orient='index')
 
         return WC_ECG, Training_ECG_Type
+
+    def NoiseTestDataLoad(self, Wavelet_Basis, Level):
+        ECG_Segment, ECG_Segment_Type, NormalKeys, PVC_Keys \
+            = self.DataLoad()
+        Test_ECG_Segment \
+            = {R_Idx : ECG_Segment[R_Idx] for R_Idx in ECG_Segment.keys() if R_Idx > self.SecondsToSample}
+        Test_ECG_Type \
+            = {R_Idx : ECG_Segment_Type[R_Idx] for R_Idx in ECG_Segment_Type.keys() if R_Idx > self.SecondsToSample}
+        Noise_WC = {}
+        for idx, key in sorted(enumerate(Test_ECG_Segment)):
+            WCExtractor = Wavelet_Coefficient_Extractor(Test_ECG_Segment[key], Wavelet_Basis_Fun=Wavelet_Basis,Level=Level)
+            WC_ECG_elem = WCExtractor.WaveDec()
+            Noise_WC[key] = WC_ECG_elem[Level]
+        Noise_WC = pd.DataFrame.from_dict(data=Noise_WC,orient='index')
+
+        return Noise_WC, Test_ECG_Type
 
     def TestDataLoad(self, Wavelet_Basis, Level):
         ECG_Segment, ECG_Segment_Type, NormalKeys, PVC_Keys \
