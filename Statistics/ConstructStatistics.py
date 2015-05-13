@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 from HansVariableSelector import VariableSelector
 import numpy as np
 import pandas as pd
+from scipy.stats import f
 
 ''' Function or Class '''
 
@@ -83,7 +84,7 @@ class ConstructStatistics:
     def VarianceEstimator(self):
         _, NoiseVariance = self.MADNoiseEstimator()
         Sigma = self.SigmaEstimator()
-        Minimum_Value = 1e-4
+        Minimum_Value = 1e-8
         return np.matrix(NoiseVariance + Sigma + Minimum_Value * np.eye(len(Sigma)))
 
     def DimReducedVariance(self):
@@ -110,6 +111,24 @@ class ConstructStatistics:
 
         return TestStatBox, self.WCTestLabel
 
+    def FStat(self):
+        FStatBox = dict()
+        TestStat, _ = self.StatisticsComputation()
+        N = float(len(self.WCTrainLabel))
+        P = float(self.NumFeature)
+        for idx, key in enumerate(TestStat):
+            FStatBox[key] = ((N-P) * TestStat[key]) / (P*(N-1))
+        return FStatBox, self.WCTestLabel
+
+    def UCL(self, alpha):
+        P = self.NumFeature
+        N = len(self.WCTrainLabel)
+
+        return (P*(N-1) * f.ppf(alpha, P, N-P)) / (N-1)
+
+
+
+
 
 
 
@@ -119,19 +138,22 @@ class ConstructStatistics:
 if __name__ == "__main__":
     # - [105, 106, 116, 119, 201, 203, 208, 210, 213, 215, 219, 221, 223, 228, 233]
 
-    RecordNum = 203
+    RecordNum = 106
     RecordType = 0
     Seconds = 120
     Min = Seconds / 60
     Time = 30 - Min
     WaveletBasis = 'db8'
     Level = 4
+    alpha = 0.95
 
     HansFisher = Fisher_Score(RecordNum, RecordType, Seconds, WaveletBasis, Level)
     NumFeature =  HansFisher.NumFeature(0.8)
+    # NumFeature = 5
 
     HansStat = ConstructStatistics(RecordNum, RecordType, Seconds, WaveletBasis, Level, NumFeature)
     TestStat, TestLabel = HansStat.StatisticsComputation()
+    UCL = HansStat.UCL(alpha)
 
     # for idx, key in enumerate(TestStat):
     #     print key, TestStat[key].item(0), TestLabel[key]
@@ -146,8 +168,10 @@ if __name__ == "__main__":
         # print TestStat[key], TestLabel[key]
         if TestLabel[key] == "N":
             plt.plot(idx, TestStat[key].item(0), 'bo')
+            plt.plot(idx, UCL, 'g*')
         elif TestLabel[key] == "V":
             plt.plot(idx, TestStat[key].item(0), 'ro')
+            plt.plot(idx, UCL, 'g*')
     plt.show()
 
 
