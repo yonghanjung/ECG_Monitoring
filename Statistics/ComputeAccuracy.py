@@ -187,47 +187,49 @@ if __name__ == "__main__":
     RecordTypeList = [0,1]
     FisherRatio = [0.7, 0.8, 0.9]
     TrainingTime = [120, 180, 240, 300]
-    alphalist = [0.995, 0.9973] # ARL = 200, 370
+    alphalist = [0.95, 0.975] # ARL = 200, 370
+    print "RecordNum | RecordType | TrainingSeconds | WaveletBasis | DecomposeLevel | NumFeatureRatio | NumFeature | Alpha | FP | FN | RI | TOC | ROC | TN | FPR | Se | Precision"
+    for RecordNum in RecordList:
+        for RecordType in RecordTypeList:
+            for fisherRatio in FisherRatio:
+                for Seconds in TrainingTime:
+                    for alpha in alphalist:
+                        try:
+                            Min = Seconds / 60
+                            Time = 30 - Min
+                            WaveletBasis = 'db8'
+                            Level = 4
+                            # alpha = 0.95
 
-    RecordNum = 106
-    RecordType = 0
-    Seconds = 120
-    fisherRatio = 0.7
-    alpha = 0.9973
-    Min = Seconds / 60
-    Time = 30 - Min
-    WaveletBasis = 'db8'
-    Level = 4
-    # alpha = 0.95
+                            HansFisher = Fisher_Score(RecordNum, RecordType, Seconds, WaveletBasis, Level)
+                            NumFeature =  HansFisher.NumFeature(fisherRatio)
+                            # NumFeature = 5
 
-    HansFisher = Fisher_Score(RecordNum, RecordType, Seconds, WaveletBasis, Level)
-    NumFeature =  HansFisher.NumFeature(fisherRatio)
-    # NumFeature = 5
+                            HansStat = ConstructStatistics(RecordNum, RecordType, Seconds, WaveletBasis, Level, NumFeature)
+                            TestStat, TestLabel = HansStat.StatisticsComputation()
+                            UCL = HansStat.UCL(alpha)
 
-    HansStat = ConstructStatistics(RecordNum, RecordType, Seconds, WaveletBasis, Level, NumFeature)
-    TestStat, TestLabel = HansStat.StatisticsComputation()
-    UCL = HansStat.UCL(alpha)
-
-    AccuracyBox = HansStat.Accuracy(alpha)
-    print RecordNum, "|", RecordType,"|",Seconds,"|",WaveletBasis,"|",Level,"|",fisherRatio,"|",NumFeature,"|", alpha,"|",AccuracyBox['FalsePositive'],"|", AccuracyBox['FalseNegative'],"|",AccuracyBox['RightInControl'],"|",AccuracyBox['TotalOutControl'],"|",AccuracyBox["RightOutControl"],"|",AccuracyBox["TotalNum"],"|",AccuracyBox["FalsePositiveRate"],"|",AccuracyBox["Sensitivity"],"|", AccuracyBox['Precision']
+                            AccuracyBox = HansStat.Accuracy(alpha)
+                            print RecordNum, "|", RecordType,"|",Seconds,"|",WaveletBasis,"|",Level,"|",fisherRatio,"|",NumFeature,"|", alpha,"|",AccuracyBox['FalsePositive'],"|", AccuracyBox['FalseNegative'],"|",AccuracyBox['RightInControl'],"|",AccuracyBox['TotalOutControl'],"|",AccuracyBox["RightOutControl"],"|",AccuracyBox["TotalNum"],"|",AccuracyBox["FalsePositiveRate"],"|",AccuracyBox["Sensitivity"],"|", AccuracyBox['Precision']
+                        except:
+                            pass
 
 
-
-    plt.figure()
-    plt.grid()
-    plt.xlabel("index")
-    plt.ylabel("Hotelling T2 Stat")
-    plt.title("Record : {Record}, Training : {Train}, NumFeature : {NumFeature}, Alpha : {alpha}".format(Record = RecordNum, Train = Seconds, NumFeature = NumFeature, alpha = alpha))
-    for idx, key in enumerate(TestStat):
-        # print key
-        # print TestStat[key], TestLabel[key]
-        if TestLabel[key] == "N":
-            plt.plot(idx, TestStat[key].item(0), 'bo')
-            plt.plot(idx, UCL, 'm.')
-        elif TestLabel[key] == "V":
-            plt.plot(idx, TestStat[key].item(0), 'ro')
-            plt.plot(idx, UCL, 'm.')
-    plt.show()
+    # plt.figure()
+    # plt.grid()
+    # plt.xlabel("index")
+    # plt.ylabel("Hotelling T2 Stat")
+    # plt.title("Record : {Record}, Training : {Train}, NumFeature : {NumFeature}, Alpha : {alpha}".format(Record = RecordNum, Train = Seconds, NumFeature = NumFeature, alpha = alpha))
+    # for idx, key in enumerate(TestStat):
+    #     # print key
+    #     # print TestStat[key], TestLabel[key]
+    #     if TestLabel[key] == "N":
+    #         plt.plot(idx, TestStat[key].item(0), 'bo')
+    #         plt.plot(idx, UCL, 'm.')
+    #     elif TestLabel[key] == "V":
+    #         plt.plot(idx, TestStat[key].item(0), 'ro')
+    #         plt.plot(idx, UCL, 'm.')
+    # plt.show()
     # #
 
 
