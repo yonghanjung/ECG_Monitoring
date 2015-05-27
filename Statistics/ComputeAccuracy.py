@@ -81,9 +81,21 @@ class ConstructStatistics:
             Result += Difference * DifferenceTranspose
         return pd.DataFrame(Result / (len(self.WCTrainECG))-1)
 
+    def DiagonalEstimator(self):
+        VarBox = []
+        for idx, key in enumerate(self.WCTrainECG):
+            VarBox.append(np.var(self.WCTrainECG[key]))
+
+        # return self.WCTrainECG.transpose(), np.mean(self.WCTrainECG, axis=0)
+        DiagonalVariance = np.eye(len(VarBox))
+        for idx in range(len(VarBox)):
+            DiagonalVariance[idx][idx] = VarBox[idx]
+        return pd.DataFrame(DiagonalVariance)
+
     def VarianceEstimator(self):
         _, NoiseVariance = self.MADNoiseEstimator()
-        Sigma = self.SigmaEstimator()
+        # Sigma = self.SigmaEstimator()
+        Sigma = self.DiagonalEstimator()
         Minimum_Value = 1e-8
         return np.matrix(NoiseVariance + Sigma + Minimum_Value * np.eye(len(Sigma)))
 
@@ -185,9 +197,9 @@ if __name__ == "__main__":
     RecordList = [106, 116, 119, 203, 208, 210, 213, 215, 219, 221, 223, 228, 233]
     # RecordList = [213, 215, 219, 221, 223, 228, 233]
     RecordTypeList = [0,1]
-    FisherRatio = [0.7, 0.8, 0.9]
-    TrainingTime = [120, 180, 240, 300]
-    alphalist = [0.95, 0.975] # ARL = 200, 370
+    FisherRatio = [0.8, 0.9]
+    TrainingTime = [120, 180]
+    alphalist = [0.9973] # ARL = 200, 370
     print "RecordNum | RecordType | TrainingSeconds | WaveletBasis | DecomposeLevel | NumFeatureRatio | NumFeature | Alpha | FP | FN | RI | TOC | ROC | TN | FPR | Se | Precision"
     for RecordNum in RecordList:
         for RecordType in RecordTypeList:

@@ -17,6 +17,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Training_Set.Construct_Training_Set import Construct_Training
 import HansFisherScore
+from FisherLDA import HansFisherLDA
 ''' Function or Class '''
 
 
@@ -66,6 +67,7 @@ class Fisher_Score:
     def Plot(self):
         RowIterable = self.WCTrainECG.T
         for row_idx in RowIterable:
+            print RowIterable[row_idx]
             if self.WCTrainLabel[row_idx] == "N":
                 plt.plot(RowIterable[row_idx], 'bo')
             elif self.WCTrainLabel[row_idx] == "V":
@@ -80,11 +82,35 @@ if __name__ == "__main__":
         Fisher_Score(RecordNum=210, RecordType=0, Seconds=120, WaveletBasis=Wavelet_Basis, Level=4)
     FisherVector = Fisher.Fisher_Score_Vector()
     IdxRank, Fisher_Selector = Fisher.Coef_Selector(10)
-    for idx in range(len(FisherVector)):
-        print idx, FisherVector[idx]
-    print ""
-    print pd.DataFrame(Fisher_Selector)
-    print IdxRank
+    # for idx in range(len(FisherVector)):
+    #     print idx, FisherVector[idx]
+    # print ""
+    # print pd.DataFrame(Fisher_Selector)
+    # print IdxRank
+
+    ConstructW = dict()
+    ConstructW[0] = list()
+    ConstructW[1] = list()
+
+    for idx, key in enumerate(Fisher.WCTrainECG.T):
+        if Fisher.WCTrainLabel[key] == 'N':
+            ConstructW[0].append(np.array(Fisher.WCTrainECG.T[key]))
+        elif Fisher.WCTrainLabel[key] == 'V':
+            ConstructW[1].append(np.array(Fisher.WCTrainECG.T[key]))
+
+    ConstructW[0] = np.array(ConstructW[0])
+    ConstructW[1] = np.array(ConstructW[1])
+
+    Class1 = ConstructW[0].T
+    Mu1 = np.mean(Class1, axis=1)
+    MyLDA = HansFisherLDA(TrainingData=ConstructW, Num=64)
+
+    print MyLDA.LDAOperator().shape
+
+
+    # print Fisher.WCTrainECG
+    # print Fisher.WCTrainLabel
+
     Fisher.Plot()
 
 

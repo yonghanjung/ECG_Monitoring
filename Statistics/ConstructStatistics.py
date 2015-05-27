@@ -81,9 +81,21 @@ class ConstructStatistics:
             Result += Difference * DifferenceTranspose
         return pd.DataFrame(Result / (len(self.WCTrainECG))-1)
 
+    def DiagonalEstimator(self):
+        VarBox = []
+        for idx, key in enumerate(self.WCTrainECG):
+            VarBox.append(np.var(self.WCTrainECG[key]))
+
+        # return self.WCTrainECG.transpose(), np.mean(self.WCTrainECG, axis=0)
+        DiagonalVariance = np.eye(len(VarBox))
+        for idx in range(len(VarBox)):
+            DiagonalVariance[idx][idx] = VarBox[idx]
+        return pd.DataFrame(DiagonalVariance)
+
     def VarianceEstimator(self):
         _, NoiseVariance = self.MADNoiseEstimator()
-        Sigma = self.SigmaEstimator()
+        # Sigma = self.SigmaEstimator()
+        Sigma = self.DiagonalEstimator()
         Minimum_Value = 1e-8
         return np.matrix(NoiseVariance + Sigma + Minimum_Value * np.eye(len(Sigma)))
 
@@ -189,10 +201,10 @@ if __name__ == "__main__":
     TrainingTime = [120, 180, 240, 300]
     alphalist = [0.995, 0.9973] # ARL = 200, 370
 
-    RecordNum = 106
+    RecordNum = 215
     RecordType = 0
     Seconds = 120
-    fisherRatio = 0.7
+    fisherRatio = 0.8
     alpha = 0.9973
     Min = Seconds / 60
     Time = 30 - Min
@@ -205,6 +217,8 @@ if __name__ == "__main__":
     # NumFeature = 5
 
     HansStat = ConstructStatistics(RecordNum, RecordType, Seconds, WaveletBasis, Level, NumFeature)
+
+
     TestStat, TestLabel = HansStat.StatisticsComputation()
     UCL = HansStat.UCL(alpha)
 
@@ -217,7 +231,7 @@ if __name__ == "__main__":
     plt.grid()
     plt.xlabel("index")
     plt.ylabel("Hotelling T2 Stat")
-    plt.title("Record : {Record}, Training : {Train}, NumFeature : {NumFeature}, Alpha : {alpha}".format(Record = RecordNum, Train = Seconds, NumFeature = NumFeature, alpha = alpha))
+    plt.title("Diagonal, Record : {Record}, Training : {Train}, NumFeature : {NumFeature}, Alpha : {alpha}".format(Record = RecordNum, Train = Seconds, NumFeature = NumFeature, alpha = alpha))
     for idx, key in enumerate(TestStat):
         # print key
         # print TestStat[key], TestLabel[key]
