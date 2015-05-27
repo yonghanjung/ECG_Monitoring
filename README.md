@@ -1,5 +1,5 @@
 # Research : ECG Monitoring
-Last update : 150513 
+Last update : 150528
 
 ## Module in order 
 * <code> Data_Preparation </code>
@@ -16,6 +16,7 @@ Last update : 150513
 : Constructing the monitoring statistics with selected features
 * <code> Statistics </code>
 : Estimate the variance 
+: Assumed no correlation between beats' measurement error --> Diagonal variance assumption was made
 
 
 ## Issue 
@@ -24,4 +25,5 @@ Last update : 150513
 
 ## Future work 
 * (Done) estimating variance
-* Reduce the dimension of the covariance matrix 
+* (Done) Reduce the dimension of the covariance matrix 
+* Fisher LDA applied before Fisher score selection
