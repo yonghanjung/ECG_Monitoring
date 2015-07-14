@@ -2,7 +2,7 @@
 '''
 Goal : Implement Highdimensional Fisher LDA
 Author : Yonghan Jung, ISyE, KAIST 
-Date : 150609_FisherLDA
+Date : 150527
 Comment 
 - FisherLDA
 
@@ -13,8 +13,8 @@ import numpy as np
 import scipy as sp
 from itertools import combinations
 import pandas as pd
+import HansFisherScore
 import matplotlib.pyplot as plt
-from HansFisherScore import Fisher_Score_Compute
 
 
 
@@ -22,28 +22,25 @@ from HansFisherScore import Fisher_Score_Compute
 
 
 class FisherLDA:
-    def __init__(self, TrainingData, Num):
-        # TrainingData have to be the dictionary
+    def __init__(self, TrainingData):
         self.TrainData = TrainingData
-        self.Num = Num
 
+        # Class1 : Row : record, Column : Type
         self.Class1 = np.array(self.TrainData[0])
-        print self.Class1.shape
-        # Row : Data records
-        # Column : Data dimension
-        # (N by 64)
         self.Mu1 = np.mean(self.Class1, axis=0)
-        # 64 by 1
+
+        # Mu1 : 64 by 1
         self.Mu1 = self.Mu1.reshape(len(self.Mu1), 1)
 
+        # Class2 : Row : record, Column : Type
         self.Class2 = np.array(self.TrainData[1])
+
+        # Mu2 : 64 by 1
         self.Mu2 = np.mean(self.Class2, axis=0)
         self.Mu2 = self.Mu2.reshape(len(self.Mu2), 1)
-        # 64 by 1
 
     def WithInClass(self):
         Result = np.zeros((len(self.Mu1), len(self.Mu1)))
-        #print "Length of result", len(Result)
         for val in self.Class1:
             val = val.reshape(len(val),1)
             Result += np.dot((val - self.Mu1), (val - self.Mu1).T)
@@ -76,7 +73,7 @@ class FisherLDA:
         EigVal, EigMat = np.linalg.eigh(TargetMat)
         IDX = np.argsort(EigVal)[::-1]
         EigMat = EigMat[:,IDX]
-        return EigMat[:,:self.Num]
+        return EigMat
 
 
     def LDAOperator(self):
@@ -93,30 +90,31 @@ class FisherLDA:
         NewTest = []
         for testval in TestDataSet:
             testval = testval.reshape(len(testval) * 1)
-            testval = np.array(np.dot(W, testval))
+            testval = W * np.matrix(testval)
+            testval = np.array(testval)
             NewTest.append(testval[0])
         return np.array(NewTest)
 
 
 def TrainingData(dim, mu1, mu2, Num):
-    np.random.seed(30)
+    np.random.seed(0)
     MyTraining = dict()
     Mu1 = np.array([mu1] * dim)
     COV1 = np.eye(dim)
     # It is common to arrange data in column form
-    DataC1 = np.random.multivariate_normal(Mu1, COV1, Num)
-    MyTraining[0] = DataC1
+    DataC1 = np.random.multivariate_normal(Mu1, COV1, Num).T
+    MyTraining[0] = DataC1.T
 
     Mu2 = np.array([mu2] * dim)
     COV2 = np.eye(dim)
-    DataC2 = np.random.multivariate_normal(Mu2, COV2, Num)
-    MyTraining[1] = DataC2
+    DataC2 = np.random.multivariate_normal(Mu2, COV2, Num).T
+    MyTraining[1] = DataC2.T
 
     return MyTraining
 
 
 def TestData(dim, mu1, mu2, Num):
-    np.random.seed(30)
+    np.random.seed(17249)
     Mu1 = np.array([mu1] * dim)
     COV1 = np.eye(dim)
     # It is common to arrange data in column form
@@ -133,31 +131,42 @@ def TestData(dim, mu1, mu2, Num):
 
 if __name__ == "__main__":
     Dim = 10
-    Mu1 = -1
-    Mu2 = 1
+    Mu1 = 1
+    Mu2 = -1
     Num = 40
     MyTest = TestData(Dim,Mu1,Mu2,Num)
     MyTraining = TrainingData(Dim, Mu1, Mu2, Num)
-    MyLDA = FisherLDA(MyTraining,Dim)
+    MyLDA = FisherLDA(MyTraining)
 
+    LDAOperator = MyLDA.LDAOperator()
+    NewTest = list()
 
-    ##### DEFINE LDA ########
+    for idx, val in enumerate(MyTest):
+        val = np.reshape(val,(len(val),1))
+        NewVal = LDAOperator * val
+        NewVal = np.reshape(NewVal, (1, len(val)))
+        NewVal = np.squeeze(np.asarray(NewVal))
+        NewTest.append(NewVal)
+    NewTest = np.array(NewTest)
 
-    NewTest = MyLDA.LDATransform(MyTest)
 
     MyTestDict = dict()
     MyTestDict[0] = MyTest[:Num]
     MyTestDict[1] = MyTest[Num:]
-
     NewTestDict = dict()
     NewTestDict[0] = NewTest[:Num]
     NewTestDict[1] = NewTest[Num:]
 
-    Fisher_Score_Training = Fisher_Score_Compute(Training=MyTraining)
-    Fisher_Score_Testing = Fisher_Score_Compute(Training=NewTestDict)
+    MyTestFisher = HansFisherScore.Fisher_Score_Compute(MyTestDict)
+    MyTestFisherScore = MyTestFisher.Fisher_Score()
+    NewTestFisher = HansFisherScore.Fisher_Score_Compute(NewTestDict)
+    NewTestFisherScore = NewTestFisher.Fisher_Score()
 
-    print Fisher_Score_Training.Fisher_Score()
-    print Fisher_Score_Testing.Fisher_Score()
+    np.set_printoptions(suppress=True)
+
+    print np.float32(MyTestFisherScore)
+    print np.float32(NewTestFisherScore)
+
 
     plt.figure()
     plt.grid()
@@ -174,6 +183,17 @@ if __name__ == "__main__":
         plt.plot(RowData, 'bo')
     for RowData in NewTest[Num:]:
         plt.plot(RowData, 'ro')
-
-
+    #
+    # # for dim in range(Dim):
+    # #     plt.plot(MyTest[:Num, dim], 'ro')
+    # # for dim in range(Dim):
+    # #     plt.plot(MyTest[Num:, dim], 'bo')
+    #
+    # #
+    # #
+    # # plt.figure()
+    # # plt.grid()
+    # # plt.plot(NewTest[:Num,0], NewTest[:Num,1], 'ro')
+    # # plt.plot(NewTest[Num:,0], NewTest[Num:,1], 'bo')
+    #
     plt.show()

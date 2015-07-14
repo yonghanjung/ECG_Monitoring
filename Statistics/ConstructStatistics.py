@@ -43,10 +43,18 @@ class ConstructStatistics:
         IncObj = InControl(self.RecordNum, self.RecordType, self.Seconds, self.WaveletBasis, self.Level)
         self.AvgNum, self.InControlCoef = IncObj.AvgNormal()
 
+
         FisherObj \
             = Fisher_Score(self.RecordNum, self.RecordType, self.Seconds, self.WaveletBasis, self.Level)
         self.CoefIdx, self.CoefSelector \
             = FisherObj.Coef_Selector(NumFeature)
+        self.LDATestData = FisherObj.AppltFisherLDA_to_Test()
+        self.LDAOperator = FisherObj.FisherLDAOperator()
+        self.LDATrain = FisherObj.ApplyFisherLDA_to_Train()
+
+        ## LDA ##
+        self.InControlCoef = np.array(np.dot(self.InControlCoef, self.LDAOperator))[0]
+        ## LDA ##
 
         MonitorStatObj = MonitorStat(self.RecordNum, self.RecordType, self.Seconds, self.WaveletBasis, self.Level, self.NumFeature)
         self.IncontrolData = MonitorStatObj.Construct_InControl()
@@ -70,8 +78,14 @@ class ConstructStatistics:
     def SigmaEstimator(self):
         FullInControl = np.mean(self.WCTrainECG, axis=0)
         MyWCTrainECG = self.WCTrainECG.transpose()
-        # print FullInControl.shape
-        # print MyWCTrainECG.shape
+
+        ### LDA ###
+        FullInControl = np.array(np.dot(self.LDAOperator, FullInControl))[0]
+        MyWCTrainECG = pd.DataFrame.from_dict(data=self.LDATrain,orient='index').T
+        ### LDA ###
+
+        print FullInControl.shape
+        print MyWCTrainECG.shape
         Result = np.zeros((len(FullInControl), len(FullInControl)))
 
         for idx, key in enumerate(MyWCTrainECG):
@@ -96,6 +110,9 @@ class ConstructStatistics:
         _, NoiseVariance = self.MADNoiseEstimator()
         # Sigma = self.SigmaEstimator()
         Sigma = self.DiagonalEstimator()
+        ### LDA ###
+        Sigma = np.dot(Sigma, self.LDAOperator)
+        ### LDA ###
         Minimum_Value = 1e-8
         return np.matrix(NoiseVariance + Sigma + Minimum_Value * np.eye(len(Sigma)))
 
@@ -113,7 +130,8 @@ class ConstructStatistics:
         InControlVar = self.DimReducedVariance().I
 
         #Target vector extraction
-        TestWCTranspose = self.WCTestECG.T
+        #TestWCTranspose = self.WCTestECG.T
+        TestWCTranspose = self.LDATestData.T
         TestStatBox = dict()
         for idx, key in enumerate(TestWCTranspose):
             Target = TestWCTranspose[key]
@@ -201,10 +219,10 @@ if __name__ == "__main__":
     TrainingTime = [120, 180, 240, 300]
     alphalist = [0.995, 0.9973] # ARL = 200, 370
 
-    RecordNum = 215
+    RecordNum = 119
     RecordType = 0
     Seconds = 120
-    fisherRatio = 0.8
+    fisherRatio = 0.9
     alpha = 0.9973
     Min = Seconds / 60
     Time = 30 - Min
@@ -222,8 +240,8 @@ if __name__ == "__main__":
     TestStat, TestLabel = HansStat.StatisticsComputation()
     UCL = HansStat.UCL(alpha)
 
-    AccuracyBox = HansStat.Accuracy(alpha)
-    print RecordNum, "|", RecordType,"|",Seconds,"|",WaveletBasis,"|",Level,"|",fisherRatio,"|",NumFeature,"|", alpha,"|",AccuracyBox['FalsePositive'],"|", AccuracyBox['FalseNegative'],"|",AccuracyBox['RightInControl'],"|",AccuracyBox['TotalOutControl'],"|",AccuracyBox["RightOutControl"],"|",AccuracyBox["TotalNum"],"|",AccuracyBox["FalsePositiveRate"],"|",AccuracyBox["Sensitivity"],"|", AccuracyBox['Precision']
+    # AccuracyBox = HansStat.Accuracy(alpha)
+    # print RecordNum, "|", RecordType,"|",Seconds,"|",WaveletBasis,"|",Level,"|",fisherRatio,"|",NumFeature,"|", alpha,"|",AccuracyBox['FalsePositive'],"|", AccuracyBox['FalseNegative'],"|",AccuracyBox['RightInControl'],"|",AccuracyBox['TotalOutControl'],"|",AccuracyBox["RightOutControl"],"|",AccuracyBox["TotalNum"],"|",AccuracyBox["FalsePositiveRate"],"|",AccuracyBox["Sensitivity"],"|", AccuracyBox['Precision']
 
 
 

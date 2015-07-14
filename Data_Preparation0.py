@@ -74,14 +74,11 @@ class Data_Preparation:
         for each_r in self.R_Locations_Index:
             if each_r > self.To_the_left and \
                                     each_r + self.To_the_right < Dyad_length:
-                if self.Each_Type[iter_idx] == 'N' or self.Each_Type[iter_idx] == 'L' or \
-                                self.Each_Type[iter_idx] == 'R' or self.Each_Type[iter_idx] == 'e' or \
-                                self.Each_Type[iter_idx] == 'j' or self.Each_Type[iter_idx] == 'A' or \
-                                self.Each_Type[iter_idx] == 'a' or self.Each_Type[iter_idx] == 'S' or \
-                                self.Each_Type[iter_idx] == 'V' or self.Each_Type[iter_idx] == 'E' or \
-                                self.Each_Type[iter_idx] == 'F' :
-                    ECG_Segment.update({each_r: ECG_Dyadic_Sample[range(each_r - self.To_the_left, each_r + self.To_the_right)]})
-                    ECG_Segment_Type.update({each_r : self.Each_Type[iter_idx]})
+                # N,V,L,R,a,A
+                # if self.Each_Type[iter_idx] == 'N' or self.Each_Type[iter_idx] == 'V' or self.Each_Type[iter_idx] == 'a' or self.Each_Type[iter_idx] == 'L' or self.Each_Type[iter_idx] == 'R' or self.Each_Type[iter_idx] == 'A' or self.Each_Type[iter_idx] == 'F' :
+                # if self.Each_Type[iter_idx] == 'N' or self.Each_Type == 'N':
+                ECG_Segment.update({each_r: ECG_Dyadic_Sample[range(each_r - self.To_the_left, each_r + self.To_the_right)]})
+                ECG_Segment_Type.update({each_r : self.Each_Type[iter_idx]})
             iter_idx += 1
 
         return ECG_Segment, ECG_Segment_Type
@@ -89,7 +86,7 @@ class Data_Preparation:
     def KeyNum_Type(self, type):
         '''
         Input
-        - Type : N, V
+        - Type : N,V,L,R,a,A
         Output
         - R-index key number list of each types
         '''

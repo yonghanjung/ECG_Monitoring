@@ -32,9 +32,8 @@ class Fisher_Score_Compute:
     def Compute_each_pair(self):
         All_Class_Fisher_Score = []
         for KeySubset in combinations(self.List_Training_Key, 2):
-            # For each class
-            Mat_Training_A_T = np.matrix(self.Training[KeySubset[0]]).T
-            Mat_Training_B_T = np.matrix(self.Training[KeySubset[1]]).T
+            Mat_Training_A_T = np.matrix(np.array(self.Training[KeySubset[0]])).T
+            Mat_Training_B_T = np.matrix(np.array(self.Training[KeySubset[1]])).T
 
             Each_Class_Fisher_score = []
             idx = 0

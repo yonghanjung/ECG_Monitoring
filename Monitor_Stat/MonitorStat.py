@@ -33,6 +33,8 @@ from Training_Set.Construct_Training_Set import Construct_Training
 from Compute_Fisher_Score.HansFisherScore import Fisher_Score_Compute
 from Compute_Fisher_Score.Applying_Fisher_Score import Fisher_Score
 from In_Control.InControl import InControl
+from scipy.stats import gaussian_kde
+
 
 class MonitorStat:
     def __init__(self, RecordNum, RecordType, Seconds, WaveletBasis, Level, NumFeature):
@@ -56,12 +58,14 @@ class MonitorStat:
             = Fisher_Score(self.RecordNum, self.RecordType, self.Seconds, self.WaveletBasis, self.Level)
         self.CoefIdx, self.CoefSelector \
             = FisherObj.Coef_Selector(NumFeature)
+        self.LDATestData = FisherObj.AppltFisherLDA_to_Test()
 
     def Construct_InControl(self):
         return np.asarray(self.InControlCoef[self.CoefIdx[:self.NumFeature]], dtype='float32')
 
     def Extract_Signal(self):
-        TestData = self.WCTestECG.T
+        # TestData = self.WCTestECG.T
+        TestData = self.LDATestData.T
         ExtractCoef = \
             dict((key,value[self.CoefIdx[:self.NumFeature]]) for key, value in TestData.iteritems())
         return pd.DataFrame(ExtractCoef), self.WCTestLabel
@@ -82,7 +86,7 @@ class MonitorStat:
 if __name__ == "__main__":
     # - [105, 106, 116, 119, 201, 203, 208, 210, 213, 215, 219, 221, 223, 228, 233]
 
-    RecordNum = 119
+    RecordNum = 106
     RecordType = 0
     Seconds = 120
     Min = Seconds / 60
@@ -100,30 +104,70 @@ if __name__ == "__main__":
                     Level=Level, NumFeature = NumFeature)
 
 
+    TrainECG = MonitorStatObj.WCTrainECG.T
+    TestECG = MonitorStatObj.LDATestData.T
+    TestLabel = MonitorStatObj.WCTestLabel
 
-    ExtractedTestData, TestLabel = MonitorStatObj.Extract_Signal()
-    InControlData = MonitorStatObj.Construct_InControl()
+    StopCond = 0
+    Stop = 20
+    NormalIDX = 20
 
-    Result =  MonitorStatObj.MonitorStat(1)
-    TimeDomain = np.linspace(0, Time, num=len(Result))
-    # print Result.keys()
-    #
-    # Result = dict()
-    # for key in ExtractedTestData.keys():
-    #     result = np.sum((ExtractedTestData[key] - InControlData)**2)
-    #     Result.update({key: result})
-    # Label = ['N','V']
-    # ColorMarker = ['bo','ro']
-    #
+    TargetData = TrainECG[TrainECG.keys()[NormalIDX]]
+
+    for idx, key in enumerate(TestLabel):
+        if TestLabel[key] == "V":
+            TargetData2 = TestECG[key]
+            StopCond += 1
+
+        if StopCond == Stop:
+            break
+
+    Density_V = gaussian_kde(TargetData2)
+    Domain_V = np.linspace(-max(TargetData2), max(TargetData2), 1000)
+    Density = gaussian_kde(TargetData)
+    Domain = np.linspace(-max(TargetData), max(TargetData), 1000)
+
     plt.figure()
-    plt.title("Record : {0} // RecordType : {1} // NumFeatures : {2} // Training : {3}".format(RecordNum,RecordType, NumFeature, Seconds ))
+    plt.title("V")
+    plt.plot(Domain_V, Density_V(Domain_V))
     plt.grid()
-    for idx, key in enumerate(Result):
-        if TestLabel[key] == 'N':
-            plt.plot(TimeDomain[idx], Result[key],'bo' )
-        elif TestLabel[key] == 'V':
-            plt.plot(TimeDomain[idx],Result[key], 'ro')
-    plt.xlabel("Minute (Test)")
-    plt.ylabel("Square Sum of selected coefficients")
+
+    plt.figure()
+    plt.title("N")
+    plt.plot(Domain, Density(Domain))
+    plt.grid()
+
     plt.show()
+
+
+
+
+
+    #
+    #
+    # ExtractedTestData, TestLabel = MonitorStatObj.Extract_Signal()
+    # InControlData = MonitorStatObj.Construct_InControl()
+    #
+    # Result =  MonitorStatObj.MonitorStat(1)
+    # TimeDomain = np.linspace(0, Time, num=len(Result))
+    # # print Result.keys()
+    # #
+    # # Result = dict()
+    # # for key in ExtractedTestData.keys():
+    # #     result = np.sum((ExtractedTestData[key] - InControlData)**2)
+    # #     Result.update({key: result})
+    # # Label = ['N','V']
+    # # ColorMarker = ['bo','ro']
+    # #
+    # plt.figure()
+    # plt.title("Record : {0} // RecordType : {1} // NumFeatures : {2} // Training : {3}".format(RecordNum,RecordType, NumFeature, Seconds ))
+    # plt.grid()
+    # for idx, key in enumerate(Result):
+    #     if TestLabel[key] == 'N':
+    #         plt.plot(TimeDomain[idx], Result[key],'bo' )
+    #     elif TestLabel[key] == 'V':
+    #         plt.plot(TimeDomain[idx],Result[key], 'ro')
+    # plt.xlabel("Minute (Test)")
+    # plt.ylabel("Square Sum of selected coefficients")
+    # plt.show()
 
