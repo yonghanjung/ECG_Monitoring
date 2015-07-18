@@ -231,9 +231,9 @@ if __name__ == "__main__":
                       200, 201, 202, 203, 207, 208, 209, 210, 213, 214,
                       215, 219, 220, 221, 223, 228, 233]
 
-    IntRecordNum = 233
+    IntRecordNum = 223
     IntRecordType = 0
-    IntSeconds = 300
+    IntSeconds = 120
 
     BoolLDAorNOT = True
     # BoolLDAorNOT = False
@@ -261,13 +261,13 @@ if __name__ == "__main__":
             print val
     print ""
 
-    # DictInt_Accuracy, DictFloat_Accuracy = ObjConstructStatistics.AccuracyComputation()
-    # for idx, key in enumerate(DictInt_Accuracy):
-    #     print key, DictInt_Accuracy[key]
-    #
-    # print ""
-    # for idx, key in enumerate(DictFloat_Accuracy):
-    #     print key, DictFloat_Accuracy[key]
+    DictInt_Accuracy, DictFloat_Accuracy = ObjConstructStatistics.AccuracyComputation()
+    for idx, key in enumerate(DictInt_Accuracy):
+        print key, DictInt_Accuracy[key]
+
+    print ""
+    for idx, key in enumerate(DictFloat_Accuracy):
+        print key, DictFloat_Accuracy[key]
     #
     # print len(ObjConstructStatistics.DictArray_TrainWCNormal)
 
