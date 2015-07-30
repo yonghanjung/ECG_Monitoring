@@ -10,7 +10,7 @@ Comment
 
 ''' Library '''
 from Data_Preparation import Data_Preparation
-from Wavelet_Analysis.Wavelet_Analysis import Wavelet_Coefficient_Extractor
+from Old.Wavelet_Analysis.Wavelet_Analysis import Wavelet_Coefficient_Extractor
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
