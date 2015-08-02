@@ -55,7 +55,7 @@ class DataConstruction(Data_Preparation):
 
     def TestDataConstruction(self):
         KalmanIter = 3
-        KalmanTrue = True
+        KalmanTrue = False
         DictArrayECGBeat, DictECGLabel = self.DataSegmentation()
         DictArrayTrainBeat, DictArrayTrainBeatNormal, DictArrayTrainBeatPVC, DictTrainLabel = self.TrainDataConstruction()
         Matrix_Train= DictArrayTrainBeat.values()
@@ -91,14 +91,17 @@ class DataConstruction(Data_Preparation):
                     NewSignal = TargetSignal
                 DictArrayTestBeat[RIdx] = NewSignal
 
+                # Normal 들
                 if (DictECGLabel[RIdx] == 'N' or DictECGLabel[RIdx] == 'L' or DictECGLabel[RIdx] == 'R' or DictECGLabel[RIdx] == 'e' or DictECGLabel[RIdx] == 'j') :
                     DictArrayTestBeatNormal[RIdx] = NewSignal
 
-                elif RIdx > self.SecondsToSample and (DictECGLabel[RIdx] == 'A' or DictECGLabel[RIdx] == 'a' or DictECGLabel[RIdx] == 'S' or DictECGLabel[RIdx] == 'V' or DictECGLabel[RIdx] == 'E'):
+                # VEB + SVEB
+                # elif RIdx > self.SecondsToSample and (DictECGLabel[RIdx] == 'A' or DictECGLabel[RIdx] == 'a' or DictECGLabel[RIdx] == 'S' or DictECGLabel[RIdx] == 'V' or DictECGLabel[RIdx] == 'E'):
+                elif RIdx > self.SecondsToSample and (DictECGLabel[RIdx] == 'V'):
                     DictArrayTestBeatPVC[RIdx] = NewSignal
 
-                if len(DictArrayTestBeat) > 50:
-                    break
+                # if len(DictArrayTestBeat) > 50:
+                #     break
 
             else:
                 pass

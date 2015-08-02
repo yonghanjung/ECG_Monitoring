@@ -84,8 +84,8 @@ class ConstructStatistics(FeatureSelector):
             N = self.Int_NumTrainNormal
             return (P*((N-1)**2) * f.ppf(self.alpha, P, N-P)) / (N*(N-P))
         else:
-            S = self.LDAON_NumSelected
-            # S = self.LDAOFF_NumSelected
+            # S = self.LDAON_NumSelected
+            S = self.LDAOFF_NumSelected
             N = self.Int_NumTrainNormal
             return (S*((N-1)**2) * f.ppf(self.alpha, S, N-S)) / (N*(N-S))
 
@@ -195,9 +195,10 @@ class ConstructStatistics(FeatureSelector):
                     self.Dict_TestLabel[key] == 'j' :
                     plt.plot(idx, DictFloat_Stat[key], 'bo')
                     plt.plot(idx,UCLVal ,'m.')
-                elif self.Dict_TestLabel[key] == 'A' or self.Dict_TestLabel[key] == 'a' or \
-                    self.Dict_TestLabel[key] == 'S' or  self.Dict_TestLabel[key] == 'V' or \
-                    self.Dict_TestLabel[key] == 'E' :
+                # elif self.Dict_TestLabel[key] == 'A' or self.Dict_TestLabel[key] == 'a' or \
+                #     self.Dict_TestLabel[key] == 'S' or  self.Dict_TestLabel[key] == 'V' or \
+                #     self.Dict_TestLabel[key] == 'E' :
+                elif self.Dict_TestLabel[key] ==  'V':
                     plt.plot(idx, DictFloat_Stat[key], 'ro')
                     plt.plot(idx,UCLVal ,'m.')
 
@@ -223,7 +224,6 @@ class ConstructStatistics(FeatureSelector):
     # 231 : Not Enough Abnormal beats
     # 232 : Not Enough Abnormal beats
 
-    # 120 : MA of 119
 
 
 if __name__ == "__main__":
@@ -231,9 +231,14 @@ if __name__ == "__main__":
                       200, 201, 202, 203, 207, 208, 209, 210, 213, 214,
                       215, 219, 220, 221, 223, 228, 233]
 
-    IntRecordNum = 223
+    List_Test = [100, 103, 105, 111, 121, 123, 200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 233, 234]
+    List_Train = [101, 106, 108, 109, 112, 114, 115, 116, 118, 119, 122, 124, 201, 203, 205, 207, 208, 209, 215, 220, 223, 220]
+    VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
+    SVEB = [200, 202, 210, 212, 222, 232, 213, 214, 219, 221, 228, 231, 233, 234]
+
+    IntRecordNum = 213
     IntRecordType = 0
-    IntSeconds = 120
+    IntSeconds = 300
 
     BoolLDAorNOT = True
     # BoolLDAorNOT = False

@@ -13,9 +13,9 @@ from InControlConstruction2 import InControlConstruction
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from Compute_Fisher_Score.HansFisherScore import Fisher_Score_Compute
-from Compute_Fisher_Score.HansFisherLDA import FisherLDA
-from Compute_Fisher_Score import NewtonMethodLDA_Ver1
+from Old.Compute_Fisher_Score.HansFisherScore import Fisher_Score_Compute
+from Old.Compute_Fisher_Score.HansFisherLDA import FisherLDA
+from Old.Compute_Fisher_Score import NewtonMethodLDA_Ver1
 
 ''' Function or Class '''
 
