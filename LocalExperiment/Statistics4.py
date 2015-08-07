@@ -4,7 +4,10 @@ Goal :
 Author : Yonghan Jung, ISyE, KAIST 
 Date : 15
 Comment 
-- 
+- VEB, SVEB 로 모드 바꿀 때는
+Plot, Accuracy, 데이터 읽는거
+3개를 모두 바꾸어야 한다.
+VEBSVEB 를 검색해서 바꾸자.
 
 '''
 
@@ -44,10 +47,11 @@ class ConstructStatistics(FeatureSelector):
         self.Int_NumTrainNormal = self.Int_NumTrainNormal
 
         self.LDAOFF_FisherScore, self.LDAOFF_NumSelected , self.LDAOFF_IdxFeatureSelected = self.LDAOFF_FisherScoreCompute()
-        self.LDAON_FisherScore, self.LDAON_NumSelected, self.LDAOFF_IdxFeatureSelected  = self.LDAON_FisherScoreComputation()
+        # self.LDAON_FisherScore, self.LDAON_NumSelected, self.LDAOFF_IdxFeatureSelected  = self.LDAON_FisherScoreComputation()
 
 
     def StatisticsConstruction(self):
+        # Working on Test set
         if self.LDAorNOT == False:
             DictFloat_Stat = dict()
             List_FisherScoreForFeatures, Int_NumFeatureSelected, List_IdxFeatureSelected = self.LDAOFF_FisherScoreCompute()
@@ -61,33 +65,38 @@ class ConstructStatistics(FeatureSelector):
                 DictFloat_Stat[key] = np.squeeze(np.asarray(NewVal))
             return DictFloat_Stat
 
-        else:
+        else: # Fisher LDA
             DictFloat_Stat = dict()
-            List_FisherScoreForFeatures, Int_NumFeatureSelected, List_IdxFeatureSelected = self.LDAON_FisherScoreComputation()
-            Int_TempNumFeatureSelected = self.LDAOFF_NumSelected
-            Array_ReducedMean = self.LDAON_ReducedMeanComputation()
-            Matrix_ReducedCov = self.LDAON_ReducedCoVarComputation()
+            # List_FisherScoreForFeatures, Int_NumFeatureSelected, List_IdxFeatureSelected = self.LDAON_FisherScoreComputation()
+            Array_ReducedMean = self.LDAON_ReducedMeanComputation() # MuW
+            Array_ReducedMean = Array_ReducedMean[0]
+            Matrix_ReducedCov = self.LDAON_ReducedCoVarComputation() # wTAW
+            # Matrix_ReducedCov = Matrix_ReducedCov[0]
 
+            # Key : record, Val : 1dim
             DictArray_TestWC_LDA = self.LDAON_TestWCConstruction()
 
             for idx, key in sorted(enumerate(DictArray_TestWC_LDA)):
-                Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_NumFeatureSelected]]
+                Val = DictArray_TestWC_LDA[key] # 1 Dim
                 # Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_TempNumFeatureSelected]]
-                Val = np.reshape(Val - Array_ReducedMean, (1,len(Val)))
-                NewVal = Val * np.matrix(Matrix_ReducedCov).I * Val.T
+                Val = np.array(Val)
+                Val = np.array(Val - Array_ReducedMean)
+
+                NewVal = Val * (Matrix_ReducedCov**(-1)) * Val.T
                 DictFloat_Stat[key] = np.squeeze(np.asarray(NewVal))
             return DictFloat_Stat
 
     def UCL(self):
-        if self.LDAorNOT == False:
-            P = self.LDAOFF_NumSelected
-            N = self.Int_NumTrainNormal
-            return (P*((N-1)**2) * f.ppf(self.alpha, P, N-P)) / (N*(N-P))
-        else:
-            # S = self.LDAON_NumSelected
-            S = self.LDAOFF_NumSelected
-            N = self.Int_NumTrainNormal
-            return (S*((N-1)**2) * f.ppf(self.alpha, S, N-S)) / (N*(N-S))
+        # if self.LDAorNOT == False:
+        #     P = self.LDAOFF_NumSelected
+        #     N = self.Int_NumTrainNormal
+        #     return (P*((N-1)**2) * f.ppf(self.alpha, P, N-P)) / (N*(N-P))
+        # else:
+        #     # S = self.LDAON_NumSelected
+        #     # S = self.LDAOFF_NumSelected
+        S = 1
+        N = self.Int_NumTrainNormal
+        return (S*((N-1)**2) * f.ppf(self.alpha, S, N-S)) / (N*(N-S))
 
     def AccuracyComputation(self):
         DictFloat_Stat = self.StatisticsConstruction()
@@ -108,31 +117,29 @@ class ConstructStatistics(FeatureSelector):
         DictFloat_Accuracy = dict()
 
         for idx, key in enumerate(sorted(DictFloat_Stat)):
-            print key
+            # VEBSVEB
             Int_TotalTestPoint += 1
-            if self.Dict_TestLabel[key] == 'N' or self.Dict_TestLabel[key] == 'L' or \
-                self.Dict_TestLabel[key] == 'R' or self.Dict_TestLabel[key] == 'e' or \
-                self.Dict_TestLabel[key] == 'j' :
-                print "HOHO"
+            if self.Dict_TestLabel[key] == 'N' or self.Dict_TestLabel[key] == 'L' or self.Dict_TestLabel[key] == 'R' or self.Dict_TestLabel[key] == 'e' or self.Dict_TestLabel[key] == 'j' :
                 if DictFloat_Stat[key] < UCLVAL: # Normal In Control
-                    Int_Type1_Duzi += 1
+                    Int_Type1_Duzi += 1 # Normal 을 Normal 로
                 elif DictFloat_Stat[key] > UCLVAL: # Normal Out Control
-                    Int_Type1_Error += 1
-            elif self.Dict_TestLabel[key] == 'A' or self.Dict_TestLabel[key] == 'a' or \
-                    self.Dict_TestLabel[key] == 'S' or  self.Dict_TestLabel[key] == 'V' or \
-                    self.Dict_TestLabel[key] == 'E' :
-                print "HAHA"
+                    print self.Dict_TestLabel[key], DictFloat_Stat[key],  UCLVAL
+                    Int_Type1_Error += 1 # Normal 을 VEB / SVEB 로
+            # SVEB
+            # elif self.Dict_TestLabel[key] == 'A' or self.Dict_TestLabel[key] == 'a' or self.Dict_TestLabel[key] == 'S' or self.Dict_TestLabel[key] == 'J':
+            # VEB
+            elif self.Dict_TestLabel[key] == 'V' or self.Dict_TestLabel[key] == 'E' :
                 if DictFloat_Stat[key] < UCLVAL: # PVC In Control
-                    Int_Type2_Error += 1
+                    Int_Type2_Error += 1 # VEB / SVEB 를 Normal 로
                 elif DictFloat_Stat[key] > UCLVAL: # PVC Out Control
-                    Int_Type2_Duzi += 1
+                    Int_Type2_Duzi += 1 # VEB / SVEB 를 VEB/SVEB 로
             # except:
             #     pass
 
-        DictInt_Accuracy['Type1_Error'] = Int_Type1_Error
-        DictInt_Accuracy['Type1_Duzi'] = Int_Type1_Duzi
-        DictInt_Accuracy['Type2_Error'] = Int_Type2_Error
-        DictInt_Accuracy['Type2_Duzi'] = Int_Type2_Duzi
+        DictInt_Accuracy['Type1_Error'] = Int_Type1_Error # Normal 을 VEB / SVEB 로
+        DictInt_Accuracy['Type1_Duzi'] = Int_Type1_Duzi # Normal 을 Normal 로
+        DictInt_Accuracy['Type2_Error'] = Int_Type2_Error # VEB / SVEB 를 Normal 로
+        DictInt_Accuracy['Type2_Duzi'] = Int_Type2_Duzi # VEB / SVEB 를 VEB/SVEB 로
         DictInt_Accuracy['TotalBeat'] = Int_TotalTestPoint
         DictInt_Accuracy['TotalError'] = Int_Type1_Error + Int_Type2_Error
 
@@ -156,7 +163,6 @@ class ConstructStatistics(FeatureSelector):
 
     def StatPlot(self):
         DictFloat_Stat = self.StatisticsConstruction()
-        print "HAHA"
 
         if self.LDAorNOT == False:
             UCLVal = self.UCL()
@@ -166,11 +172,7 @@ class ConstructStatistics(FeatureSelector):
             plt.ylabel("Stat")
             plt.title("LDAOFF |" + str(self.RecordNum)+ "|" + str(self.LDAOFF_NumSelected))
             for idx, key in enumerate(sorted(DictFloat_Stat)):
-                print key
-                print DictFloat_Stat[key]
-                if self.Dict_TestLabel[key] == 'N' or self.Dict_TestLabel[key] == 'L' or \
-                self.Dict_TestLabel[key] == 'R' or self.Dict_TestLabel[key] == 'e' or \
-                self.Dict_TestLabel[key] == 'j' :
+                if self.Dict_TestLabel[key] == 'N' or self.Dict_TestLabel[key] == 'L' or self.Dict_TestLabel[key] == 'R' or self.Dict_TestLabel[key] == 'e' or self.Dict_TestLabel[key] == 'j' :
                     plt.plot(idx,UCLVal ,'m.')
                     plt.plot(idx, DictFloat_Stat[key], 'bo')
                 elif self.Dict_TestLabel[key] == 'A' or self.Dict_TestLabel[key] == 'a' or \
@@ -181,28 +183,21 @@ class ConstructStatistics(FeatureSelector):
 
             plt.show()
         else:
+            #VEBSVEB
             UCLVal = self.UCL()
             plt.figure()
             plt.grid()
             plt.xlabel("Index")
             plt.ylabel("Stat")
-            plt.title("LDAON |" + str(self.RecordNum)+"|" + str(self.LDAON_NumSelected))
-            # plt.title("LDA Applied Hoteling T |" + str(self.RecordNum)+"|")
+            plt.title("LDA with Hotelling T |" + str(self.RecordNum)+"|" )
             for idx, key in enumerate(sorted(DictFloat_Stat)):
-                # print "HAHA "
-                if self.Dict_TestLabel[key] == 'N' or self.Dict_TestLabel[key] == 'L' or \
-                    self.Dict_TestLabel[key] == 'R' or self.Dict_TestLabel[key] == 'e' or \
-                    self.Dict_TestLabel[key] == 'j' :
+                if self.Dict_TestLabel[key] == 'N' or self.Dict_TestLabel[key] == 'L' or self.Dict_TestLabel[key] == 'R' or self.Dict_TestLabel[key] == 'e' or self.Dict_TestLabel[key] == 'j' :
                     plt.plot(idx, DictFloat_Stat[key], 'bo')
                     plt.plot(idx,UCLVal ,'m.')
-                # elif self.Dict_TestLabel[key] == 'A' or self.Dict_TestLabel[key] == 'a' or \
-                #     self.Dict_TestLabel[key] == 'S' or  self.Dict_TestLabel[key] == 'V' or \
-                #     self.Dict_TestLabel[key] == 'E' :
-                elif self.Dict_TestLabel[key] ==  'V':
+                elif self.Dict_TestLabel[key] ==  'V' or self.Dict_TestLabel[key] ==  'E':
+                # elif self.Dict_TestLabel[key] ==  'A' or self.Dict_TestLabel[key] ==  'a' or self.Dict_TestLabel[key] ==  'S' or self.Dict_TestLabel[key] ==  'J':
                     plt.plot(idx, DictFloat_Stat[key], 'ro')
                     plt.plot(idx,UCLVal ,'m.')
-
-
             plt.show()
         return None
 
@@ -224,6 +219,43 @@ class ConstructStatistics(FeatureSelector):
     # 231 : Not Enough Abnormal beats
     # 232 : Not Enough Abnormal beats
 
+    # Checking VEB
+    # NO VEB
+    # 103 : NO VEB
+    # 111 : NO VEB
+    # 121 : NO VEB
+    # 123 : NO VEB
+    # 202 : V : 19개 중 5개만 300초 안에
+    # 207 : No VEB in Test set
+    # 212 : NO VEB
+    # 220 : NO VEB set in Test
+    # 222 : NO VEB in Training set
+    # 230 : NO VEB in Training set
+    # 231 : V 랑 E 없잖아 ㅡㅡ
+    # 234 : Training 에 V 가 없고, Totally 4개 밖에 없다.
+
+    # Checking SVEB
+    # 103 : NO SVEB
+    # 105 : NO SVEB
+    # 111 : NO SVEB in Training Time
+    # 121 : NO SVEB in Training Time
+    # 123 : NO SVEB in Training Time
+    # 203 : NO SVEB in Test
+    # 208 : NO SVEB in Test
+    # 212 : 노말밖에 없잖아 ㅡㅡ
+    # 214 : NO SVEB in Test Trainign
+    # 215 : No SVEB in Training
+    # 219 : No SVEB in Training
+    # 221 : No SVEB in Training
+    # 222 : No SVEB in Training
+    # 229 : No SVEB in Test
+    # 230 : No SVEB in Training
+    # 231 : No SVEB in Test
+
+
+
+
+
 
 
 if __name__ == "__main__":
@@ -234,9 +266,9 @@ if __name__ == "__main__":
     List_Test = [100, 103, 105, 111, 121, 123, 200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 233, 234]
     List_Train = [101, 106, 108, 109, 112, 114, 115, 116, 118, 119, 122, 124, 201, 203, 205, 207, 208, 209, 215, 220, 223, 220]
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
-    SVEB = [200, 202, 210, 212, 222, 232, 213, 214, 219, 221, 228, 231, 233, 234]
+    SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 213
+    IntRecordNum = 210
     IntRecordType = 0
     IntSeconds = 300
 
@@ -250,20 +282,29 @@ if __name__ == "__main__":
     IntDecompLevel = 4
 
     StrWaveletBasis = 'db8'
-    alpha = 0.9999
+
+    alpha = 0.975
+    ObjConstructStatistics \
+        = ConstructStatistics(RecordNum=IntRecordNum, RecordType=IntRecordType, Seconds=IntSeconds,StrWaveletBasis = StrWaveletBasis, IntDecompLevel = IntDecompLevel, LDAorNOT=BoolLDAorNOT, Threshold=FltThreshold, alpha=alpha)
+
+    NumTrain =  len(ObjConstructStatistics.DictArray_TrainWC)
+    NumTrain_Normal =  len(ObjConstructStatistics.DictArray_TrainWCNormal)
+    NumTrain_PVC = len(ObjConstructStatistics.DictArray_TrainWCPVC)
+    alpha = NumTrain_Normal / float(NumTrain)
 
     ObjConstructStatistics \
         = ConstructStatistics(RecordNum=IntRecordNum, RecordType=IntRecordType, Seconds=IntSeconds,StrWaveletBasis = StrWaveletBasis, IntDecompLevel = IntDecompLevel, LDAorNOT=BoolLDAorNOT, Threshold=FltThreshold, alpha=alpha)
-    print len(ObjConstructStatistics.DictArray_TrainWC)
 
-    LDAON_FisherScore = ObjConstructStatistics.LDAON_FisherScore
-    LDAOFF_FisherScore = ObjConstructStatistics.LDAOFF_FisherScore
-    if BoolLDAorNOT == True:
-        for val in LDAON_FisherScore:
-            print val
-    else:
-        for val in LDAOFF_FisherScore:
-            print val
+
+
+    # LDAON_FisherScore = ObjConstructStatistics.LDAON_FisherScore
+    # LDAOFF_FisherScore = ObjConstructStatistics.LDAOFF_FisherScore
+    # if BoolLDAorNOT == True:
+    #     for val in LDAON_FisherScore:
+    #         print val
+    # else:
+    #     for val in LDAOFF_FisherScore:
+    #         print val
     print ""
 
     DictInt_Accuracy, DictFloat_Accuracy = ObjConstructStatistics.AccuracyComputation()
@@ -271,8 +312,8 @@ if __name__ == "__main__":
         print key, DictInt_Accuracy[key]
 
     print ""
-    for idx, key in enumerate(DictFloat_Accuracy):
-        print key, DictFloat_Accuracy[key]
+    # for idx, key in enumerate(DictFloat_Accuracy):
+    #     print key, DictFloat_Accuracy[key]
     #
     # print len(ObjConstructStatistics.DictArray_TrainWCNormal)
 

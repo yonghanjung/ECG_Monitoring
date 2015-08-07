@@ -31,7 +31,7 @@ class InControlConstruction(DataConstruction):
         self.Int_NumTrainFeature = len(self.DictArray_TrainWCNormal[self.DictArray_TrainWCNormal.keys()[0]])
         ## Test Data Load ##
         self.DictArray_TestWC, self.Dict_TestLabel = self.TestWCConstruction()
-        print self.Dict_TestLabel
+        # print self.Dict_TestLabel
 
     def InControlConstruction(self):
         # InControl constructed only with normal

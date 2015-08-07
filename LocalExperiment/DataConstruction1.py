@@ -61,7 +61,7 @@ class DataConstruction(Data_Preparation):
         Matrix_Train= DictArrayTrainBeat.values()
 
         Matrix_Train = np.matrix(Matrix_Train).T
-        print Matrix_Train.shape
+        # print Matrix_Train.shape
 
         List_DictARrayECGBeatKey = DictArrayECGBeat.keys()
 
@@ -95,9 +95,11 @@ class DataConstruction(Data_Preparation):
                 if (DictECGLabel[RIdx] == 'N' or DictECGLabel[RIdx] == 'L' or DictECGLabel[RIdx] == 'R' or DictECGLabel[RIdx] == 'e' or DictECGLabel[RIdx] == 'j') :
                     DictArrayTestBeatNormal[RIdx] = NewSignal
 
-                # VEB + SVEB
-                # elif RIdx > self.SecondsToSample and (DictECGLabel[RIdx] == 'A' or DictECGLabel[RIdx] == 'a' or DictECGLabel[RIdx] == 'S' or DictECGLabel[RIdx] == 'V' or DictECGLabel[RIdx] == 'E'):
-                elif RIdx > self.SecondsToSample and (DictECGLabel[RIdx] == 'V'):
+                # VEBSVEB
+                # VEB Label
+                elif RIdx > self.SecondsToSample and (DictECGLabel[RIdx] == 'V' or DictECGLabel[RIdx] == 'E'):
+                # SVEB Label
+                # elif RIdx > self.SecondsToSample and (DictECGLabel[RIdx] == 'A' or DictECGLabel[RIdx] == 'a' or DictECGLabel[RIdx] == 'S' or DictECGLabel[RIdx] == 'J'):
                     DictArrayTestBeatPVC[RIdx] = NewSignal
 
                 # if len(DictArrayTestBeat) > 50:
@@ -105,13 +107,6 @@ class DataConstruction(Data_Preparation):
 
             else:
                 pass
-
-        # DictArrayTestBeat \
-        #     = {RIdx : DictArrayECGBeat[RIdx] for RIdx in DictArrayECGBeat.keys() if RIdx > self.SecondsToSample}
-        # DictArrayTestBeatNormal \
-        #     = {RIdx : DictArrayECGBeat[RIdx] for RIdx in DictArrayECGBeat.keys() if RIdx > self.SecondsToSample and (DictECGLabel[RIdx] == 'N' or DictECGLabel[RIdx] == 'L' or DictECGLabel[RIdx] == 'R' or DictECGLabel[RIdx] == 'e' or DictECGLabel[RIdx] == 'j')}
-        # DictArrayTestBeatPVC \
-        #     = {RIdx : DictArrayECGBeat[RIdx] for RIdx in DictArrayECGBeat.keys() if RIdx > self.SecondsToSample and (DictECGLabel[RIdx] == 'A' or DictECGLabel[RIdx] == 'a' or DictECGLabel[RIdx] == 'S' or DictECGLabel[RIdx] == 'V' or DictECGLabel[RIdx] == 'E') }
 
 
         return DictArrayTestBeat, DictArrayTestBeatNormal, DictArrayTestBeatPVC, DictArrayTestLabel
@@ -156,7 +151,7 @@ class DataConstruction(Data_Preparation):
 
         for idx, key in enumerate(sorted(DictArray_TestBeat)):
             TargetSignal = np.squeeze(np.asarray(DictArray_TestBeat[key]))
-            print TargetSignal.shape
+            # print TargetSignal.shape
             ObjWCs = Wavelet_Coefficient_Extractor(TargetSignal, Wavelet_Basis_Fun=self.StrWaveletBasis,Level=self.IntDecompLevel)
             ListWCs = ObjWCs.WaveDec()
             DictArray_TestWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
@@ -165,13 +160,13 @@ class DataConstruction(Data_Preparation):
 
 
 
-
+# List_Test = [100, 103, 105, 111, 121, 123, 200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 233, 234]
 
 
 if __name__ == "__main__":
-    IntRecordNum = 223
+    IntRecordNum = 200
     IntRecordType = 0
-    IntSeconds = 120
+    IntSeconds = 300
 
     StrWaveletBasis = 'db8'
     IntDecompLevel = 4
@@ -183,16 +178,20 @@ if __name__ == "__main__":
 
     plt.figure()
     plt.title(str(IntRecordNum)+ " False")
-    for idx, key in enumerate(sorted(DictArrayTrainBeatNormal)):
-        plt.plot(DictArrayTrainBeatNormal[key],'g')
+    # for idx, key in enumerate(sorted(DictArrayTrainBeatNormal)):
+    #     plt.plot(DictArrayTrainBeatNormal[key],'g')
 
     # plt.figure()
 
     for idx,key in enumerate(sorted(DictArrayTestBeat)):
         if DictArrayTestLabel[key] == 'N' or DictArrayTestLabel[key] == 'L' or DictArrayTestLabel[key] == 'R' or DictArrayTestLabel[key] == 'e' or DictArrayTestLabel[key] =='j' :
             plt.plot(DictArrayTestBeat[key], 'b')
-        elif DictArrayTestLabel[key] == 'A' or DictArrayTestLabel[key] == 'a' or DictArrayTestLabel[key] == 'S' or DictArrayTestLabel[key] == 'V' or DictArrayTestLabel[key] =='E':
+        elif DictArrayTestLabel[key] == 'A' or DictArrayTestLabel[key] == 'a' or DictArrayTestLabel[key] == 'S':
+        # elif DictArrayTestLabel[key] == 'V' or DictArrayTestLabel[key] == 'E':
             plt.plot(DictArrayTestBeat[key], 'r')
+        elif DictArrayTestLabel[key] == 'V' or DictArrayTestLabel[key] == 'E':
+            plt.plot(DictArrayTestBeat[key], 'orange')
+    # plt.legend()
     plt.show()
 
     # DictArrayECG, DictArrayLabel = ObjDataConstruction.DataSegmentation()
