@@ -54,6 +54,80 @@ class Competitive_SVM(FeatureSelector):
         # TestLabel
         self.DictArray_TestWC, self.Dict_TestLabel = self.TestWCConstruction()
 
+    def Result(self):
+        Dict_KeyRecord_ValWX_TrainWCNormal = self.LDAON_TrainWCNormalConstruction()
+        Dict_KeyRecord_ValWX_TrainWCPVC = self.LDAON_TrainWCPVCConstruction()
+        Dict_KeyRecord_ValWX_Test = self.LDAON_TestWCConstruction()
+        Dict_KeyRecord_ValLabel_Test = self.Dict_TestLabel
+
+        ArrayMat_Train = list()
+        Y = list()
+        for idx, key in enumerate(sorted(Dict_KeyRecord_ValWX_TrainWCNormal)):
+            ArrayMat_Each = Dict_KeyRecord_ValWX_TrainWCNormal[key]
+            ArrayMat_Train.append(ArrayMat_Each)
+            Y.append(0)
+        for idx, key in enumerate(sorted(Dict_KeyRecord_ValWX_TrainWCPVC)):
+            ArrayMat_Each = Dict_KeyRecord_ValWX_TrainWCPVC[key]
+            ArrayMat_Train.append(ArrayMat_Each)
+            Y.append(1)
+
+        ArrayMat_Test = list()
+        for idx, key in enumerate(sorted(Dict_KeyRecord_ValWX_Test)):
+            ArrayMat_Each = Dict_KeyRecord_ValWX_Test[key]
+            ArrayMat_Test.append(ArrayMat_Each)
+
+        TrueAnswer = list()
+        for idx, key in enumerate(sorted(Dict_KeyRecord_ValLabel_Test)):
+            if Dict_KeyRecord_ValLabel_Test[key] == "N" or Dict_KeyRecord_ValLabel_Test[key] == "R" or Dict_KeyRecord_ValLabel_Test[key] == "L" or Dict_KeyRecord_ValLabel_Test[key] == "e" or Dict_KeyRecord_ValLabel_Test[key] == "j":
+                TrueAnswer.append(0)
+            # elif Dict_KeyRecord_ValLabel_Test[key] == "A" or "a" or "S" or "J":
+            elif Dict_KeyRecord_ValLabel_Test[key] == "V" or Dict_KeyRecord_ValLabel_Test[key] == "E":
+                # print Dict_KeyRecord_ValLabel_Test[key]
+                TrueAnswer.append(1)
+
+        ArrayMat_Train= np.array(ArrayMat_Train)
+        ArrayMat_Train = np.reshape(ArrayMat_Train, (len(ArrayMat_Train),1))
+        ArrayMat_Test = np.array(ArrayMat_Test)
+        ArrayMat_Test = np.reshape(ArrayMat_Test, (len(ArrayMat_Test),1))
+        Y = np.array(Y)
+        # print len(Y)
+
+        clf = svm.SVC()
+        clf.fit(ArrayMat_Train, Y)
+        # 0 : Normal
+        # 1 : PVC
+        SVMAnswer = clf.predict(ArrayMat_Test)
+
+        NormalAsNormal = 0
+        NormalAsVEB = 0
+        VEBASVEB = 0
+        VEBASNormal = 0
+
+        for a,b in zip(SVMAnswer,TrueAnswer):
+            if b ==0 and a == 0:
+                NormalAsNormal+= 1
+            elif b == 0 and a == 1:
+                NormalAsVEB += 1
+            elif a == 0 and b == 1:
+                VEBASNormal += 1
+            elif a == 1 and b == 1 :
+                VEBASVEB += 1
+
+        # print "SVM"
+        # print "Record", self.RecordNum
+        # print "Normal(G) as Normal" , NormalAsNormal
+        # print "Normal(G) as VEB" , NormalAsVEB
+        # print "VEB(G) as Normal", VEBASNormal
+        # print "VEB(G) as VEB", VEBASVEB
+
+        Dict_Result = dict()
+        Dict_Result['Normal(G) as Normal'] = NormalAsNormal
+        Dict_Result['Normal(G) as VEB'] = NormalAsVEB
+        Dict_Result['VEB(G) as VEB'] = VEBASVEB
+        Dict_Result['VEB(G) as Normal'] = VEBASNormal
+
+        return Dict_Result
+
 
 
 
@@ -67,7 +141,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 228
+    IntRecordNum = 210
     IntRecordType = 0
     IntSeconds = 300
 
@@ -119,7 +193,7 @@ if __name__ == "__main__":
     ArrayMat_Test = np.array(ArrayMat_Test)
     ArrayMat_Test = np.reshape(ArrayMat_Test, (len(ArrayMat_Test),1))
     Y = np.array(Y)
-    print len(Y)
+    # print len(Y)
 
     clf = svm.SVC()
     clf.fit(ArrayMat_Train, Y)
@@ -142,6 +216,7 @@ if __name__ == "__main__":
         elif a == 1 and b == 1 :
             VEBASVEB += 1
 
+    print "SVM"
     print "Record", IntRecordNum
     print "Normal(G) as Normal" , NormalAsNormal
     print "Normal(G) as VEB" , NormalAsVEB

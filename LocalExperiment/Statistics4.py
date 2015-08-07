@@ -27,6 +27,11 @@ class ConstructStatistics(FeatureSelector):
 
         FeatureSelector.__init__(self, RecordNum , RecordType, Seconds, StrWaveletBasis, IntDecompLevel, LDAorNOT, Threshold)
         #########################
+        self.NumTrain = len(self.DictArray_TrainWC)
+        self.NumTrain_Normal = len(self.DictArray_TrainWCNormal)
+        self.NumTrain_VEB = len(self.DictArray_TrainWCPVC)
+
+
 
         ### Initial Value Declaration ###
 
@@ -36,7 +41,7 @@ class ConstructStatistics(FeatureSelector):
         self.Sampling_rate = 360
         self.SecondsToSample = Seconds * self.Sampling_rate
         self.LDAorNOT = LDAorNOT
-        self.alpha = alpha
+        self.alpha = self.NumTrain_Normal / float(self.NumTrain)
         self.Str_WaveletBasis = StrWaveletBasis
         self.Int_DecompLevel = IntDecompLevel
         self.Float_Threshold = Threshold
@@ -136,26 +141,26 @@ class ConstructStatistics(FeatureSelector):
             # except:
             #     pass
 
-        DictInt_Accuracy['Type1_Error'] = Int_Type1_Error # Normal 을 VEB / SVEB 로
-        DictInt_Accuracy['Type1_Duzi'] = Int_Type1_Duzi # Normal 을 Normal 로
-        DictInt_Accuracy['Type2_Error'] = Int_Type2_Error # VEB / SVEB 를 Normal 로
-        DictInt_Accuracy['Type2_Duzi'] = Int_Type2_Duzi # VEB / SVEB 를 VEB/SVEB 로
-        DictInt_Accuracy['TotalBeat'] = Int_TotalTestPoint
-        DictInt_Accuracy['TotalError'] = Int_Type1_Error + Int_Type2_Error
+        DictInt_Accuracy['Normal as VEB'] = Int_Type1_Error # Normal 을 VEB / SVEB 로
+        DictInt_Accuracy['Normal as Normal'] = Int_Type1_Duzi # Normal 을 Normal 로
+        DictInt_Accuracy['VEB as Normal'] = Int_Type2_Error # VEB / SVEB 를 Normal 로
+        DictInt_Accuracy['VEB as VEB'] = Int_Type2_Duzi # VEB / SVEB 를 VEB/SVEB 로
+        # DictInt_Accuracy['TotalBeat'] = Int_TotalTestPoint
+        # DictInt_Accuracy['TotalError'] = Int_Type1_Error + Int_Type2_Error
 
         Int_TP = Int_Type1_Duzi # Correctly detected beat (Normal as Normal)
         Int_TN = Int_Type2_Duzi # Correctly rejected beat (PVC as PVC)
         Int_FP = Int_Type1_Error # Falsely detected (Normal as PVC)
         Int_FN = Int_Type2_Error # Misssed beat (PVC as Normal)
 
-        # Acc = NT - NE (=NC) / NT
-        DictFloat_Accuracy['Accuracy'] = float(Int_TotalTestPoint - (Int_Type1_Error+ Int_Type2_Error)) / float(Int_TotalTestPoint)
-        # Se = TP / TP + FN, ratio
-        DictFloat_Accuracy['Sensitivity'] = float(Int_TP) / float(Int_TP + Int_FN)
-        # Positive Predictivity = TP / TP + FP, ratio of correctly detected beat to the total num of beats
-        DictFloat_Accuracy['Positive_Predictivity'] = float(Int_TP) / float(Int_TP + Int_FP)
-        # Sp = TN / TN + FP , Correctly rejected to num of nonevent
-        DictFloat_Accuracy['Specificity'] = float(Int_Type2_Duzi) / float(Int_Type2_Duzi + Int_Type1_Error)
+        # # Acc = NT - NE (=NC) / NT
+        # DictFloat_Accuracy['Accuracy'] = float(Int_TotalTestPoint - (Int_Type1_Error+ Int_Type2_Error)) / float(Int_TotalTestPoint)
+        # # Se = TP / TP + FN, ratio
+        # DictFloat_Accuracy['Sensitivity'] = float(Int_TP) / float(Int_TP + Int_FN)
+        # # Positive Predictivity = TP / TP + FP, ratio of correctly detected beat to the total num of beats
+        # DictFloat_Accuracy['Positive_Predictivity'] = float(Int_TP) / float(Int_TP + Int_FP)
+        # # Sp = TN / TN + FP , Correctly rejected to num of nonevent
+        # DictFloat_Accuracy['Specificity'] = float(Int_Type2_Duzi) / float(Int_Type2_Duzi + Int_Type1_Error)
 
         return DictInt_Accuracy, DictFloat_Accuracy
 
@@ -268,7 +273,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 221
+    IntRecordNum = 210
     IntRecordType = 0
     IntSeconds = 300
 
@@ -305,11 +310,20 @@ if __name__ == "__main__":
     # else:
     #     for val in LDAOFF_FisherScore:
     #         print val
-    print ""
+    print "My Algorithm"
+    print IntRecordNum
 
     DictInt_Accuracy, DictFloat_Accuracy = ObjConstructStatistics.AccuracyComputation()
     for idx, key in enumerate(DictInt_Accuracy):
-        print key, DictInt_Accuracy[key]
+        if key == "Type1_Duzi":
+            print "Normal(G) as Normal ", DictInt_Accuracy[key]
+        elif key == "Type1_Error":
+            print "Normal(G) as VEB ", DictInt_Accuracy[key]
+        elif key == "Type2_Duzi":
+            print "VEB(G) as VEB ", DictInt_Accuracy[key]
+        elif key == "Type2_Error":
+            print "VEB(G) as Normal ", DictInt_Accuracy[key]
+        # key, DictInt_Accuracy[key]
 
     print ""
     # for idx, key in enumerate(DictFloat_Accuracy):
@@ -317,7 +331,7 @@ if __name__ == "__main__":
     #
     # print len(ObjConstructStatistics.DictArray_TrainWCNormal)
 
-    ObjConstructStatistics.StatPlot()
+    # ObjConstructStatistics.StatPlot()
 
 
 

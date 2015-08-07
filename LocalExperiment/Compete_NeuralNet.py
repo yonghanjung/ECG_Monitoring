@@ -15,6 +15,7 @@ from pybrain.datasets            import ClassificationDataSet
 from pybrain.datasets            import SupervisedDataSet
 from pybrain.utilities           import percentError
 from pybrain.tools.shortcuts     import buildNetwork
+from pybrain.structure           import TanhLayer
 from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.structure.modules   import SoftmaxLayer
 ####
@@ -23,7 +24,7 @@ from FeatureSelector3 import FeatureSelector
 ''' Function or Class '''
 
 
-class Competitive_SVM(FeatureSelector):
+class Competitive_NN(FeatureSelector):
     def __init__(self, RecordNum , RecordType, Seconds, StrWaveletBasis, IntDecompLevel, LDAorNOT, Threshold, alpha):
         ### Class Inheritance ###
         FeatureSelector.__init__(self, RecordNum , RecordType, Seconds, StrWaveletBasis, IntDecompLevel, LDAorNOT, Threshold)
@@ -58,6 +59,100 @@ class Competitive_SVM(FeatureSelector):
         # TestLabel
         self.DictArray_TestWC, self.Dict_TestLabel = self.TestWCConstruction()
 
+    def Result(self):
+        Dict_KeyRecord_ValWX_TrainWCNormal = self.LDAON_TrainWCNormalConstruction()
+        Dict_KeyRecord_ValWX_TrainWCPVC = self.LDAON_TrainWCPVCConstruction()
+        Dict_KeyRecord_ValWX_Test = self.LDAON_TestWCConstruction()
+        Dict_KeyRecord_ValLabel_Test = self.Dict_TestLabel
+
+        ArrayMat_Train = list()
+        Y = list()
+        for idx, key in enumerate(sorted(Dict_KeyRecord_ValWX_TrainWCNormal)):
+            ArrayMat_Each = Dict_KeyRecord_ValWX_TrainWCNormal[key]
+            ArrayMat_Train.append(ArrayMat_Each)
+            Y.append(0)
+        for idx, key in enumerate(sorted(Dict_KeyRecord_ValWX_TrainWCPVC)):
+            ArrayMat_Each = Dict_KeyRecord_ValWX_TrainWCPVC[key]
+            ArrayMat_Train.append(ArrayMat_Each)
+            Y.append(1)
+
+        ArrayMat_Test = list()
+        for idx, key in enumerate(sorted(Dict_KeyRecord_ValWX_Test)):
+            ArrayMat_Each = Dict_KeyRecord_ValWX_Test[key]
+            ArrayMat_Test.append(ArrayMat_Each)
+
+        TrueAnswer = list()
+        for idx, key in enumerate(sorted(Dict_KeyRecord_ValLabel_Test)):
+            if Dict_KeyRecord_ValLabel_Test[key] == "N" or Dict_KeyRecord_ValLabel_Test[key] == "R" or Dict_KeyRecord_ValLabel_Test[key] == "L" or Dict_KeyRecord_ValLabel_Test[key] == "e" or Dict_KeyRecord_ValLabel_Test[key] == "j":
+                TrueAnswer.append(0)
+            # elif Dict_KeyRecord_ValLabel_Test[key] == "A" or "a" or "S" or "J":
+            elif Dict_KeyRecord_ValLabel_Test[key] == "V" or Dict_KeyRecord_ValLabel_Test[key] == "E":
+                # print Dict_KeyRecord_ValLabel_Test[key]
+                TrueAnswer.append(1)
+
+        ArrayMat_Train= np.array(ArrayMat_Train)
+        ArrayMat_Train = np.reshape(ArrayMat_Train, (len(ArrayMat_Train),1))
+        ArrayMat_Test = np.array(ArrayMat_Test)
+        ArrayMat_Test = np.reshape(ArrayMat_Test, (len(ArrayMat_Test),1))
+        Y = np.array(Y)
+
+
+
+
+        # 여기서부터 Neural Network 적용
+        TrainNum, Dim = ArrayMat_Train.shape
+        NNData = ClassificationDataSet(Dim, 1)
+
+
+        for idx in range(len(Y)):
+            NNData.addSample(np.ravel(ArrayMat_Train[idx]), Y[idx])
+        NNData._convertToOneOfMany()
+        # NNData._convertToOneOfMany()
+        HiddenNum = int(len(ArrayMat_Train)/ float(2 * (NNData.indim + NNData.outdim)))
+        # HiddenNum = 5
+        # print NNData.indim
+        # print NNData.outdim
+        # print HiddenNum
+        NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, outclass = SoftmaxLayer)
+        # NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, hiddenclass=TanhLayer)
+        Trainer = BackpropTrainer(NNNetwork, dataset=NNData, verbose=False)
+
+        NNTest = ClassificationDataSet(Dim, 1)
+
+        for idx in range(len(TrueAnswer)):
+            # print np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx]
+            NNTest.addSample(np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx])
+        NNTest._convertToOneOfMany()
+        trainer = BackpropTrainer( NNNetwork, dataset=NNData, momentum=0.1, learningrate=0.01 , verbose=True, weightdecay=0.01)
+        trainer.trainUntilConvergence( verbose = False, validationProportion = 0.15, maxEpochs = 50, continueEpochs = 10 )
+        MyAnswer = trainer.testOnClassData(dataset=NNTest)
+
+        NormalAsNormal = 0
+        NormalAsVEB = 0
+        VEBASVEB = 0
+        VEBASNormal = 0
+
+        for a,b in zip(MyAnswer,TrueAnswer):
+            if b ==0 and a == 0:
+                NormalAsNormal+= 1
+            elif b == 0 and a == 1:
+                NormalAsVEB += 1
+            elif a == 0 and b == 1:
+                VEBASNormal += 1
+            elif a == 1 and b == 1 :
+                VEBASVEB += 1
+
+        Dict_Result = dict()
+        Dict_Result['Normal(G) as Normal'] = NormalAsNormal
+        Dict_Result['Normal(G) as VEB'] = NormalAsVEB
+        Dict_Result['VEB(G) as VEB'] = VEBASVEB
+        Dict_Result['VEB(G) as Normal'] = VEBASNormal
+
+        return Dict_Result
+
+
+
+
 
 
 
@@ -71,7 +166,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 221
+    IntRecordNum = 210
     IntRecordType = 0
     IntSeconds = 300
 
@@ -87,7 +182,7 @@ if __name__ == "__main__":
     StrWaveletBasis = 'db8'
     alpha = 0.9999
 
-    ObjSVM = Competitive_SVM(RecordNum=IntRecordNum, RecordType=IntRecordType, Seconds=IntSeconds,StrWaveletBasis = StrWaveletBasis, IntDecompLevel = IntDecompLevel, LDAorNOT=BoolLDAorNOT, Threshold=FltThreshold, alpha=alpha)
+    ObjSVM = Competitive_NN(RecordNum=IntRecordNum, RecordType=IntRecordType, Seconds=IntSeconds,StrWaveletBasis = StrWaveletBasis, IntDecompLevel = IntDecompLevel, LDAorNOT=BoolLDAorNOT, Threshold=FltThreshold, alpha=alpha)
     Dict_KeyRecord_ValWX_TrainWCNormal = ObjSVM.LDAON_TrainWCNormalConstruction()
     Dict_KeyRecord_ValWX_TrainWCPVC = ObjSVM.LDAON_TrainWCPVCConstruction()
     Dict_KeyRecord_ValWX_Test = ObjSVM.LDAON_TestWCConstruction()
@@ -142,6 +237,7 @@ if __name__ == "__main__":
     # print NNData.outdim
     # print HiddenNum
     NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, outclass = SoftmaxLayer)
+    # NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, hiddenclass=TanhLayer)
     Trainer = BackpropTrainer(NNNetwork, dataset=NNData)
 
     NNTest = ClassificationDataSet(Dim, 1)
@@ -169,6 +265,7 @@ if __name__ == "__main__":
         elif a == 1 and b == 1 :
             VEBASVEB += 1
 
+    print "NeuralNet"
     print "Record", IntRecordNum
     print "Normal(G) as Normal" , NormalAsNormal
     print "Normal(G) as VEB" , NormalAsVEB
