@@ -141,10 +141,10 @@ class ConstructStatistics(FeatureSelector):
             # except:
             #     pass
 
-        DictInt_Accuracy['Normal as VEB'] = Int_Type1_Error # Normal 을 VEB / SVEB 로
-        DictInt_Accuracy['Normal as Normal'] = Int_Type1_Duzi # Normal 을 Normal 로
-        DictInt_Accuracy['VEB as Normal'] = Int_Type2_Error # VEB / SVEB 를 Normal 로
-        DictInt_Accuracy['VEB as VEB'] = Int_Type2_Duzi # VEB / SVEB 를 VEB/SVEB 로
+        DictInt_Accuracy['Normal(G) as VEB'] = Int_Type1_Error # Normal 을 VEB / SVEB 로
+        DictInt_Accuracy['Normal(G) as Normal'] = Int_Type1_Duzi # Normal 을 Normal 로
+        DictInt_Accuracy['VEB(G) as Normal'] = Int_Type2_Error # VEB / SVEB 를 Normal 로
+        DictInt_Accuracy['VEB(G) as VEB'] = Int_Type2_Duzi # VEB / SVEB 를 VEB/SVEB 로
         # DictInt_Accuracy['TotalBeat'] = Int_TotalTestPoint
         # DictInt_Accuracy['TotalError'] = Int_Type1_Error + Int_Type2_Error
 
@@ -273,7 +273,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 210
+    IntRecordNum = 220
     IntRecordType = 0
     IntSeconds = 300
 
@@ -331,7 +331,7 @@ if __name__ == "__main__":
     #
     # print len(ObjConstructStatistics.DictArray_TrainWCNormal)
 
-    # ObjConstructStatistics.StatPlot()
+    ObjConstructStatistics.StatPlot()
 
 
 

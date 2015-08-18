@@ -63,7 +63,7 @@ if __name__ == "__main__":
     print "DataRecordNum | Measure | Mine | SVM | NN"
 
     # CSV open
-    with open('150807_Performance.csv', 'wb') as csvfile:
+    with open('150807_Performance_SVEB.csv', 'wb') as csvfile:
         fieldnames = ['DataRecordNum', 'Measure', 'Mine', 'SVM', 'NN']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -76,5 +76,5 @@ if __name__ == "__main__":
 
 
             for (k1,v1), (k2,v2), (k3,v3) in zip(Dict_Mine.items(), Dict_SVM.items(), Dict_NN.items()):
-                print IntRecordNum, k1, "|", v1, "|", v2, "|", v3
-                writer.writerow({'DataRecordNum': IntRecordNum, 'Measure' : k1, 'Mine': v1, 'SVM' : v2, 'NN' : v3})
+                print IntRecordNum, k1, "|", Dict_Mine[k1], "|", Dict_SVM[k1], "|", Dict_NN[k1]
+                writer.writerow({'DataRecordNum': IntRecordNum, 'Measure' : k1, 'Mine': Dict_Mine[k1], 'SVM' : Dict_SVM[k1], 'NN' : Dict_NN[k1]})

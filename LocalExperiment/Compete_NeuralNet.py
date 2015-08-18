@@ -86,7 +86,8 @@ class Competitive_NN(FeatureSelector):
             if Dict_KeyRecord_ValLabel_Test[key] == "N" or Dict_KeyRecord_ValLabel_Test[key] == "R" or Dict_KeyRecord_ValLabel_Test[key] == "L" or Dict_KeyRecord_ValLabel_Test[key] == "e" or Dict_KeyRecord_ValLabel_Test[key] == "j":
                 TrueAnswer.append(0)
             # elif Dict_KeyRecord_ValLabel_Test[key] == "A" or "a" or "S" or "J":
-            elif Dict_KeyRecord_ValLabel_Test[key] == "V" or Dict_KeyRecord_ValLabel_Test[key] == "E":
+            # elif Dict_KeyRecord_ValLabel_Test[key] == "V" or Dict_KeyRecord_ValLabel_Test[key] == "E":
+            elif Dict_KeyRecord_ValLabel_Test[key] == "S" or Dict_KeyRecord_ValLabel_Test[key] == "A" or Dict_KeyRecord_ValLabel_Test[key] == "J" or Dict_KeyRecord_ValLabel_Test[key] == "A":
                 # print Dict_KeyRecord_ValLabel_Test[key]
                 TrueAnswer.append(1)
 
@@ -108,9 +109,9 @@ class Competitive_NN(FeatureSelector):
             NNData.addSample(np.ravel(ArrayMat_Train[idx]), Y[idx])
         NNData._convertToOneOfMany()
         # NNData._convertToOneOfMany()
-        HiddenNum = int(len(ArrayMat_Train)/ float(2 * (NNData.indim + NNData.outdim)))
-        # HiddenNum = 5
-        # print NNData.indim
+        # HiddenNum = int(len(ArrayMat_Train)/ float(2 * (NNData.indim + NNData.outdim)))
+        HiddenNum = Dim
+        print "Indim", NNData.indim
         # print NNData.outdim
         # print HiddenNum
         NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, outclass = SoftmaxLayer)
@@ -123,8 +124,8 @@ class Competitive_NN(FeatureSelector):
             # print np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx]
             NNTest.addSample(np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx])
         NNTest._convertToOneOfMany()
-        trainer = BackpropTrainer( NNNetwork, dataset=NNData, momentum=0.1, learningrate=0.01 , verbose=True, weightdecay=0.01)
-        trainer.trainUntilConvergence( verbose = False, validationProportion = 0.15, maxEpochs = 50, continueEpochs = 10 )
+        trainer = BackpropTrainer( NNNetwork, dataset=NNData)
+        trainer.trainUntilConvergence( verbose = True, maxEpochs = 100)
         MyAnswer = trainer.testOnClassData(dataset=NNTest)
 
         NormalAsNormal = 0
@@ -231,9 +232,10 @@ if __name__ == "__main__":
         NNData.addSample(np.ravel(ArrayMat_Train[idx]), Y[idx])
     NNData._convertToOneOfMany()
     # NNData._convertToOneOfMany()
-    HiddenNum = int(len(ArrayMat_Train)/ float(2 * (NNData.indim + NNData.outdim)))
-    # HiddenNum = 5
-    # print NNData.indim
+    # HiddenNum = int(len(ArrayMat_Train)/ float(2 * (NNData.indim + NNData.outdim)))
+    HiddenNum = 64
+    print NNData.indim
+    print Dim
     # print NNData.outdim
     # print HiddenNum
     NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, outclass = SoftmaxLayer)
@@ -246,8 +248,10 @@ if __name__ == "__main__":
         # print np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx]
         NNTest.addSample(np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx])
     NNTest._convertToOneOfMany()
-    trainer = BackpropTrainer( NNNetwork, dataset=NNData, momentum=0.1, learningrate=0.01 , verbose=True, weightdecay=0.01)
-    trainer.trainUntilConvergence( verbose = True, validationProportion = 0.15, maxEpochs = 50, continueEpochs = 10 )
+    # trainer = BackpropTrainer( NNNetwork, dataset=NNData, momentum=0.1, learningrate=0.01 , verbose=True, weightdecay=0.01)
+    trainer = BackpropTrainer( NNNetwork, dataset=NNData)
+    # trainer.trainUntilConvergence( verbose = True, validationProportion = 0.15, maxEpochs = 1000, continueEpochs = 10 )
+    trainer.trainUntilConvergence(verbose=True, maxEpochs = 100)
     MyAnswer = trainer.testOnClassData(dataset=NNTest)
 
     NormalAsNormal = 0

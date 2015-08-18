@@ -81,7 +81,8 @@ class Competitive_SVM(FeatureSelector):
             if Dict_KeyRecord_ValLabel_Test[key] == "N" or Dict_KeyRecord_ValLabel_Test[key] == "R" or Dict_KeyRecord_ValLabel_Test[key] == "L" or Dict_KeyRecord_ValLabel_Test[key] == "e" or Dict_KeyRecord_ValLabel_Test[key] == "j":
                 TrueAnswer.append(0)
             # elif Dict_KeyRecord_ValLabel_Test[key] == "A" or "a" or "S" or "J":
-            elif Dict_KeyRecord_ValLabel_Test[key] == "V" or Dict_KeyRecord_ValLabel_Test[key] == "E":
+            # elif Dict_KeyRecord_ValLabel_Test[key] == "V" or Dict_KeyRecord_ValLabel_Test[key] == "E":
+            elif Dict_KeyRecord_ValLabel_Test[key] == "S" or Dict_KeyRecord_ValLabel_Test[key] == "A" or Dict_KeyRecord_ValLabel_Test[key] == "J" or Dict_KeyRecord_ValLabel_Test[key] == "A":
                 # print Dict_KeyRecord_ValLabel_Test[key]
                 TrueAnswer.append(1)
 
