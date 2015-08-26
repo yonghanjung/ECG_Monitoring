@@ -23,46 +23,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GlobalExperiment.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GlobalExperiment/GlobalExperiment.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2341" max-vertical-offset="2664">
-              <caret line="134" column="26" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GlobalExperiment.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/HRVAnalysis/GlobalExperiment.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2220">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ECG_DataLoad.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HRVAnalysis/ECG_DataLoad.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2052" max-vertical-offset="3344">
-              <caret line="109" column="19" selection-start-line="109" selection-start-column="19" selection-end-line="109" selection-end-column="19" />
-              <folding>
-                <element signature="e#186#220#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Statistics4.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Statistics4.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LocalExperiment/Statistics4.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5306" max-vertical-offset="6920">
-              <caret line="270" column="35" selection-start-line="270" selection-start-column="35" selection-end-line="270" selection-end-column="35" />
-              <folding>
-                <element signature="e#196#215#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="6.0688705" vertical-offset="1487" max-vertical-offset="5685">
+              <caret line="250" column="37" selection-start-line="250" selection-start-column="37" selection-end-line="250" selection-end-column="37" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -70,7 +36,7 @@
       <file leaf-file-name="Data_Preparation0.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1292" max-vertical-offset="1853">
+            <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1650">
               <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="18" />
               <folding />
             </state>
@@ -134,17 +100,17 @@
         <option value="$PROJECT_DIR$/LocalExperiment/Competite_SVM.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/PerformanceComparison.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Compete_SVM.py" />
-        <option value="$PROJECT_DIR$/LocalExperiment/Statistics4.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/DataConstruction1.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Compete_NeuralNet.py" />
         <option value="$PROJECT_DIR$/HRVAnalysis/ECG_DataLoad.py" />
+        <option value="$PROJECT_DIR$/LocalExperiment/Statistics4.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="44" />
+    <option name="x" value="4" />
     <option name="y" value="23" />
-    <option name="width" value="1108" />
+    <option name="width" value="1148" />
     <option name="height" value="697" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -173,7 +139,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -217,24 +182,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Old" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ECG" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ECG" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Old" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Compute_Fisher_Score" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -296,6 +243,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -329,7 +277,7 @@
       <recent name="$PROJECT_DIR$/Data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.ECG_DataLoad">
+  <component name="RunManager" selected="Python.Statistics4 (2)">
     <configuration default="false" name="Statistics4 (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -569,9 +517,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ECG_DataLoad" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Compete_NeuralNet" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Statistics4 (2)" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Statistics4 (2)" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ECG_DataLoad" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Compete_NeuralNet" />
         <item index="3" class="java.lang.String" itemvalue="Python.PerformanceComparison" />
         <item index="4" class="java.lang.String" itemvalue="Python.Compete_SVM" />
       </list>
@@ -590,7 +538,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="44" y="23" width="1108" height="697" extended-state="6" />
+    <frame x="4" y="23" width="1148" height="697" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -598,18 +546,18 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15794224" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2195122" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39534885" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32890365" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -626,9 +574,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17830883" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38016528" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -699,9 +647,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6257669" vertical-offset="0" max-vertical-offset="1921">
           <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding>
-            <element signature="e#158#192#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -716,7 +661,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6902655" vertical-offset="52896" max-vertical-offset="53235">
           <caret line="3542" column="0" selection-start-line="3542" selection-start-column="0" selection-end-line="3542" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -752,9 +696,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.041436464" vertical-offset="600" max-vertical-offset="1905">
           <caret line="39" column="54" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="54" />
-          <folding>
-            <element signature="e#317#380#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -909,7 +850,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="551">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -917,7 +857,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="463" max-vertical-offset="1102">
           <caret line="32" column="78" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="78" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -925,7 +864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33226836" vertical-offset="166" max-vertical-offset="2985">
           <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -933,7 +871,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4935484" vertical-offset="360" max-vertical-offset="1843">
           <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -941,7 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33126935" vertical-offset="298" max-vertical-offset="1485">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -949,7 +885,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33126935" vertical-offset="133" max-vertical-offset="4080">
           <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -957,7 +892,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="336">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -965,9 +899,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="10.755418" vertical-offset="0" max-vertical-offset="4176">
           <caret line="193" column="43" selection-start-line="193" selection-start-column="43" selection-end-line="193" selection-end-column="43" />
-          <folding>
-            <element signature="e#116#135#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -975,7 +906,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43343654" vertical-offset="4762" max-vertical-offset="6042">
           <caret line="258" column="16" selection-start-line="258" selection-start-column="16" selection-end-line="258" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -983,9 +913,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6687307" vertical-offset="729" max-vertical-offset="1290">
           <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="e#116#134#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -993,27 +920,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5858586" vertical-offset="1281" max-vertical-offset="3015">
           <caret line="102" column="30" selection-start-line="102" selection-start-column="30" selection-end-line="102" selection-end-column="30" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HRVAnalysis/GlobalExperiment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22304833" vertical-offset="0" max-vertical-offset="2220">
+          <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GlobalExperiment/GlobalExperiment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62566847" vertical-offset="1614" max-vertical-offset="2220">
+          <caret line="134" column="26" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HRVAnalysis/ECG_DataLoad.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2052" max-vertical-offset="3344">
+        <state vertical-scroll-proportion="1.9504644" vertical-offset="960" max-vertical-offset="2595">
           <caret line="109" column="19" selection-start-line="109" selection-start-column="19" selection-end-line="109" selection-end-column="19" />
-          <folding>
-            <element signature="e#186#220#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/Statistics4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5306" max-vertical-offset="6920">
-          <caret line="270" column="35" selection-start-line="270" selection-start-column="35" selection-end-line="270" selection-end-column="35" />
-          <folding>
-            <element signature="e#196#215#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1025,18 +952,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GlobalExperiment/GlobalExperiment.py">
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/Statistics4.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2103" max-vertical-offset="2664">
-          <caret line="134" column="26" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HRVAnalysis/GlobalExperiment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2220">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="6.0688705" vertical-offset="1487" max-vertical-offset="5685">
+          <caret line="250" column="37" selection-start-line="250" selection-start-column="37" selection-end-line="250" selection-end-column="37" />
           <folding />
         </state>
       </provider>
