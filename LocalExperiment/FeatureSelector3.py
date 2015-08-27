@@ -154,6 +154,22 @@ class FeatureSelector(InControlConstruction):
             DictArray_TrainWCPVC_LDA[key] = NewVal
         return DictArray_TrainWCPVC_LDA
 
+    def LDAON_TrainWCConstruction(self):
+        DictArray_TrainWCNormal_LDA = dict()
+        List_Stat = list()
+        Matrix_LDAOpeartor = self.LDAON_LDAOperatorConstruction()
+        for idx, key in enumerate(sorted(self.DictArray_TrainWC)):
+            # 각 비트의 vector를 재조정
+            Val = np.reshape(self.DictArray_TrainWC[key], (len(self.DictArray_TrainWC[key]),1 ))
+
+            # w*X
+            NewVal = np.dot(np.transpose(Matrix_LDAOpeartor), Val)
+            NewVal = np.squeeze(np.asarray(NewVal))
+            NewVal = float(NewVal)
+            DictArray_TrainWCNormal_LDA[key] = NewVal
+            List_Stat.append(NewVal)
+        return DictArray_TrainWCNormal_LDA
+
     def LDAON_TestWCConstruction(self):
         DictArray_TestWCNormal_LDA = dict()
         Matrix_LDAOpeartor = self.LDAON_LDAOperatorConstruction()

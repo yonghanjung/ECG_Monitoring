@@ -26,19 +26,23 @@
       <file leaf-file-name="Statistics4.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LocalExperiment/Statistics4.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="6.0688705" vertical-offset="1487" max-vertical-offset="5685">
-              <caret line="250" column="37" selection-start-line="250" selection-start-column="37" selection-end-line="250" selection-end-column="37" />
-              <folding />
+            <state vertical-scroll-proportion="-27.888283" vertical-offset="11014" max-vertical-offset="11381">
+              <caret line="41" column="38" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="38" />
+              <folding>
+                <element signature="e#196#215#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Data_Preparation0.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py">
+      <file leaf-file-name="CUSUM_HotellingT.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LocalExperiment/CUSUM_HotellingT.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1650">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="18" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="528" max-vertical-offset="2376">
+              <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+              <folding>
+                <element signature="e#150#168#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -53,8 +57,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Compute_Fisher_Score/Fisher_score_Test.py" />
-        <option value="$PROJECT_DIR$/Feature_selection+Monitoring_statistics/MonitorStat.py" />
         <option value="$PROJECT_DIR$/Training_Set/Construct_Training_Set.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/Statistics/HansVariableSelector.py" />
@@ -95,7 +97,6 @@
         <option value="$PROJECT_DIR$/OldLocalExperiment/FeatureSelector3.py" />
         <option value="$PROJECT_DIR$/OldLocalExperiment/Statistics4.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/InControlConstruction2.py" />
-        <option value="$PROJECT_DIR$/LocalExperiment/FeatureSelector3.py" />
         <option value="$PROJECT_DIR$/Old/Compute_Fisher_Score/TwoClassFisherLDA.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Competite_SVM.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/PerformanceComparison.py" />
@@ -103,12 +104,15 @@
         <option value="$PROJECT_DIR$/LocalExperiment/DataConstruction1.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Compete_NeuralNet.py" />
         <option value="$PROJECT_DIR$/HRVAnalysis/ECG_DataLoad.py" />
+        <option value="$PROJECT_DIR$/LocalExperiment/CUSUM_Pvalue" />
+        <option value="$PROJECT_DIR$/LocalExperiment/FeatureSelector3.py" />
+        <option value="$PROJECT_DIR$/LocalExperiment/CUSUM_HotellingT.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Statistics4.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="4" />
+    <option name="x" value="11" />
     <option name="y" value="23" />
     <option name="width" value="1148" />
     <option name="height" value="697" />
@@ -314,24 +318,6 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="Compete_SVM" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LocalExperiment" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ECG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LocalExperiment/Compete_SVM.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
     <configuration default="false" name="PerformanceComparison" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -363,6 +349,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ECG" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/HRVAnalysis/ECG_DataLoad.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="CUSUM_HotellingT" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LocalExperiment" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ECG" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LocalExperiment/CUSUM_HotellingT.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -511,17 +515,17 @@
       <item index="0" class="java.lang.String" itemvalue="Python.Statistics4" />
       <item index="1" class="java.lang.String" itemvalue="Python.Statistics4 (2)" />
       <item index="2" class="java.lang.String" itemvalue="Python.Compete_NeuralNet" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Compete_SVM" />
-      <item index="4" class="java.lang.String" itemvalue="Python.PerformanceComparison" />
-      <item index="5" class="java.lang.String" itemvalue="Python.ECG_DataLoad" />
+      <item index="3" class="java.lang.String" itemvalue="Python.PerformanceComparison" />
+      <item index="4" class="java.lang.String" itemvalue="Python.ECG_DataLoad" />
+      <item index="5" class="java.lang.String" itemvalue="Python.CUSUM_HotellingT" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Statistics4 (2)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ECG_DataLoad" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Compete_NeuralNet" />
-        <item index="3" class="java.lang.String" itemvalue="Python.PerformanceComparison" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Compete_SVM" />
+        <item index="1" class="java.lang.String" itemvalue="Python.CUSUM_HotellingT" />
+        <item index="2" class="java.lang.String" itemvalue="Python.ECG_DataLoad" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Compete_NeuralNet" />
+        <item index="4" class="java.lang.String" itemvalue="Python.PerformanceComparison" />
       </list>
     </recent_temporary>
   </component>
@@ -538,7 +542,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="23" width="1148" height="697" extended-state="6" />
+    <frame x="11" y="23" width="1148" height="697" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -550,7 +554,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32890365" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32225913" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -601,20 +605,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Data/106_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="35785">
-          <caret line="0" column="18" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Python/2.7/site-packages/pywt/multilevel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3314121" vertical-offset="485" max-vertical-offset="2160">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data/213_anno.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="49515">
@@ -881,13 +871,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/FeatureSelector3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33126935" vertical-offset="133" max-vertical-offset="4080">
-          <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LocalExperiment/150807_Performance.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="336">
@@ -946,17 +929,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1853">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.5042017" vertical-offset="0" max-vertical-offset="1635">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/CUSUM_Pvalue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.5405406" vertical-offset="15" max-vertical-offset="675">
+          <caret line="39" column="107" selection-start-line="39" selection-start-column="107" selection-end-line="39" selection-end-column="107" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/FeatureSelector3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5462185" vertical-offset="2739" max-vertical-offset="5184">
+          <caret line="170" column="42" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/CUSUM_HotellingT.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="528" max-vertical-offset="2376">
+          <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+          <folding>
+            <element signature="e#150#168#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LocalExperiment/Statistics4.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.0688705" vertical-offset="1487" max-vertical-offset="5685">
-          <caret line="250" column="37" selection-start-line="250" selection-start-column="37" selection-end-line="250" selection-end-column="37" />
-          <folding />
+        <state vertical-scroll-proportion="-27.888283" vertical-offset="11014" max-vertical-offset="11381">
+          <caret line="41" column="38" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="38" />
+          <folding>
+            <element signature="e#196#215#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
