@@ -50,8 +50,8 @@ class SparseLDA:
             elas = ElasticNet(alpha=Flt_Lambda, l1_ratio=Flt_L1)
             #
             # # Compute Coefficient
-            B = lasso.fit(X=self.X, y= NewResp).coef_
-            # B = elas.fit(X=self.X, y= NewResp).coef_
+            # B = lasso.fit(X=self.X, y= NewResp).coef_
+            B = elas.fit(X=self.X, y= NewResp).coef_
             # print B
             #
             # New OptScore
@@ -67,6 +67,7 @@ class SparseLDA:
             else:
                 PrevB = B
 
+        # print B
         self.B = B 
 
 

@@ -117,7 +117,11 @@ class FeatureSelector(InControlConstruction):
         # ObjLDA = TwoClassFisherLDA(TrainingData=DictArrayMatrix_ForLDA)
 
         ### TRIAL ###
-        ObjLDA = SparseLDA(Dict_TrainingData=DictArrayMatrix_ForLDA, Flt_Lambda=0.3, Flt_L1=0.1)
+        a = 0.3
+        b = 0.3
+        alpha = a+b
+        L1Ratio = a / (a+b)
+        ObjLDA = SparseLDA(Dict_TrainingData=DictArrayMatrix_ForLDA, Flt_Lambda=alpha, Flt_L1=L1Ratio)
 
         # ObjectNewtonMethod = NewtonMethodLDA_Ver1.NewtonLDA(DictArrayMatrix_ForLDA)
         # Mat_LDAOperator = ObjLDA.LDAOperator()
@@ -217,7 +221,7 @@ class FeatureSelector(InControlConstruction):
 
     def LDAON_ReducedMeanComputation(self):
         # 이거 뭐 하는거지.
-        Array_TotalSum = np.zeros((1,64))
+        Array_TotalSum = np.zeros((1,256))
         Array_LDACoef = self.LDAON_LDAOperatorConstruction()
         Idx = 1
         for idx, key in enumerate(sorted(self.DictArray_TrainWCNormal)):

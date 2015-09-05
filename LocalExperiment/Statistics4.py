@@ -88,7 +88,7 @@ class ConstructStatistics(FeatureSelector):
             Pvalue = Obj.Compute_PValue(CusumStat)
             Pvalue = float(Pvalue)
 
-            print key, Stat, CusumStat, Pvalue, Threshold, MyPValue, self.Dict_TrainLabel[key]
+            # print key, Stat, CusumStat, Pvalue, Threshold, MyPValue, self.Dict_TrainLabel[key]
             Dict_KeyIdx_ValPval[key] = Pvalue
 
         return Dict_KeyIdx_ValPval
@@ -475,7 +475,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 203
+    IntRecordNum = 210
     IntRecordType = 0
     IntSeconds = 300
 

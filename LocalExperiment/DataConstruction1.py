@@ -133,14 +133,35 @@ class DataConstruction(Data_Preparation):
         for idx, key in enumerate(sorted(DictArray_TrainBeatNormal)):
             ObjWCs = Wavelet_Coefficient_Extractor(DictArray_TrainBeatNormal[key], Wavelet_Basis_Fun=self.StrWaveletBasis,Level=self.IntDecompLevel)
             ListWCs = ObjWCs.WaveDec()
-            DictArray_TrainWCNormal[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
-            DictArray_TrainWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
+            # DictArray_TrainWCNormal[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
+            # DictArray_TrainWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
+
+            # MAD 추정치
+            WaveletThreshold = np.sqrt(2 * np.log(256)) * (np.median(np.abs(np.array(ListWCs[4]) - np.median(ListWCs[4]))) / 0.6745)
+
+            WaveletCoefs = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            for idx in range(len(WaveletCoefs)):
+                if WaveletCoefs[idx] < WaveletThreshold:
+                    WaveletCoefs[idx] = 0.0
+            DictArray_TrainWCNormal[key] = WaveletCoefs
+            DictArray_TrainWC[key] = WaveletCoefs
+
+            # DictArray_TrainWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
 
         for idx, key in enumerate(sorted(DictArray_TrainBeatPVC)):
             ObjWCs = Wavelet_Coefficient_Extractor(DictArray_TrainBeatPVC[key], Wavelet_Basis_Fun=self.StrWaveletBasis,Level=self.IntDecompLevel)
             ListWCs = ObjWCs.WaveDec()
-            DictArray_TrainWCPVC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
-            DictArray_TrainWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
+            # DictArray_TrainWCPVC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
+            # DictArray_TrainWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
+            WaveletThreshold = np.sqrt(2 * np.log(256)) * (np.median(np.abs(np.array(ListWCs[4]) - np.median(ListWCs[4]))) / 0.6745)
+            WaveletCoefs = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            for idx in range(len(WaveletCoefs)):
+                if WaveletCoefs[idx] < WaveletThreshold:
+                    WaveletCoefs[idx] = 0.0
+            DictArray_TrainWCPVC[key] = WaveletCoefs
+            DictArray_TrainWC[key] = WaveletCoefs
+            # DictArray_TrainWCPVC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            # DictArray_TrainWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
 
         return DictArray_TrainWC, DictArray_TrainWCNormal, DictArray_TrainWCPVC, Dict_TrainWCLabel
 
@@ -154,7 +175,13 @@ class DataConstruction(Data_Preparation):
             # print TargetSignal.shape
             ObjWCs = Wavelet_Coefficient_Extractor(TargetSignal, Wavelet_Basis_Fun=self.StrWaveletBasis,Level=self.IntDecompLevel)
             ListWCs = ObjWCs.WaveDec()
-            DictArray_TestWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
+            WaveletThreshold = np.sqrt(2 * np.log(256)) * (np.median(np.abs(np.array(ListWCs[4]) - np.median(ListWCs[4]))) / 0.6745)
+            WaveletCoefs = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            for idx in range(len(WaveletCoefs)):
+                if WaveletCoefs[idx] < WaveletThreshold:
+                    WaveletCoefs[idx] = 0.0
+            # DictArray_TestWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            DictArray_TestWC[key] = WaveletCoefs
 
         return DictArray_TestWC, Dict_TestLabel
 
