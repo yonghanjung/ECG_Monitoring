@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 from Old.Compute_Fisher_Score.HansFisherScore import Fisher_Score_Compute
 from Old.Compute_Fisher_Score.HansFisherLDA import FisherLDA
 from Old.Compute_Fisher_Score.TwoClassFisherLDA import TwoClassFisherLDA
+from Class_SparseLDA import SparseLDA
 from Old.Compute_Fisher_Score import NewtonMethodLDA_Ver1
 
 ''' Function or Class '''
@@ -113,11 +114,17 @@ class FeatureSelector(InControlConstruction):
         DictArrayMatrix_ForLDA[1] = np.array(DictArrayMatrix_ForLDA[1])
         # ObjLDA = FisherLDA(TrainingData=DictArrayMatrix_ForLDA)
         # TwoClass
-        ObjLDA = TwoClassFisherLDA(TrainingData=DictArrayMatrix_ForLDA)
+        # ObjLDA = TwoClassFisherLDA(TrainingData=DictArrayMatrix_ForLDA)
+
+        ### TRIAL ###
+        ObjLDA = SparseLDA(Dict_TrainingData=DictArrayMatrix_ForLDA, Flt_Lambda=0.3, Flt_L1=0.1)
 
         # ObjectNewtonMethod = NewtonMethodLDA_Ver1.NewtonLDA(DictArrayMatrix_ForLDA)
         # Mat_LDAOperator = ObjLDA.LDAOperator()
-        Mat_LDAOperator = ObjLDA.ConstructW()
+
+        # Mat_LDAOperator = ObjLDA.ConstructW()
+        Mat_LDAOperator = ObjLDA.B
+
         # Mat_LDAOperator = ObjectNewtonMethod.GradientDescent()
         return Mat_LDAOperator
 

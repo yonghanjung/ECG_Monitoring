@@ -475,7 +475,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 233
+    IntRecordNum = 203
     IntRecordType = 0
     IntSeconds = 300
 
@@ -520,21 +520,21 @@ if __name__ == "__main__":
     # ObjConstructStatistics.StatisticsConstruction()
     K = 5
     Dict_CUSUM_Accuracy = ObjConstructStatistics.Compute_Accuracy_CUSUM(K=K)
-    print "-" * 50
-    print "CUSUM"
-    for idx, key in enumerate(sorted(Dict_CUSUM_Accuracy)):
-        if key == "Normal(G) as Normal":
-            print "Normal(G) as Normal", Dict_CUSUM_Accuracy[key]
-        elif key == "Normal(G) as VEB":
-            print "Normal(G) as VEB", Dict_CUSUM_Accuracy[key]
-        elif key == "VEB(G) as VEB":
-            print "VEB(G) as VEB", Dict_CUSUM_Accuracy[key]
-        elif key == "VEB(G) as Normal":
-            print "VEB(G) as Normal", Dict_CUSUM_Accuracy[key]
-
-    print ""
-    print "=" * 50
-    print ""
+    # print "-" * 50
+    # print "CUSUM"
+    # for idx, key in enumerate(sorted(Dict_CUSUM_Accuracy)):
+    #     if key == "Normal(G) as Normal":
+    #         print "Normal(G) as Normal", Dict_CUSUM_Accuracy[key]
+    #     elif key == "Normal(G) as VEB":
+    #         print "Normal(G) as VEB", Dict_CUSUM_Accuracy[key]
+    #     elif key == "VEB(G) as VEB":
+    #         print "VEB(G) as VEB", Dict_CUSUM_Accuracy[key]
+    #     elif key == "VEB(G) as Normal":
+    #         print "VEB(G) as Normal", Dict_CUSUM_Accuracy[key]
+    #
+    # print ""
+    # print "=" * 50
+    # print ""
 
     Dict_Accuracy, _ = ObjConstructStatistics.AccuracyComputation()
     print "-" * 50
@@ -549,21 +549,21 @@ if __name__ == "__main__":
         elif key == "VEB(G) as Normal":
             print "VEB(G) as Normal", Dict_Accuracy[key]
 
-    print "-" * 50
-    print "CUSUM"
-    for idx, key in enumerate(sorted(Dict_CUSUM_Accuracy)):
-        if key == "Normal(G) as Normal":
-            print "Normal(G) as Normal", Dict_CUSUM_Accuracy[key]
-        elif key == "Normal(G) as VEB":
-            print "Normal(G) as VEB", Dict_CUSUM_Accuracy[key]
-        elif key == "VEB(G) as VEB":
-            print "VEB(G) as VEB", Dict_CUSUM_Accuracy[key]
-        elif key == "VEB(G) as Normal":
-            print "VEB(G) as Normal", Dict_CUSUM_Accuracy[key]
-
-    print ""
-    print "=" * 50
-    print ""
+    # print "-" * 50
+    # print "CUSUM"
+    # for idx, key in enumerate(sorted(Dict_CUSUM_Accuracy)):
+    #     if key == "Normal(G) as Normal":
+    #         print "Normal(G) as Normal", Dict_CUSUM_Accuracy[key]
+    #     elif key == "Normal(G) as VEB":
+    #         print "Normal(G) as VEB", Dict_CUSUM_Accuracy[key]
+    #     elif key == "VEB(G) as VEB":
+    #         print "VEB(G) as VEB", Dict_CUSUM_Accuracy[key]
+    #     elif key == "VEB(G) as Normal":
+    #         print "VEB(G) as Normal", Dict_CUSUM_Accuracy[key]
+    #
+    # print ""
+    # print "=" * 50
+    # print ""
 
 
     # DictInt_Accuracy, DictFloat_Accuracy = ObjConstructStatistics.AccuracyComputation()
