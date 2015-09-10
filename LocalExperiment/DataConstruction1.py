@@ -191,7 +191,7 @@ class DataConstruction(Data_Preparation):
 
 
 if __name__ == "__main__":
-    IntRecordNum = 200
+    IntRecordNum = 119
     IntRecordType = 0
     IntSeconds = 300
 
@@ -204,24 +204,15 @@ if __name__ == "__main__":
     DictArrayTestBeat, DictArrayTestBeatNormal, DictArrayTestBeatPVC, DictArrayTestLabel = ObjDataConstruction.TestDataConstruction()
 
     plt.figure()
-    plt.title(str(IntRecordNum)+ " False")
-    # for idx, key in enumerate(sorted(DictArrayTrainBeatNormal)):
-    #     plt.plot(DictArrayTrainBeatNormal[key],'g')
-
-    # plt.figure()
-
-    for idx,key in enumerate(sorted(DictArrayTestBeat)):
-        if DictArrayTestLabel[key] == 'N' or DictArrayTestLabel[key] == 'L' or DictArrayTestLabel[key] == 'R' or DictArrayTestLabel[key] == 'e' or DictArrayTestLabel[key] =='j' :
-            plt.plot(DictArrayTestBeat[key], 'b')
-        elif DictArrayTestLabel[key] == 'A' or DictArrayTestLabel[key] == 'a' or DictArrayTestLabel[key] == 'S':
-        # elif DictArrayTestLabel[key] == 'V' or DictArrayTestLabel[key] == 'E':
-            plt.plot(DictArrayTestBeat[key], 'r')
-        elif DictArrayTestLabel[key] == 'V' or DictArrayTestLabel[key] == 'E':
-            plt.plot(DictArrayTestBeat[key], 'orange')
-    # plt.legend()
+    plt.title(str(IntRecordNum) + " ECG NORMAL ")
+    # plt.grid()
+    for idx, key in enumerate(sorted(DictArrayTrainBeatNormal)):
+        ECGBeat_Normal = DictArrayTrainBeatNormal[key]
+        plt.plot(ECGBeat_Normal,'b', label = "Normal")
+        break
+    for idx, key in enumerate(sorted(DictArrayTrainBeatPVC)):
+        ECGBeat_PVC = DictArrayTrainBeatPVC[key]
+        plt.plot(ECGBeat_PVC,'r--', label="PVC")
+        break
+    plt.legend()
     plt.show()
-
-    # DictArrayECG, DictArrayLabel = ObjDataConstruction.DataSegmentation()
-    # print ObjDataConstruction.Index_Loading()
-    # print DictArrayLabel.values()
-

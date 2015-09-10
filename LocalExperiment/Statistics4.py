@@ -343,15 +343,15 @@ class ConstructStatistics(FeatureSelector):
             # except:
             #     pass
 
-        DictInt_Accuracy['Normal(G) as VEB'] = Int_Type1_Error # Normal 을 VEB / SVEB 로
-        DictInt_Accuracy['Normal(G) as Normal'] = Int_Type1_Duzi # Normal 을 Normal 로
-        DictInt_Accuracy['VEB(G) as Normal'] = Int_Type2_Error # VEB / SVEB 를 Normal 로
-        DictInt_Accuracy['VEB(G) as VEB'] = Int_Type2_Duzi # VEB / SVEB 를 VEB/SVEB 로
+        DictInt_Accuracy['Normal(G) as VEB'] = Int_Type1_Error # Normal 을 VEB / SVEB 로 (FP)
+        DictInt_Accuracy['Normal(G) as Normal'] = Int_Type1_Duzi # Normal 을 Normal 로 (TN)
+        DictInt_Accuracy['VEB(G) as Normal'] = Int_Type2_Error # VEB / SVEB 를 Normal 로 (FN)
+        DictInt_Accuracy['VEB(G) as VEB'] = Int_Type2_Duzi # VEB / SVEB 를 VEB/SVEB 로 (TP)
         # DictInt_Accuracy['TotalBeat'] = Int_TotalTestPoint
         # DictInt_Accuracy['TotalError'] = Int_Type1_Error + Int_Type2_Error
 
-        Int_TP = Int_Type1_Duzi # Correctly detected beat (Normal as Normal)
-        Int_TN = Int_Type2_Duzi # Correctly rejected beat (PVC as PVC)
+        Int_TP = Int_Type2_Duzi # Correctly detected beat (Normal as Normal)
+        Int_TN = Int_Type1_Duzi # Correctly rejected beat (PVC as PVC)
         Int_FP = Int_Type1_Error # Falsely detected (Normal as PVC)
         Int_FN = Int_Type2_Error # Misssed beat (PVC as Normal)
 
@@ -475,7 +475,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 210
+    IntRecordNum = 100
     IntRecordType = 0
     IntSeconds = 300
 
@@ -539,15 +539,29 @@ if __name__ == "__main__":
     Dict_Accuracy, _ = ObjConstructStatistics.AccuracyComputation()
     print "-" * 50
     print "Hotelling T"
+
     for idx, key in enumerate(sorted(Dict_Accuracy)):
         if key == "Normal(G) as Normal":
-            print "Normal(G) as Normal", Dict_Accuracy[key]
+            print "Normal(G) as Normal", Dict_Accuracy[key] # TN
+            TN = Dict_Accuracy[key]
         elif key == "Normal(G) as VEB":
-            print "Normal(G) as VEB", Dict_Accuracy[key]
+            print "Normal(G) as VEB", Dict_Accuracy[key] # FP
+            FP = Dict_Accuracy[key]
         elif key == "VEB(G) as VEB":
-            print "VEB(G) as VEB", Dict_Accuracy[key]
+            print "VEB(G) as VEB", Dict_Accuracy[key] # TP
+            TP = Dict_Accuracy[key]
         elif key == "VEB(G) as Normal":
-            print "VEB(G) as Normal", Dict_Accuracy[key]
+            print "VEB(G) as Normal", Dict_Accuracy[key] # FN
+            FN = Dict_Accuracy[key]
+
+    print "-" * 50
+    print "Sensitivity", TP / float(TP + FN)
+    print "Specificity", TN / (float(TN + FP))
+    print "Positive Predictivity", TP / float(TP + FP)
+    print "False Positive Rate", FP / float(TN + FP)
+    print "Classification rate", (TP + TN) / float(TN + TP + FN + FP)
+
+
 
     # print "-" * 50
     # print "CUSUM"

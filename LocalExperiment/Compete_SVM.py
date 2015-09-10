@@ -127,7 +127,10 @@ class Competitive_SVM(FeatureSelector):
         Dict_Result['VEB(G) as VEB'] = VEBASVEB
         Dict_Result['VEB(G) as Normal'] = VEBASNormal
 
+
+
         return Dict_Result
+
 
 
 
@@ -142,7 +145,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 210
+    IntRecordNum = 233
     IntRecordType = 0
     IntSeconds = 300
 

@@ -17,9 +17,10 @@ from pybrain.utilities           import percentError
 from pybrain.tools.shortcuts     import buildNetwork
 from pybrain.structure           import TanhLayer
 from pybrain.supervised.trainers import BackpropTrainer
-from pybrain.structure.modules   import SoftmaxLayer
+from pybrain.structure.modules   import GaussianLayer
 ####
 from FeatureSelector3 import FeatureSelector
+from NeuralNetwork_RBF import RBF_NN
 
 ''' Function or Class '''
 
@@ -114,7 +115,7 @@ class Competitive_NN(FeatureSelector):
         print "Indim", NNData.indim
         # print NNData.outdim
         # print HiddenNum
-        NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, outclass = SoftmaxLayer)
+        NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, outclass = GaussianLayer)
         # NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, hiddenclass=TanhLayer)
         Trainer = BackpropTrainer(NNNetwork, dataset=NNData, verbose=False)
 
@@ -167,7 +168,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 210
+    IntRecordNum = 203
     IntRecordType = 0
     IntSeconds = 300
 
@@ -220,45 +221,25 @@ if __name__ == "__main__":
     ArrayMat_Test = np.reshape(ArrayMat_Test, (len(ArrayMat_Test),1))
     Y = np.array(Y)
 
-
-
-
-    # 여기서부터 Neural Network 적용
-    TrainNum, Dim = ArrayMat_Train.shape
-    NNData = ClassificationDataSet(Dim, 1)
-
-
-    for idx in range(len(Y)):
-        NNData.addSample(np.ravel(ArrayMat_Train[idx]), Y[idx])
-    NNData._convertToOneOfMany()
-    # NNData._convertToOneOfMany()
-    # HiddenNum = int(len(ArrayMat_Train)/ float(2 * (NNData.indim + NNData.outdim)))
-    HiddenNum = 64
-    print NNData.indim
-    print Dim
-    # print NNData.outdim
-    # print HiddenNum
-    NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, outclass = SoftmaxLayer)
-    # NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, hiddenclass=TanhLayer)
-    Trainer = BackpropTrainer(NNNetwork, dataset=NNData)
-
-    NNTest = ClassificationDataSet(Dim, 1)
-
-    for idx in range(len(TrueAnswer)):
-        # print np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx]
-        NNTest.addSample(np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx])
-    NNTest._convertToOneOfMany()
-    # trainer = BackpropTrainer( NNNetwork, dataset=NNData, momentum=0.1, learningrate=0.01 , verbose=True, weightdecay=0.01)
-    trainer = BackpropTrainer( NNNetwork, dataset=NNData)
-    # trainer.trainUntilConvergence( verbose = True, validationProportion = 0.15, maxEpochs = 1000, continueEpochs = 10 )
-    trainer.trainUntilConvergence(verbose=True, maxEpochs = 100)
-    MyAnswer = trainer.testOnClassData(dataset=NNTest)
+    indim = 1
+    outdim = 2
+    numCenters = 256
+    OBJ_RBF = RBF_NN(indim=indim, outdim=outdim, numCenters=numCenters)
+    OBJ_RBF.Train(X = ArrayMat_Train, Y=Y)
+    MyAns = OBJ_RBF.Test(X=ArrayMat_Test)
+    MyAnswer = list()
+    for ans in MyAns:
+        dist0 = np.abs(ans - 0)
+        dist1 = np.abs(ans - 1)
+        if dist0 < dist1 :
+            MyAnswer.append(0)
+        else:
+            MyAnswer.append(1)
 
     NormalAsNormal = 0
     NormalAsVEB = 0
     VEBASVEB = 0
     VEBASNormal = 0
-
     for a,b in zip(MyAnswer,TrueAnswer):
         if b ==0 and a == 0:
             NormalAsNormal+= 1
@@ -269,12 +250,82 @@ if __name__ == "__main__":
         elif a == 1 and b == 1 :
             VEBASVEB += 1
 
-    print "NeuralNet"
     print "Record", IntRecordNum
     print "Normal(G) as Normal" , NormalAsNormal
     print "Normal(G) as VEB" , NormalAsVEB
     print "VEB(G) as Normal", VEBASNormal
     print "VEB(G) as VEB", VEBASVEB
+
+
+
+
+
+    # 여기서부터 Neural Network 적용
+    # TrainNum, Dim = ArrayMat_Train.shape
+    # NNData = ClassificationDataSet(Dim, 1)
+    #
+    #
+    # for idx in range(len(Y)):
+    #     NNData.addSample(np.ravel(ArrayMat_Train[idx]), Y[idx])
+    # NNData._convertToOneOfMany()
+    # # NNData._convertToOneOfMany()
+    # # HiddenNum = int(len(ArrayMat_Train)/ float(2 * (NNData.indim + NNData.outdim)))
+    # HiddenNum = 2
+    # print NNData.indim
+    # print Dim
+    # # print NNData.outdim
+    # # print HiddenNum
+    # NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, outclass = GaussianLayer)
+    # # NNNetwork = buildNetwork(NNData.indim, HiddenNum, NNData.outdim, hiddenclass=TanhLayer)
+    # Trainer = BackpropTrainer(NNNetwork, dataset=NNData)
+    #
+    # NNTest = ClassificationDataSet(Dim, 1)
+    #
+    # for idx in range(len(TrueAnswer)):
+    #     # print np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx]
+    #     NNTest.addSample(np.ravel(ArrayMat_Test[idx]), TrueAnswer[idx])
+    # NNTest._convertToOneOfMany()
+    # # trainer = BackpropTrainer( NNNetwork, dataset=NNData, momentum=0.1, learningrate=0.01 , verbose=True, weightdecay=0.01)
+    # trainer = BackpropTrainer( NNNetwork, dataset=NNData)
+    # # trainer.trainUntilConvergence( verbose = True, validationProportion = 0.15, maxEpochs = 1000, continueEpochs = 10 )
+    # trainer.trainUntilConvergence(verbose=True, maxEpochs = 500)
+    # MyAnswer = trainer.testOnClassData(dataset=NNTest)
+    #
+    # NormalAsNormal = 0
+    # NormalAsVEB = 0
+    # VEBASVEB = 0
+    # VEBASNormal = 0
+    #
+    # for a,b in zip(MyAnswer,TrueAnswer):
+    #     if b ==0 and a == 0:
+    #         NormalAsNormal+= 1
+    #     elif b == 0 and a == 1:
+    #         NormalAsVEB += 1
+    #     elif a == 0 and b == 1:
+    #         VEBASNormal += 1
+    #     elif a == 1 and b == 1 :
+    #         VEBASVEB += 1
+    #
+    # TN = NormalAsNormal
+    # TP = VEBASVEB
+    # FP = NormalAsVEB
+    # FN = VEBASNormal
+    #
+    # print "NeuralNet"
+    # print "Record", IntRecordNum
+    # print "Normal(G) as Normal" , NormalAsNormal
+    # print "Normal(G) as VEB" , NormalAsVEB
+    # print "VEB(G) as Normal", VEBASNormal
+    # print "VEB(G) as VEB", VEBASVEB
+    # print "-" * 50
+    #
+    # print "Sensitivity", TP / float(TP + FN)
+    # print "Specificity", TN / (float(TN + FP))
+    # print "Positive Predictivity", TP / float(TP + FP)
+    # print "False Positive Rate", FP / float(TN + FP)
+    # print "Classification rate", (TP + TN) / float(TN + TP + FN + FP)
+
+
 
 
 
