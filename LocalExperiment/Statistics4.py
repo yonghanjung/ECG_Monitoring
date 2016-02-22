@@ -30,6 +30,7 @@ class ConstructStatistics(FeatureSelector):
         self.NumTrain = len(self.DictArray_TrainWC)
         self.NumTrain_Normal = len(self.DictArray_TrainWCNormal)
         self.NumTrain_VEB = len(self.DictArray_TrainWCPVC)
+        self.alpha = Threshold
 
 
 
@@ -55,72 +56,72 @@ class ConstructStatistics(FeatureSelector):
         # self.LDAON_FisherScore, self.LDAON_NumSelected, self.LDAOFF_IdxFeatureSelected  = self.LDAON_FisherScoreComputation()
 
     # CUSUM Threshold 를 어떻게 계산하느냐는 문제
-    def CUSUM_PValue(self, K):
-        from CUSUM_HotellingT import CUSUM_HotellingT
-        Obj = CUSUM_HotellingT(K)
-        Alpha_VEB, Threshold = self.Compute_PValue()
-        MyPValue = Obj.Compute_PValue(Threshold)
-        # Threshold = Obj.Compute_AlphaThreshold(90)
-        # Normal 일 때, statistics, p-value, CDF 를 계산한다.
-        # Abnormal 일 때 statistics, p-value, CDF 를 계산한다.
-
-        Array_ReducedMean = self.LDAON_ReducedMeanComputation() # MuW
-        Array_ReducedMean = Array_ReducedMean[0]
-        Matrix_ReducedCov = self.LDAON_ReducedCoVarComputation() # wTAW
-        # Matrix_ReducedCov = Matrix_ReducedCov[0]
-
-        # Key : record, Val : 1dim
-        DictArray_TrainWC_LDA = self.LDAON_TrainWCConstruction()
-        List_EachStat = list()
-        Dict_KeyIdx_ValPval = dict()
-
-        for idx, key in enumerate(sorted(DictArray_TrainWC_LDA)):
-            Val = DictArray_TrainWC_LDA[key] # 1 Dim
-            # Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_TempNumFeatureSelected]]
-            Val = np.array(Val)
-            Val = np.array(Val - Array_ReducedMean)
-
-            NewVal = Val * (Matrix_ReducedCov**(-1)) * Val.T # Log likelihood statistics
-            Stat = np.squeeze(np.asarray(NewVal))
-            List_EachStat.append(Stat)
-            CusumStat = np.sum(List_EachStat[-K:])
-
-            Pvalue = Obj.Compute_PValue(CusumStat)
-            Pvalue = float(Pvalue)
-
-            # print key, Stat, CusumStat, Pvalue, Threshold, MyPValue, self.Dict_TrainLabel[key]
-            Dict_KeyIdx_ValPval[key] = Pvalue
-
-        return Dict_KeyIdx_ValPval
-
-    def Construct_CUSUMStat_Test(self, K):
-        DictFloat_Stat = dict()
-        Alpha_VEB, Threshold = self.Compute_PValue()
-        # List_FisherScoreForFeatures, Int_NumFeatureSelected, List_IdxFeatureSelected = self.LDAON_FisherScoreComputation()
-        Array_ReducedMean = self.LDAON_ReducedMeanComputation() # MuW
-        Array_ReducedMean = Array_ReducedMean[0]
-        Matrix_ReducedCov = self.LDAON_ReducedCoVarComputation() # wTAW
-        # Matrix_ReducedCov = Matrix_ReducedCov[0]
-
-        # Key : record, Val : 1dim
-        DictArray_TestWC_LDA = self.LDAON_TestWCConstruction()
-        List_EachStat = list()
-
-        for idx, key in sorted(enumerate(DictArray_TestWC_LDA)):
-            Val = DictArray_TestWC_LDA[key] # 1 Dim
-            # Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_TempNumFeatureSelected]]
-            Val = np.array(Val)
-            Val = np.array(Val - Array_ReducedMean)
-
-            NewVal = Val * (Matrix_ReducedCov**(-1)) * Val.T # Log likelihood statistics
-            Stat = np.squeeze(np.asarray(NewVal))
-            List_EachStat.append(Stat)
-            CusumStat = np.sum(List_EachStat[-K:])
-            # print "Stat", self.Dict_TestLabel[key], NewVal, "CUSUM Stat", CusumStat
-            DictFloat_Stat[key] = CusumStat
-            if CusumStat > Threshold:
-                List_EachStat = list()
-        return DictFloat_Stat
+    # def CUSUM_PValue(self, K):
+    #     from CUSUM_HotellingT import CUSUM_HotellingT
+    #     Obj = CUSUM_HotellingT(K)
+    #     Alpha_VEB, Threshold = self.Compute_PValue()
+    #     MyPValue = Obj.Compute_PValue(Threshold)
+    #     # Threshold = Obj.Compute_AlphaThreshold(90)
+    #     # Normal 일 때, statistics, p-value, CDF 를 계산한다.
+    #     # Abnormal 일 때 statistics, p-value, CDF 를 계산한다.
+    #
+    #     Array_ReducedMean = self.LDAON_ReducedMeanComputation() # MuW
+    #     Array_ReducedMean = Array_ReducedMean[0]
+    #     Matrix_ReducedCov = self.LDAON_ReducedCoVarComputation() # wTAW
+    #     # Matrix_ReducedCov = Matrix_ReducedCov[0]
+    #
+    #     # Key : record, Val : 1dim
+    #     DictArray_TrainWC_LDA = self.LDAON_TrainWCConstruction()
+    #     List_EachStat = list()
+    #     Dict_KeyIdx_ValPval = dict()
+    #
+    #     for idx, key in enumerate(sorted(DictArray_TrainWC_LDA)):
+    #         Val = DictArray_TrainWC_LDA[key] # 1 Dim
+    #         # Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_TempNumFeatureSelected]]
+    #         Val = np.array(Val)
+    #         Val = np.array(Val - Array_ReducedMean)
+    #
+    #         NewVal = Val * (Matrix_ReducedCov**(-1)) * Val.T # Log likelihood statistics
+    #         Stat = np.squeeze(np.asarray(NewVal))
+    #         List_EachStat.append(Stat)
+    #         CusumStat = np.sum(List_EachStat[-K:])
+    #
+    #         Pvalue = Obj.Compute_PValue(CusumStat)
+    #         Pvalue = float(Pvalue)
+    #
+    #         # print key, Stat, CusumStat, Pvalue, Threshold, MyPValue, self.Dict_TrainLabel[key]
+    #         Dict_KeyIdx_ValPval[key] = Pvalue
+    #
+    #     return Dict_KeyIdx_ValPval
+    #
+    # def Construct_CUSUMStat_Test(self, K):
+    #     DictFloat_Stat = dict()
+    #     Alpha_VEB, Threshold = self.Compute_PValue()
+    #     # List_FisherScoreForFeatures, Int_NumFeatureSelected, List_IdxFeatureSelected = self.LDAON_FisherScoreComputation()
+    #     Array_ReducedMean = self.LDAON_ReducedMeanComputation() # MuW
+    #     Array_ReducedMean = Array_ReducedMean[0]
+    #     Matrix_ReducedCov = self.LDAON_ReducedCoVarComputation() # wTAW
+    #     # Matrix_ReducedCov = Matrix_ReducedCov[0]
+    #
+    #     # Key : record, Val : 1dim
+    #     DictArray_TestWC_LDA = self.LDAON_TestWCConstruction()
+    #     List_EachStat = list()
+    #
+    #     for idx, key in sorted(enumerate(DictArray_TestWC_LDA)):
+    #         Val = DictArray_TestWC_LDA[key] # 1 Dim
+    #         # Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_TempNumFeatureSelected]]
+    #         Val = np.array(Val)
+    #         Val = np.array(Val - Array_ReducedMean)
+    #
+    #         NewVal = Val * (Matrix_ReducedCov**(-1)) * Val.T # Log likelihood statistics
+    #         Stat = np.squeeze(np.asarray(NewVal))
+    #         List_EachStat.append(Stat)
+    #         CusumStat = np.sum(List_EachStat[-K:])
+    #         # print "Stat", self.Dict_TestLabel[key], NewVal, "CUSUM Stat", CusumStat
+    #         DictFloat_Stat[key] = CusumStat
+    #         if CusumStat > Threshold:
+    #             List_EachStat = list()
+    #     return DictFloat_Stat
 
     def Compute_PValue(self):
         # Only assume LDA Applying
@@ -134,6 +135,7 @@ class ConstructStatistics(FeatureSelector):
         # 1 ~ 1.5 Fisher LDA to Abnormal
         DictFloat_VEB = self.LDAON_TrainWCPVCConstruction()
         DictFloat_Normal = self.LDAON_TrainWCNormalConstruction()
+        DictFloat_Test = self.LDAON_TestWCConstruction()
 
         # 필요한 parameter 들
         Array_ReducedMean = self.LDAON_ReducedMeanComputation() # MuW
@@ -153,9 +155,12 @@ class ConstructStatistics(FeatureSelector):
         List_Stat_VEB = list()
         List_PValue_Normal = list()
         List_Stat_Normal = list()
+        List_PValue_Test = list()
+        # Dict_FloatStat = self.StatisticsConstruction()
 
-        for idx, key in sorted(enumerate(DictFloat_VEB)):
-            Val = DictFloat_VEB[key] # 1 Dim
+
+        for idx, key in sorted(enumerate(DictFloat_Test)):
+            Val = DictFloat_Test[key] # 1 Dim
             # Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_TempNumFeatureSelected]]
             Val = np.array(Val)
             Val = np.array(Val - Array_ReducedMean)
@@ -168,39 +173,61 @@ class ConstructStatistics(FeatureSelector):
             PValue = 1 - f.cdf(Stat, 1, N)
             # print "P value", PValue * 100, "%", "Stat", Stat
 
-            List_Stat_VEB.append(Stat)
-            List_PValue_VEB.append(PValue)
+            # List_Stat_VEB.append(Stat)
+            # List_PValue_VEB.append(PValue)
+            List_PValue_Test.append(PValue)
 
-        for idx, key in sorted(enumerate(DictFloat_Normal)):
-            Val = DictFloat_Normal[key] # 1 Dim
-            # Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_TempNumFeatureSelected]]
-            Val = np.array(Val)
-            Val = np.array(Val - Array_ReducedMean)
 
-            # 2. Statistics 를 계산한다.
-            NewVal = Val * (Matrix_ReducedCov**(-1)) * Val.T
-            Stat = np.squeeze(np.asarray(NewVal))
-            Stat /= C # 이건 F_statistics
 
-            PValue = 1 - f.cdf(Stat, 1, N)
-            # print "P value", PValue * 100, "%", "Stat", Stat
+        #
+        # for idx, key in sorted(enumerate(DictFloat_VEB)):
+        #     Val = DictFloat_VEB[key] # 1 Dim
+        #     # Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_TempNumFeatureSelected]]
+        #     Val = np.array(Val)
+        #     Val = np.array(Val - Array_ReducedMean)
+        #
+        #     # 2. Statistics 를 계산한다.
+        #     NewVal = Val * (Matrix_ReducedCov**(-1)) * Val.T
+        #     Stat = np.squeeze(np.asarray(NewVal))
+        #     Stat /= C # 이건 F_statistics
+        #
+        #     PValue = 1 - f.cdf(Stat, 1, N)
+        #     # print "P value", PValue * 100, "%", "Stat", Stat
+        #
+        #     List_Stat_VEB.append(Stat)
+        #     List_PValue_VEB.append(PValue)
+        #
+        # for idx, key in sorted(enumerate(DictFloat_Normal)):
+        #     Val = DictFloat_Normal[key] # 1 Dim
+        #     # Val = DictArray_TestWC_LDA[key][List_IdxFeatureSelected[:Int_TempNumFeatureSelected]]
+        #     Val = np.array(Val)
+        #     Val = np.array(Val - Array_ReducedMean)
+        #
+        #     # 2. Statistics 를 계산한다.
+        #     NewVal = Val * (Matrix_ReducedCov**(-1)) * Val.T
+        #     Stat = np.squeeze(np.asarray(NewVal))
+        #     Stat /= C # 이건 F_statistics
+        #
+        #     PValue = 1 - f.cdf(Stat, 1, N)
+        #     # print "P value", PValue * 100, "%", "Stat", Stat
+        #
+        #     List_Stat_Normal.append(Stat)
+        #     List_PValue_Normal.append(PValue)
 
-            List_Stat_Normal.append(Stat)
-            List_PValue_Normal.append(PValue)
-
-        CUTQuantile_VEB = 0
+        # CUTQuantile_VEB = 0
         # print C * np.percentile(List_Stat, CUTQuantile) , np.percentile(List_Stat, CUTQuantile), f.cdf(np.percentile(List_Stat, CUTQuantile),1,N)
-        Alpha_VEB = f.cdf(np.percentile(List_Stat_VEB, CUTQuantile_VEB),1,N)
-        PValue = 1-Alpha_VEB
-        Threshold = C * np.percentile(List_Stat_VEB, CUTQuantile_VEB)
+        # Alpha_VEB = f.cdf(np.percentile(List_Stat_VEB, CUTQuantile_VEB),1,N)
+        # PValue = 1-Alpha_VEB
+        # Threshold = C * np.percentile(List_Stat_VEB, CUTQuantile_VEB)
+        #
+        # print "Normal Max Quantile", f.cdf(np.percentile(List_Stat_Normal, 100), 1, N)
+        # print "Pvalue Normal", 1 - f.cdf(np.percentile(List_Stat_Normal, 100), 1, N)
+        #
+        # print "Alpha", Alpha_VEB
+        # print "PValue VEB", PValue
 
-        print "Normal Max Quantile", f.cdf(np.percentile(List_Stat_Normal, 100), 1, N)
-        print "Pvalue Normal", 1 - f.cdf(np.percentile(List_Stat_Normal, 100), 1, N)
-
-        print "Alpha", Alpha_VEB
-        print "PValue VEB", PValue
-
-        return Alpha_VEB, Threshold
+        # return Alpha_VEB, Threshold
+        return List_PValue_Test
 
 
 
@@ -255,14 +282,14 @@ class ConstructStatistics(FeatureSelector):
         #     # S = self.LDAON_NumSelected
         #     # S = self.LDAOFF_NumSelected
         # S = self.LDAOFF_NumSelected
-        Alpha, Threshold = self.Compute_PValue()
-        # S = 1
-        # N = self.Int_NumTrainNormal
+        # Alpha, Threshold = self.Compute_PValue()
+        S = 1
+        N = self.Int_NumTrainNormal
         # print "Total Num", N
         # Alpha = self.Compute_PValue()
-        return Threshold
+        # return Threshold
         # return (S*((N-1)**2) * f.ppf(Alpha, S, N-S)) / (N*(N-S))
-        # return (S*((N-1)**2) * f.ppf(self.alpha, S, N-S)) / (N*(N-S))
+        return (S*((N-1)**2) * f.ppf(self.alpha, S, N-S)) / (N*(N-S))
 
     def Compute_Accuracy_CUSUM(self, K):
         DictFloat_CUSUMStat = self.Construct_CUSUMStat_Test(K)
@@ -304,6 +331,7 @@ class ConstructStatistics(FeatureSelector):
 
 
 
+    # def Compute_PValue
 
     def AccuracyComputation(self):
         DictFloat_Stat = self.StatisticsConstruction()
@@ -475,19 +503,20 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 100
-    IntRecordType = 0
-    IntSeconds = 300
+    IntRecordNum = 219
+    IntRecordType = 1
+    IntSeconds = 60*5
 
     BoolLDAorNOT = True
+    alphalevel = 0.05
     # BoolLDAorNOT = False
 
     if BoolLDAorNOT == True:
-        FltThreshold = 0.99
+        FltThreshold = 1-alphalevel
     else:
         FltThreshold = 0.8
     IntDecompLevel = 4
-    Threshold = 11
+    # Threshold = 11
 
     StrWaveletBasis = 'db8'
 
@@ -513,13 +542,13 @@ if __name__ == "__main__":
     print "My Algorithm"
     print IntRecordNum
     # DictFloat_CUSUM = ObjConstructStatistics.Construct_CUSUMStat(K=K, Threshold=Threshold)
-    ObjConstructStatistics.Compute_PValue()
+    # ObjConstructStatistics.Compute_PValue()
     print ""
     print ""
     # print ObjConstructStatistics.CUSUM_PValue(5)
     # ObjConstructStatistics.StatisticsConstruction()
     K = 5
-    Dict_CUSUM_Accuracy = ObjConstructStatistics.Compute_Accuracy_CUSUM(K=K)
+    # Dict_CUSUM_Accuracy = ObjConstructStatistics.Compute_Accuracy_CUSUM(K=K)
     # print "-" * 50
     # print "CUSUM"
     # for idx, key in enumerate(sorted(Dict_CUSUM_Accuracy)):
@@ -535,11 +564,21 @@ if __name__ == "__main__":
     # print ""
     # print "=" * 50
     # print ""
+    # MatOp = ObjConstructStatistics.LDAON_LDAOperatorConstruction()
+    # for val in MatOp:
+    #     print val
+
+
 
     Dict_Accuracy, _ = ObjConstructStatistics.AccuracyComputation()
+    List_Pvalue = ObjConstructStatistics.Compute_PValue()
     print "-" * 50
-    print "Hotelling T"
+    # print "Hotelling T"
+    for idx,elem in enumerate(List_Pvalue):
+        print idx, elem
 
+    print ""
+    print IntRecordNum
     for idx, key in enumerate(sorted(Dict_Accuracy)):
         if key == "Normal(G) as Normal":
             print "Normal(G) as Normal", Dict_Accuracy[key] # TN
@@ -558,8 +597,8 @@ if __name__ == "__main__":
     print "Sensitivity", TP / float(TP + FN)
     print "Specificity", TN / (float(TN + FP))
     print "Positive Predictivity", TP / float(TP + FP)
-    print "False Positive Rate", FP / float(TN + FP)
-    print "Classification rate", (TP + TN) / float(TN + TP + FN + FP)
+    # print "False Positive Rate", FP / float(TN + FP)
+    print "Accuracy", (TP + TN) / float(TN + TP + FN + FP)
 
 
 
@@ -598,7 +637,7 @@ if __name__ == "__main__":
     #
     # print len(ObjConstructStatistics.DictArray_TrainWCNormal)
 
-    # ObjConstructStatistics.StatPlot()
+    ObjConstructStatistics.StatPlot()
 
 
 

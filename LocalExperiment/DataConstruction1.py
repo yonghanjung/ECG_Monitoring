@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from KalmanFilter_NoiseReduction_Ver0 import HansKalmanFilter
+from matplotlib.collections import LineCollection
+
 ''' Function or Class '''
 
 
@@ -22,7 +24,8 @@ class DataConstruction(Data_Preparation):
     def __init__(self, RecordNum, RecordType, Seconds, StrWaveletBasis, IntDecompLevel):
         ## Data Load
         Data_Preparation.__init__(self, RecordNum, RecordType)
-        self.Sampling_rate = 360
+        # self.Sampling_rate = 360
+        self.Sampling_rate = 50
         self.SecondsToSample = Seconds * self.Sampling_rate
         self.StrWaveletBasis = StrWaveletBasis
         self.IntDecompLevel = IntDecompLevel
@@ -37,6 +40,24 @@ class DataConstruction(Data_Preparation):
             DictArrayECG[key] = np.array(DictECGSegment[key])
         # Key : ECGSegmentIdx, Val : ListEachBeat
         return DictArrayECG,DictECGSegmentLabel
+
+    def SoftThreshold(self,X, Threshold):
+        ResultList = list()
+        for elem in X:
+            if elem < 0:
+                sgn = -1
+            else:
+                sgn = 1
+            val = np.abs(elem) - Threshold
+            # val *= sgn
+            if val > 0:
+                val *= sgn
+                ResultList.append(val)
+            else:
+                # print "ho"
+                ResultList.append(0.0)
+        return np.asarray(ResultList)
+
 
     def TrainDataConstruction(self):
         DictArrayECGBeat, DictECGLabel = self.DataSegmentation()
@@ -139,10 +160,13 @@ class DataConstruction(Data_Preparation):
             # MAD 추정치
             WaveletThreshold = np.sqrt(2 * np.log(256)) * (np.median(np.abs(np.array(ListWCs[4]) - np.median(ListWCs[4]))) / 0.6745)
 
-            WaveletCoefs = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
-            for idx in range(len(WaveletCoefs)):
-                if WaveletCoefs[idx] < WaveletThreshold:
-                    WaveletCoefs[idx] = 0.0
+            # WaveletCoefs = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            # for idx in range(1,len(WaveletCoefs)):
+            #     if WaveletCoefs[idx] < WaveletThreshold:
+            #         WaveletCoefs[idx] = 0.0
+            DetailedCoefs = np.concatenate([ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            NoiseRemoved = self.SoftThreshold(DetailedCoefs, WaveletThreshold)
+            WaveletCoefs = np.concatenate([ListWCs[0], NoiseRemoved])
             DictArray_TrainWCNormal[key] = WaveletCoefs
             DictArray_TrainWC[key] = WaveletCoefs
 
@@ -154,10 +178,13 @@ class DataConstruction(Data_Preparation):
             # DictArray_TrainWCPVC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
             # DictArray_TrainWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2]])
             WaveletThreshold = np.sqrt(2 * np.log(256)) * (np.median(np.abs(np.array(ListWCs[4]) - np.median(ListWCs[4]))) / 0.6745)
-            WaveletCoefs = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
-            for idx in range(len(WaveletCoefs)):
-                if WaveletCoefs[idx] < WaveletThreshold:
-                    WaveletCoefs[idx] = 0.0
+            # WaveletCoefs = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            # for idx in range(1,len(WaveletCoefs)):
+            #     if WaveletCoefs[idx] < WaveletThreshold:
+            #         WaveletCoefs[idx] = 0.0
+            DetailedCoefs = np.concatenate([ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            NoiseRemoved = self.SoftThreshold(DetailedCoefs, WaveletThreshold)
+            WaveletCoefs = np.concatenate([ListWCs[0], NoiseRemoved])
             DictArray_TrainWCPVC[key] = WaveletCoefs
             DictArray_TrainWC[key] = WaveletCoefs
             # DictArray_TrainWCPVC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
@@ -176,10 +203,20 @@ class DataConstruction(Data_Preparation):
             ObjWCs = Wavelet_Coefficient_Extractor(TargetSignal, Wavelet_Basis_Fun=self.StrWaveletBasis,Level=self.IntDecompLevel)
             ListWCs = ObjWCs.WaveDec()
             WaveletThreshold = np.sqrt(2 * np.log(256)) * (np.median(np.abs(np.array(ListWCs[4]) - np.median(ListWCs[4]))) / 0.6745)
-            WaveletCoefs = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
-            for idx in range(len(WaveletCoefs)):
-                if WaveletCoefs[idx] < WaveletThreshold:
-                    WaveletCoefs[idx] = 0.0
+
+            # NoiseRemoved = self.SoftThreshold(DetailedCoefs, WaveletThreshold)
+            # WaveletCoefs = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            DetailedCoefs = np.concatenate([ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
+            NoiseRemoved = self.SoftThreshold(DetailedCoefs, WaveletThreshold)
+            WaveletCoefs = np.concatenate([ListWCs[0], NoiseRemoved])
+
+            # for idx in range(1,len(WaveletCoefs)):
+            #     LevelWaveletCoef = WaveletCoefs[idx]
+            #     SoftThresholdedCoef = self.SoftThreshold(LevelWaveletCoef, WaveletThreshold)
+            #     np.abs(WaveCoef) - WaveletThreshold
+
+                # if WaveletCoefs[idx] < WaveletThreshold:
+                #     WaveletCoefs[idx] = 0.0
             # DictArray_TestWC[key] = np.concatenate([ListWCs[0], ListWCs[1], ListWCs[2], ListWCs[3], ListWCs[4]])
             DictArray_TestWC[key] = WaveletCoefs
 
@@ -191,7 +228,7 @@ class DataConstruction(Data_Preparation):
 
 
 if __name__ == "__main__":
-    IntRecordNum = 119
+    IntRecordNum = 213
     IntRecordType = 0
     IntSeconds = 300
 
@@ -203,16 +240,30 @@ if __name__ == "__main__":
     DictArray_TrainWC, DictArray_TrainWCNormal, DictArray_TrainWCPVC, Dict_TrainWCLabel = ObjDataConstruction.TrainWCConstruction()
     DictArrayTestBeat, DictArrayTestBeatNormal, DictArrayTestBeatPVC, DictArrayTestLabel = ObjDataConstruction.TestDataConstruction()
 
-    plt.figure()
-    plt.title(str(IntRecordNum) + " ECG NORMAL ")
-    # plt.grid()
+    fig, ax = plt.subplots(2, sharex=True)
+    ax[0].set_title('Normal beats of ' + str(IntRecordNum) + " record").set_fontsize(30)
+    # ax[0].grid()
+
+    Avg_Normal = np.mean(DictArrayTrainBeatNormal.values(),axis=0)
+    Domain = np.linspace(0,len(Avg_Normal), len(Avg_Normal))
+
+    # lc = LineCollection(np.concatenate([Domain,Avg_Normal], axis=1),linewidths=10, colors='blue')
+
     for idx, key in enumerate(sorted(DictArrayTrainBeatNormal)):
         ECGBeat_Normal = DictArrayTrainBeatNormal[key]
-        plt.plot(ECGBeat_Normal,'b', label = "Normal")
-        break
+        ax[0].plot(ECGBeat_Normal,'b')
+        # break
+    ax[0].plot(Avg_Normal,color = 'yellow',linewidth=4.0)
+    plt.setp(ax[0].get_yticklabels(),visible=False)
+
+    ax[1].set_title('PVC beats of ' + str(IntRecordNum) + " record" ).set_fontsize(30)
+    # ax[1].grid()
     for idx, key in enumerate(sorted(DictArrayTrainBeatPVC)):
         ECGBeat_PVC = DictArrayTrainBeatPVC[key]
-        plt.plot(ECGBeat_PVC,'r--', label="PVC")
-        break
-    plt.legend()
+        ax[1].plot(ECGBeat_PVC,'r')
+        # break
+    plt.setp(ax[1].get_yticklabels(),visible=False)
+    plt.setp(ax[1].get_xticklabels(),fontsize=15)
+    ax[1].set_xlabel('Data point index').set_fontsize(20)
+
     plt.show()

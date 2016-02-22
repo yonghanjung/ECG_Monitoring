@@ -168,7 +168,7 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 203
+    IntRecordNum = 233
     IntRecordType = 0
     IntSeconds = 300
 
@@ -250,6 +250,7 @@ if __name__ == "__main__":
         elif a == 1 and b == 1 :
             VEBASVEB += 1
 
+    print "Neural network"
     print "Record", IntRecordNum
     print "Normal(G) as Normal" , NormalAsNormal
     print "Normal(G) as VEB" , NormalAsVEB

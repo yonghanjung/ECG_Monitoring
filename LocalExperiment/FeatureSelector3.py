@@ -117,10 +117,12 @@ class FeatureSelector(InControlConstruction):
         # ObjLDA = TwoClassFisherLDA(TrainingData=DictArrayMatrix_ForLDA)
 
         ### TRIAL ###
-        a = 0.3
-        b = 0.3
+        a = 0.7
+        b = 0.5
         alpha = a+b
         L1Ratio = a / (a+b)
+        # a = L1
+        # b = L2
         ObjLDA = SparseLDA(Dict_TrainingData=DictArrayMatrix_ForLDA, Flt_Lambda=alpha, Flt_L1=L1Ratio)
 
         # ObjectNewtonMethod = NewtonMethodLDA_Ver1.NewtonLDA(DictArrayMatrix_ForLDA)
@@ -130,6 +132,7 @@ class FeatureSelector(InControlConstruction):
         Mat_LDAOperator = ObjLDA.B
 
         # Mat_LDAOperator = ObjectNewtonMethod.GradientDescent()
+        # print Mat_LDAOperator
         return Mat_LDAOperator
 
     def LDAON_TrainWCNormalConstruction(self):
