@@ -24,6 +24,7 @@ AAMI_NonNormal= ['V','E','A','a','J','S']
 AAMI_Total_label = AAMI_Normal + AAMI_NonNormal
 
 ''' Control variables '''
+record_idx = 119 # from LongTerm_idx, INCART_idx, or MITBIH_idx
 alpha = 0.01  # [0.5,0.25,0.1,0.05,0.01,0.0023]
 time_training = 300 # [240,180,120,60]
 
@@ -36,8 +37,6 @@ SVM_switch = True # if False, then SVM is not run in this program
 plot_switch = False # if False, the plot for SPM is not drawn
 
 ''' 1. Reading ECG records and segmenting by beats '''
-record_idx = 119 # from LongTerm_idx, INCART_idx, or MITBIH_idx
-
 sampling_rate_MITBIH = 360. # MIT BIH
 sampling_rate_INCART = 257. # INCART
 sampling_rate_LongTerm = 128. # LONG
@@ -111,8 +110,8 @@ UCL = Computing_UCL(len(dict_train_wc_normal),alpha)
 
 ''' 6. Evaluating accuracy by counting right and wrongly classified beats '''
 if SPM_switch:
-    print("Evaluating wavelet-based SPM...")
-    print("Performance of SPM for record number " + str(record_idx) + " in " + data_name)
+    print("")
+    print("Evaluating of wavelet-based SPM for record number " + str(record_idx) + " in " + data_name)
     DictInt_Accuracy = Evaluating_Performance_SPM(dict_test_T2stat, dict_test_label,UCL,AAMI_Normal,AAMI_PVC)
     for idx,key in enumerate(sorted(DictInt_Accuracy)):
         print key, DictInt_Accuracy[key]
@@ -120,7 +119,7 @@ if SPM_switch:
 ''' Competiting method: NN '''
 if NeuralNetwork_switch:
     print ""
-    print("Evaluating Neural network...")
+    print("Evaluating Neural network for record number " + str(record_idx) + " in " + data_name)
     from pybrain.datasets import SupervisedDataSet
     from pybrain.tools.shortcuts import buildNetwork
     from pybrain.supervised.trainers import BackpropTrainer
@@ -161,7 +160,8 @@ if NeuralNetwork_switch:
 
 ''' Competiting method: SVM '''
 if SVM_switch:
-    print("Evaluating SVM...")
+    print("")
+    print("Evaluating SVM for record number "+ str(record_idx) + " in " + data_name)
     from sklearn.svm import SVC
     X = list()
     y = list()
@@ -189,8 +189,6 @@ if SVM_switch:
         else:
             SVM_ans_dict[key] = 'V'
 
-    print ""
-    print("Result_SVM")
     SVM_accracy_dict = Evaluating_Performance_SVM_NN(SVM_ans_dict,dict_test_label)
     for idx,key in enumerate(sorted(SVM_accracy_dict)):
         print key, SVM_accracy_dict[key]
