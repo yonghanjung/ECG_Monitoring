@@ -4,11 +4,11 @@ from sklearn.linear_model import ElasticNet
 class SDA:
     def __init__(self, dict_train, Flt_Lambda, Flt_L1):
         '''
-
+        Implementing Algorithm 1 in Sparse Discriminant Analysis (Clemenson), 2012, Technometrics
         :param dict_train: dictionary of training data (key: 0 - normal / 1 - PVC)
         :param Flt_Lambda: L2 penalty value
         :param Flt_L1: L1
-        :return:
+        :return: sparse discriminant vector 
         '''
         self.mat_wc_normal = dict_train[0] # N by 256 matrix
         self.mat_wc_PVC = dict_train[1] # V by 256 matrix
@@ -25,43 +25,40 @@ class SDA:
         self.Q = np.ones((2,1))
 
         np.random.seed(123)
-        InitialTheta = np.random.random(2)
         I = np.eye(2)
-        Theta = np.dot(I - np.dot(np.dot(self.Q, np.transpose(self.Q)), self.D ), InitialTheta)
-        Theta /= np.sqrt(np.dot(np.dot(np.transpose(Theta), self.D), Theta))
+        for k in range(1):
+            theta_initial = np.random.random(2)
+            # 4-(a) in Algorithm 1 in Sparse Discriminant Analysis (2012) by Clemenson, Tehcnometrics
+            theta = np.dot(I - np.dot(np.dot(self.Q, np.transpose(self.Q)), self.D ), theta_initial)
+            theta /= np.sqrt(np.dot(np.dot(np.transpose(theta), self.D), theta)) # normalize
 
-        MaxIter = 10000
-        PrevTheta = InitialTheta
-        PrevB = np.ones(self.dim)
-        for idx in range(MaxIter):
-            NewResp = np.dot(self.Y, Theta)
-            elas = ElasticNet(alpha=Flt_Lambda, l1_ratio=Flt_L1)
-            #
-            # # Compute Coefficient
-            # B = lasso.fit(X=self.X, y= NewResp).coef_
-            B = elas.fit(X=self.X, y= NewResp).coef_
+            iteration_num = 10000
+            beta_prev = np.random.random(self.dim)
+            # 4-(b)
+            for idx in range(iteration_num):
+                response = np.dot(self.Y, theta)
+                elas = ElasticNet(alpha=Flt_Lambda, l1_ratio=Flt_L1) # alpha * l1_ration = lambda // 0.5 * alpha * (1 - l1_ratio) = gamma
+                beta = elas.fit(X=self.X, y= response).coef_
+
+                theta_factor_1 = I - np.dot(np.dot(self.Q, np.transpose(self.Q)),self.D)
+                theta_factor_2 = np.dot(theta_factor_1, np.linalg.inv(self.D))
+                theta_factor_3 = np.dot(theta_factor_2, np.transpose(self.Y))
+                theta_factor_4 = np.dot(np.dot(theta_factor_3, self.X), beta)
+                # print WaveTheta
+                theta = theta_factor_4 / np.sqrt(np.dot(np.dot(np.transpose(theta_factor_4),self.D),theta_factor_4))
+
+                if np.sum(np.abs(beta - beta_prev)) < 1e-6:
+                    break
+                else:
+                    beta_prev = beta
+
             # print B
-            #
-            # New OptScore
-            Part1 = I - np.dot(np.dot(self.Q, np.transpose(self.Q)),self.D)
-            Part2 = np.dot(Part1, np.linalg.inv(self.D))
-            Part3 = np.dot(Part2, np.transpose(self.Y))
-            WaveTheta = np.dot(np.dot(Part3, self.X), B)
-            # print WaveTheta
-            Theta = WaveTheta / np.sqrt(np.dot(np.dot(np.transpose(WaveTheta),self.D),WaveTheta))
-
-            if np.sum(np.abs(B - PrevB)) < 1e-6:
-                break
-            else:
-                PrevB = B
-
-        # print B
-        self.B = B 
+            self.sparse_discriminant_vector = beta
 
     def Construct_Y(self):
         '''
         Construct Y matrix in Algorithm 1 in Sparse Discriminant Analysis (2012) by Clemmensen (Technometrics)
-        :return: Y matrix
+        :return: Y matrix s.t Y[ij] = 1 if i th vector is in j th class (j=0 if normal, j=1 if PVC)
         '''
 
         Y = np.zeros((self.number_total, 2))

@@ -148,7 +148,7 @@ def Constructing_SDA_Vector(DictArray_TrainWCNormal,DictArray_TrainWCPVC,a,b):
         L1Ratio = 0.0
 
     obj_SDA = SDA(dict_train=DictArrayMatrix_for_SDA, Flt_Lambda=alpha, Flt_L1=L1Ratio)
-    sparse_discriminant_vector = obj_SDA.B
+    sparse_discriminant_vector = obj_SDA.sparse_discriminant_vector
     return sparse_discriminant_vector
 
 def Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_wc):
@@ -163,7 +163,6 @@ def Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_wc):
     for idx, key in enumerate(sorted(dict_wc)):
         # 1 by 64
         wavelet_coefs = np.reshape(dict_wc[key], (len(dict_wc[key]),1 ))
-        # w*X
         low_dim_projected = np.dot(np.transpose(sparse_discriminant_vector), wavelet_coefs)
         low_dim_projected = np.squeeze(np.asarray(low_dim_projected))
         low_dim_projected = float(low_dim_projected)
