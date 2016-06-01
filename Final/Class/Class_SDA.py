@@ -4,18 +4,16 @@ Goal :
 Author : Yonghan Jung, ISyE, KAIST 
 Date : 15
 Comment 
-- 
-
+-
 '''
 
 ''' Library '''
 import numpy as np
-from sklearn.linear_model import Lasso
 from sklearn.linear_model import ElasticNet
 ''' Function or Class '''
 
 
-class SparseLDA:
+class SDA:
     def __init__(self, Dict_TrainingData, Flt_Lambda, Flt_L1):
         # Only for two class
         # Dict_Trainingdata

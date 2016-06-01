@@ -22,7 +22,8 @@ AAMI_NonNormal= ['V','E','A','a','J','S']
 AAMI_Total_label = AAMI_Normal + AAMI_NonNormal
 
 ''' Reading data and segmenting by beats '''
-record_idx = 233 # from LongTerm_idx, INCART_idx, or MITBIH_idx
+record_idx = 119 # from LongTerm_idx, INCART_idx, or MITBIH_idx
+
 sampling_rate_MITBIH = 360. # MIT BIH
 sampling_rate_INCART = 257. # INCART
 sampling_rate_LongTerm = 128. # LONG
@@ -36,7 +37,7 @@ elif record_idx in LongTerm_idx:
     data_name = 'LongTerm'
     sampling_rate = sampling_rate_LongTerm
 
-time_domain, ECG_record = Loading_ECG(record_idx)
+time_domain, ECG_record = Loading_ECG(record_idx,sampling_rate)
 R_peak_and_label = Loading_R_Peak_and_Label(record_idx)
 dict_ECG_beat_segmented, dict_ECG_beat_label = Segmenting_ECG_Beat(ECG_record,R_peak_and_label,AAMI_Total_label,AAMI_Normal,AAMI_PVC) # key: R peak index
 
@@ -53,7 +54,7 @@ SDA_L2_penalty = 0.5
 
 SPM_switch = True # if False, then SPM is not run in this program
 NeuralNetwork_switch = False  # if False, then Neural network is not run in this program
-SVM_switch = False # if False, then SVM is not run in this program
+SVM_switch = True # if False, then SVM is not run in this program
 plot_switch = False # if False, the plot for SPM is not drawn
 
 ''' Constructing training set '''

@@ -2,47 +2,46 @@ import numpy as np
 import scipy.io
 import pywt
 from scipy.stats import f
-from Final.Class.Class_SparseLDA import SparseLDA
+from Final.Class.Class_SDA import SDA
 
-def Loading_ECG(recordNum):
+def Loading_ECG(ECG_record_number,sampling_rate):
     '''
     Loading the ECG record
     :param: record_number
     :return: time_domain (seconds) / ECG_record
     '''
-    FileName = '../Data/'+str(recordNum)+'_file.mat'
-    mat = scipy.io.loadmat(FileName)
-    SamplingRate = 360.0
-    Time_domain = np.array([x / float(SamplingRate) for x in range(len(mat['val'][0]))])
-    ECG = mat['val'][0]
-    return Time_domain, ECG
+    ECG_file_name = '../Data/'+str(ECG_record_number)+'_file.mat'
+    ECG_file = scipy.io.loadmat(ECG_file_name)
+    time_index = np.array([x / float(sampling_rate) for x in range(len(ECG_file['val'][0]))])
+    ECG_record = ECG_file['val'][0]
+    return time_index, ECG_record
 
-def Loading_R_Peak_and_Label(recordNum):
+def Loading_R_Peak_and_Label(ECG_record_number):
     '''
     Loading R peak index and label of the ECG record
     :param: record_index
     :return: dictionary (key: 'Time','Sample','Type' / val: time_(sec)_R_peak, sample_index_R_peak, label_beat_R_peak
     '''
     try:
-        index_file = open('Data/'+str(recordNum)+'_anno.txt','rb')
+        annotation_file = open('Data/'+str(ECG_record_number)+'_anno.txt','rb')
     except:
-        index_file = open('../Data/'+str(recordNum)+'_anno.txt','rb')
-    Index_dict = {}
-    Index_dict['Time'] = []
-    Index_dict['Sample'] = []
-    Index_dict['Type'] = []
+        annotation_file = open('../Data/'+str(ECG_record_number)+'_anno.txt','rb')
+    dict_annotation = dict()
+    dict_annotation['Time'] = list() # time index (sec) for R_peak
+    dict_annotation['Sample'] = list() # sample index for R_peak
+    dict_annotation['Type'] = list() # label for ECG beat containing R_peak
 
-    for each_line in index_file.readlines():
+    for each_line in annotation_file.readlines():
         try :
             A = each_line.split(" ")
             b = [elem for elem in A if elem != ""] # b[0] time, b[1] sample idx, b[2] Type
             # if int(b[1]) <= DyadLength:
-            Index_dict['Time'].append(b[0])
-            Index_dict['Sample'].append(int(b[1]))
-            Index_dict['Type'].append(b[2])
+            dict_annotation['Time'].append(b[0])
+            dict_annotation['Sample'].append(int(b[1]))
+            dict_annotation['Type'].append(b[2])
         except:
             pass
-    return Index_dict
+    return dict_annotation
 
 def SoftThreshold(X, Threshold):
     '''
@@ -73,64 +72,74 @@ def Segmenting_ECG_Beat(ECG_record, Index_dict,AAMI_total_label,AAMI_normal,AAMI
     :param ECG_record: ECG record
     :param Index_dict: dictionary providing information about ECG beat
     :param AAMI_total_label: Total label that should be imported
-    :return dict_ECG_record (key: R_peak_index, val: ECG_beat)
-    :return dict_ECG_label (key: R_peak_index, val: labe_ECG_beat)
+    :return dict_ECG_beat (key: R_peak_index, val: ECG_beat)
+    :return dict_label_beat (key: R_peak_index, val: labe_ECG_beat)
     '''
-    To_the_left = 128
-    To_the_right = 128
-    ECG_Segment = dict()
-    ECG_Segment_Type = dict()
-    Each_Type = Index_dict['Type']
-    R_Locations_Index = Index_dict['Sample']
+    # one ECG beat = 128 points to the left and right from R_peak
+    distance_to_left = 128 # 128 points to the left from R_peak
+    distance_to_right = 128 # 128 points to the right from R_peak
 
-    ECG_segment_box = list()
-    ECG_label_box = list()
+    dict_ECG_beat = dict()
+    dict_label_beat = dict()
+    list_label = Index_dict['Type']
+    list_R_peak_index = Index_dict['Sample']
 
     iter_idx = 0
-    for each_r in R_Locations_Index:
-        # if each_r > To_the_left and each_r + To_the_right < Dyad_length:
-        if each_r > To_the_left and each_r + To_the_right < len(ECG_record):
-            ECG_beat = ECG_record[range(each_r - To_the_left, each_r + To_the_right)]
-            if Each_Type[iter_idx] in AAMI_total_label:
-                ECG_Segment.update({each_r: ECG_record[range(each_r - To_the_left, each_r + To_the_right)]})
-                ECG_segment_box.append(ECG_beat)
-                Label = Each_Type[iter_idx]
-                if Label in AAMI_normal:
+    for each_r in list_R_peak_index:
+        if each_r > distance_to_left and each_r + distance_to_right < len(ECG_record):
+            ECG_beat = ECG_record[range(each_r - distance_to_left, each_r + distance_to_right)]
+            if list_label[iter_idx] in AAMI_total_label:
+                dict_ECG_beat[each_r] = ECG_beat
+                label_of_beat = list_label[iter_idx]
+                if label_of_beat in AAMI_normal:
                     AAMI_label = 'N'
-                elif Label in AAMI_PVC:
+                elif label_of_beat in AAMI_PVC:
                     AAMI_label = 'V'
-                elif Label not in AAMI_normal and Label not in AAMI_PVC and Label in AAMI_total_label:
+                elif label_of_beat not in AAMI_normal and label_of_beat not in AAMI_PVC and label_of_beat in AAMI_total_label:
                     AAMI_label = 'S'
-                ECG_label_box.append(AAMI_label)
-                ECG_Segment_Type.update({each_r : AAMI_label})
+                dict_label_beat[each_r] = AAMI_label
         iter_idx += 1
-    return ECG_Segment, ECG_Segment_Type
+    return dict_ECG_beat, dict_label_beat
 
-def Wavelet_Transformation(ECG_dict):
-    Wav_dict = dict()
+def Wavelet_Transformation(dict_ECG_beat):
+    '''
+    Implementing discrete wavelet transformation to each ECG beat after denoising
+    :param dict_ECG_beat: dictionary of ECG beat (key: R_peak_index)
+    :return denoised_coefs: dictionary containing denoised wavelet coefficients of each ECG beat
+    '''
+    dict_wc = dict()
     WaveletBasis = 'db8'
     DecompLevel = 4
-    for idx,key in enumerate(sorted(ECG_dict)):
-        Wav_dict[key] = pywt.wavedec(data=ECG_dict[key],wavelet=pywt.Wavelet(WaveletBasis),mode='per',level=DecompLevel)
-        # print len(Wav_dict[key][DecompLevel])
-        WaveletThreshold = np.sqrt(2 * np.log(256)) * (np.median(np.abs(np.array(Wav_dict[key][DecompLevel]) - np.median(Wav_dict[key][DecompLevel]))) / 0.6745)
-        DetailCoefs = np.concatenate([Wav_dict[key][0],Wav_dict[key][1],Wav_dict[key][2],Wav_dict[key][3],Wav_dict[key][4]])
-        NoiseRemoved = SoftThreshold(DetailCoefs, WaveletThreshold)
-        Wav_dict[key] = NoiseRemoved
-    return Wav_dict
+    for idx,key in enumerate(sorted(dict_ECG_beat)):
+        # wavelet transformation
+        dict_wc[key] = pywt.wavedec(data=dict_ECG_beat[key],wavelet=pywt.Wavelet(WaveletBasis),mode='per',level=DecompLevel)
+        # universal thresholding
+        WaveletThreshold = np.sqrt(2 * np.log(256)) * (np.median(np.abs(np.array(dict_wc[key][DecompLevel]) - np.median(dict_wc[key][DecompLevel]))) / 0.6745)
+        wavelet_coefs = np.concatenate([dict_wc[key][0],dict_wc[key][1],dict_wc[key][2],dict_wc[key][3],dict_wc[key][4]])
+        denoised_coefs = SoftThreshold(wavelet_coefs, WaveletThreshold)
+        dict_wc[key] = denoised_coefs
+    return dict_wc
 
 def Constructing_SDA_Vector(DictArray_TrainWCNormal,DictArray_TrainWCPVC,a,b):
-    # Compute LDA Coefficeints
-    DictArrayMatrix_ForLDA = dict() #0 : Normal, 1 : PVC
-    DictArrayMatrix_ForLDA[0] = list()
-    DictArrayMatrix_ForLDA[1] = list()
+    '''
+    Constructing sparse discriminant vector as suggested in Sparse Discriminant Analysis (Technometrics) by Clemmensen (2012)
+    :param DictArray_TrainWCNormal: wavelet coefficients of normal ECG beat in training set
+    :param DictArray_TrainWCPVC: wavelet coefficients of PVC ECG beat in training set
+    :param a: L1 penalty parameter of SDA algorithm
+    :param b: L2 penalty parameter of SDA algorithm
+    :return: sparse discriminant vector
+    '''
+
+    DictArrayMatrix_for_SDA = dict() #0: Normal, 1: PVC
+    DictArrayMatrix_for_SDA[0] = list()
+    DictArrayMatrix_for_SDA[1] = list()
 
     for idx, key in enumerate(sorted(DictArray_TrainWCNormal)):
-        DictArrayMatrix_ForLDA[0].append(DictArray_TrainWCNormal[key])
+        DictArrayMatrix_for_SDA[0].append(DictArray_TrainWCNormal[key])
     for idx, key in enumerate(sorted(DictArray_TrainWCPVC)):
-        DictArrayMatrix_ForLDA[1].append(DictArray_TrainWCPVC[key])
-    DictArrayMatrix_ForLDA[0] = np.array(DictArrayMatrix_ForLDA[0])
-    DictArrayMatrix_ForLDA[1] = np.array(DictArrayMatrix_ForLDA[1])
+        DictArrayMatrix_for_SDA[1].append(DictArray_TrainWCPVC[key])
+    DictArrayMatrix_for_SDA[0] = np.array(DictArrayMatrix_for_SDA[0])
+    DictArrayMatrix_for_SDA[1] = np.array(DictArrayMatrix_for_SDA[1])
 
     alpha = a+b
     try:
@@ -138,119 +147,139 @@ def Constructing_SDA_Vector(DictArray_TrainWCNormal,DictArray_TrainWCPVC,a,b):
     except:
         L1Ratio = 0.0
 
-    ObjLDA = SparseLDA(Dict_TrainingData=DictArrayMatrix_ForLDA, Flt_Lambda=alpha, Flt_L1=L1Ratio)
-    Mat_LDAOperator = ObjLDA.B
-    return Mat_LDAOperator
+    obj_SDA = SDA(Dict_TrainingData=DictArrayMatrix_for_SDA, Flt_Lambda=alpha, Flt_L1=L1Ratio)
+    sparse_discriminant_vector = obj_SDA.B
+    return sparse_discriminant_vector
 
-# Apply LDA to the Data
-def Projecting_Lower_Dimensional_Vec(Matrix_LDAOperator,DictArray_TrainWCNormal):
-    DictArray_TrainWCNormal_LDA = dict()
+def Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_wc):
+    '''
+    Implementing low dimensional projection of vector using sparse discriminant vector
+    :param sparse_discriminant_vector: sparse discriminant vector constructed from 'Constructing_SDA_vector' function
+    :param dict_wc: dictionary containing wavelet coefficients of each ECG beats (key: R_peak_index)
+    :return: dictionary of low dimensional projected wavelet coefficients of each ECG beats (key: R_peak_index)
+    '''
+    dict_low_dim_projected = dict()
 
-    # Matrix_LDAOpeartor = self.LDAON_LDAOperatorConstruction()
-
-    # Key : Record , Value : Train Normal WC
-    for idx, key in enumerate(sorted(DictArray_TrainWCNormal)):
+    for idx, key in enumerate(sorted(dict_wc)):
         # 1 by 64
-        Val = np.reshape(DictArray_TrainWCNormal[key], (len(DictArray_TrainWCNormal[key]),1 ))
-
+        wavelet_coefs = np.reshape(dict_wc[key], (len(dict_wc[key]),1 ))
         # w*X
-        NewVal = np.dot(np.transpose(Matrix_LDAOperator), Val)
-        NewVal = np.squeeze(np.asarray(NewVal))
-        NewVal = float(NewVal)
-        DictArray_TrainWCNormal_LDA[key] = NewVal
-    return DictArray_TrainWCNormal_LDA
+        low_dim_projected = np.dot(np.transpose(sparse_discriminant_vector), wavelet_coefs)
+        low_dim_projected = np.squeeze(np.asarray(low_dim_projected))
+        low_dim_projected = float(low_dim_projected)
+        dict_low_dim_projected[key] = low_dim_projected
+    return dict_low_dim_projected
 
-# Compute Cov after applying LDA
-def Projecting_Low_Dimensional_Cov(LDAOperator, DictArray_TrainWCNormal):
-    # Construct_Original Cov
+def Projecting_Low_Dimensional_Cov(sparse_discriminant_vector, dict_train_normal_wc):
+    '''
+    Implementing low dimensional projection of covariance matrix using sparse discriminant vector
+    :param sparse_discriminant_vector: sparse discriminant vector constructed from 'Constructing_SDA_vector' function
+    :param dict_train_normal_wc: dictionary containing wavelet coefficients of ECG beats in training set (key: R_peak_index)
+    :return:
+    '''
+    # 1. Computing covariance matrix of wavelet coefficients of normal ECG beats in training set
+    mat_wc_normal = list()
+    for idx, key in enumerate(sorted(dict_train_normal_wc)):
+        wc_train_normal = dict_train_normal_wc[key]
+        mat_wc_normal.append(wc_train_normal)
+    mat_wc_normal = np.array(mat_wc_normal)
+    mat_Cov = np.var(mat_wc_normal, axis=0)
+    mat_Cov = np.diag(mat_Cov)
+    sparse_discriminant_vector = np.reshape(sparse_discriminant_vector,(len(sparse_discriminant_vector),1))
+    low_dim_projected_Cov = np.dot(np.dot(np.transpose(sparse_discriminant_vector), mat_Cov), sparse_discriminant_vector)
+    return np.ravel(low_dim_projected_Cov)
 
-    # 1. Construct Array Matrix (300 by 64)
-    ArrayMat = list()
-    for idx, key in enumerate(sorted(DictArray_TrainWCNormal)):
-        Array_EachBeatWC = DictArray_TrainWCNormal[key]
-        ArrayMat.append(Array_EachBeatWC)
-    ArrayMat = np.array(ArrayMat)
-    Array_VarElem = np.var(ArrayMat, axis=0)
-    ArrayMat_COV = np.diag(Array_VarElem)
+def Constructing_T2_Stat(projected_average_wc_normal, projected_Cov_wc_normal, dict_test_projected_wc):
+    '''
+    Compute T2 statistics from low dimensional projected wavelet coefficients, using projected average and covariance matrix
+    :param projected_average_wc_normal: low dimensional projected average of wavelet coefficients in normal ECG beats in training set
+    :param projected_Cov_wc_normal: low dimensional projected covariance matrix of wavelet coefficients in normal ECG beats in training set
+    :param dict_test_projected_wc: low dimensional projected vector of wavelet coefficients in test dataset
+    :return: dictionary of T2 statistics corresponding to ECG beats in test set (key: R_peak)
+    '''
 
-    # 2. Fisher Coef (64,1)
-    Array_FisherCoef = LDAOperator
-    Array_FisherCoef = np.reshape(Array_FisherCoef,(len(Array_FisherCoef),1))
-    FisherTransformedCOV = np.dot(np.dot(np.transpose(Array_FisherCoef), ArrayMat_COV), Array_FisherCoef)
-    return np.ravel(FisherTransformedCOV)
+    dict_test_T2stat = dict()
+    for idx, key in sorted(enumerate(dict_test_projected_wc)):
+        wc_test_projected = dict_test_projected_wc[key] # 1 Dim
+        wc_test_projected = np.array(wc_test_projected)
+        wc_test_centered_projected = np.array(wc_test_projected - projected_average_wc_normal)
 
-# Construct Stat
-def Constructing_T2_Stat(Reduced_Mean, Reduced_Cov, RedWavSegment_Test):
-    DictFloat_Stat = dict()
-    Array_ReducedMean = Reduced_Mean
-    Matrix_ReducedCov = Reduced_Cov
+        T2_stat = wc_test_centered_projected * (projected_Cov_wc_normal**(-1)) * wc_test_centered_projected.T
+        T2_stat = np.squeeze(np.asarray(T2_stat))
+        dict_test_T2stat[key] = T2_stat
+    return dict_test_T2stat
 
-    # Key : record, Val : 1dim
-    DictArray_TestWC_LDA = RedWavSegment_Test
-
-    for idx, key in sorted(enumerate(DictArray_TestWC_LDA)):
-        Val = DictArray_TestWC_LDA[key] # 1 Dim
-        Val = np.array(Val)
-        Val = np.array(Val - Array_ReducedMean)
-
-        NewVal = Val * (Matrix_ReducedCov**(-1)) * Val.T
-        Stat = np.squeeze(np.asarray(NewVal))
-        # print "Stat", self.Dict_TestLabel[key], NewVal
-        DictFloat_Stat[key] = Stat
-    return DictFloat_Stat
-
-
-def Computing_UCL(N, alpha):
-    S = 1
-    return (S*((N-1)**2) * f.ppf(1-alpha, S, N-S)) / (N*(N-S))
-
-
-def Evaluating_Performance_SPM(Stat_dict, Label_dict, UCL_val,AAMI_Normal,AAMI_PVC):
-    Int_TotalTestPoint = 0
-    Int_Type1_Error = 0
-    Int_Type1_correct = 0
-    Int_Type2_Error = 0
-    Int_Type2_correct = 0
-
-    DictInt_Accuracy = dict()
-
-    for idx, key in enumerate(sorted(Stat_dict)):
-        Int_TotalTestPoint += 1
-        if Label_dict[key] in AAMI_Normal:
-            if Stat_dict[key] < UCL_val: # Normal In Control
-                Int_Type1_correct += 1 # Normal as Normal
-            elif Stat_dict[key] > UCL_val: # Normal Out Control
-                # print self.Dict_TestLabel[key], DictFloat_Stat[key],  UCLVAL
-                Int_Type1_Error += 1 # Normal as VEB
-
-        elif Label_dict[key] in AAMI_PVC :
-            if Stat_dict[key] < UCL_val: # PVC In Control
-                Int_Type2_Error += 1 # VEB as Normal
-            elif Stat_dict[key] > UCL_val: # PVC Out Control
-                Int_Type2_correct += 1 # VEB as VEB
-
-    DictInt_Accuracy['Normal as PVC'] = Int_Type1_Error
-    DictInt_Accuracy['Normal as Normal'] = Int_Type1_correct
-    DictInt_Accuracy['PVC as Normal'] = Int_Type2_Error
-    DictInt_Accuracy['PVC as PVC'] = Int_Type2_correct
-    return DictInt_Accuracy
+def Computing_UCL(num_train_beats, alpha):
+    '''
+    Computing upper control limit (UCL)
+    :param num_train_beats: number of ECG beats in training set
+    :param alpha: predefined alpha level (0.01 in the paper)
+    :return: UCL value
+    '''
+    dim_projected = 1
+    return (dim_projected*((num_train_beats-1)**2) * f.ppf(1-alpha, dim_projected, num_train_beats-dim_projected)) / (num_train_beats*(num_train_beats-dim_projected))
 
 
-def Evaluating_Performance_SVM_NN(NN_answer, Label):
-    DictInt_Accuracy = dict()
-    DictInt_Accuracy['Normal as PVC'] = 0
-    DictInt_Accuracy['Normal as Normal'] = 0
-    DictInt_Accuracy['PVC as Normal'] = 0
-    DictInt_Accuracy['PVC as PVC'] = 0
+def Evaluating_Performance_SPM(dict_test_T2stat, dict_test_label, UCL_val,AAMI_Normal,AAMI_PVC):
+    '''
+    Counting right and wrong classification result for evaluating performance of wavelet-based SPM
+    :param dict_test_T2stat: dictionary of T2 statistics corresponding to test set (key: R_peak_index)
+    :param dict_test_label: dictionary of label of ECG beats in test set (key: R_peak_index)
+    :param UCL_val: UCL value computed from the function 'Computing_UCL'
+    :param AAMI_Normal: list of normal label ['N','L','R','e','j'] # Those label in MIT-BIH are considered as Normal in AAMI
+    :param AAMI_PVC: list of PVC label # AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as Normal in AAMI
+    :return: dictionary of counting results
+    '''
+    counting_tested_points = 0
+    counting_normal_as_PVC = 0
+    counting_normal_as_normal = 0
+    counting_PVC_as_normal = 0
+    counting_PVC_as_PVC = 0
 
-    for idx,key in enumerate(sorted(NN_answer)):
-        if Label[key] == 'N' and NN_answer[key] == 'N':
-            DictInt_Accuracy['Normal as Normal'] += 1
-        elif Label[key] == 'N' and NN_answer[key] == 'V':
-            DictInt_Accuracy['Normal as VEB'] += 1
-        elif Label[key] == 'V' and NN_answer[key] == 'N':
-            DictInt_Accuracy['VEB as Normal'] += 1
-        elif Label[key] == 'V' and NN_answer[key] == 'V':
-            DictInt_Accuracy['VEB as VEB'] += 1
+    dict_evaluating_performance = dict()
 
-    return DictInt_Accuracy
+    for idx, key in enumerate(sorted(dict_test_T2stat)):
+        counting_tested_points += 1
+        if dict_test_label[key] in AAMI_Normal:
+            if dict_test_T2stat[key] < UCL_val:
+                counting_normal_as_normal += 1
+            elif dict_test_T2stat[key] > UCL_val:
+                counting_normal_as_PVC += 1
+
+        elif dict_test_label[key] in AAMI_PVC :
+            if dict_test_T2stat[key] < UCL_val:
+                counting_PVC_as_normal += 1
+            elif dict_test_T2stat[key] > UCL_val:
+                counting_PVC_as_PVC += 1
+
+    dict_evaluating_performance['Normal as PVC'] = counting_normal_as_PVC
+    dict_evaluating_performance['Normal as Normal'] = counting_normal_as_normal
+    dict_evaluating_performance['PVC as Normal'] = counting_PVC_as_normal
+    dict_evaluating_performance['PVC as PVC'] = counting_PVC_as_PVC
+    return dict_evaluating_performance
+
+
+def Evaluating_Performance_SVM_NN(labeled_by_classifiers, dict_test_label):
+    '''
+    Counting right and wrong classification result for evaluating performance of SVM and neural network
+    :param labeled_by_classifiers: label determined by classifiers (SVM, NN)
+    :param dict_test_label: dictionary of test label
+    :return: dictionary of counting results
+    '''
+    dict_evaluating_performance = dict()
+    dict_evaluating_performance['Normal as PVC'] = 0
+    dict_evaluating_performance['Normal as Normal'] = 0
+    dict_evaluating_performance['PVC as Normal'] = 0
+    dict_evaluating_performance['PVC as PVC'] = 0
+
+    for idx,key in enumerate(sorted(labeled_by_classifiers)):
+        if dict_test_label[key] == 'N' and labeled_by_classifiers[key] == 'N':
+            dict_evaluating_performance['Normal as Normal'] += 1
+        elif dict_test_label[key] == 'N' and labeled_by_classifiers[key] == 'V':
+            dict_evaluating_performance['Normal as PVC'] += 1
+        elif dict_test_label[key] == 'V' and labeled_by_classifiers[key] == 'N':
+            dict_evaluating_performance['PVC as Normal'] += 1
+        elif dict_test_label[key] == 'V' and labeled_by_classifiers[key] == 'V':
+            dict_evaluating_performance['PVC as PVC'] += 1
+
+    return dict_evaluating_performance
