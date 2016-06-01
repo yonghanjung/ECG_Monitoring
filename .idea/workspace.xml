@@ -35,11 +35,57 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="160601_code.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="160601_code.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/160224_Code/160601_code.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="10.043478" vertical-offset="1496" max-vertical-offset="8534">
-              <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="4131" max-vertical-offset="8007">
+              <caret line="257" column="0" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Final/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Final/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.6138107" vertical-offset="420" max-vertical-offset="3360">
+              <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Class_SparseLDA.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Final/Class/Class_SparseLDA.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1" max-vertical-offset="1395">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding>
+                <element signature="e#116#134#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="methods.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Final/methods.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3539" max-vertical-offset="3930">
+              <caret line="4" column="49" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -93,28 +139,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="160523_fig2.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/160224_Code/160523_fig2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5114" max-vertical-offset="5940">
-              <caret line="375" column="0" selection-start-line="375" selection-start-column="0" selection-end-line="375" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="160523_figure_ECG_PVC_Normal.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/160224_Code/160523_figure_ECG_PVC_Normal.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5010" max-vertical-offset="5985">
-              <caret line="354" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="399" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -125,8 +149,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Old/Compute_Fisher_Score/TwoClassFisherLDA.py" />
-        <option value="$PROJECT_DIR$/LocalExperiment/Competite_SVM.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/PerformanceComparison.py" />
         <option value="$PROJECT_DIR$/HRVAnalysis/ECG_DataLoad.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/CUSUM_Pvalue" />
@@ -176,6 +198,8 @@
         <option value="$PROJECT_DIR$/160224_Code/160530_Fig1_notation.py" />
         <option value="$PROJECT_DIR$/160224_Code/160530_Fig1_for_illustration.py" />
         <option value="$PROJECT_DIR$/160224_Code/160601_code.py" />
+        <option value="$PROJECT_DIR$/Final/methods.py" />
+        <option value="$PROJECT_DIR$/Final/main.py" />
       </list>
     </option>
   </component>
@@ -240,7 +264,39 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Data_Segmentation" />
+              <option name="myItemId" value="GlobalExperiment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Final" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Final" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Class" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -279,39 +335,21 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Final" />
       <recent name="$PROJECT_DIR$/160224_Code" />
       <recent name="$PROJECT_DIR$/GlobalExperiment" />
       <recent name="$PROJECT_DIR$/KKSeo" />
       <recent name="$PROJECT_DIR$/LocalExperiment" />
-      <recent name="$PROJECT_DIR$/Data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Final/class" />
       <recent name="$PROJECT_DIR$/Data" />
       <recent name="$PROJECT_DIR$/Feature_selection+Monitoring_statistics" />
       <recent name="$PROJECT_DIR$/PLOT" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/150501_Segment" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.160601_code">
-    <configuration default="false" name="160530_DWT_fig_illustration" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/160224_Code" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ECG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/160224_Code/160530_DWT_fig_illustration.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.main">
     <configuration default="false" name="160530_SDA_parameter_chooser" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -379,6 +417,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ECG" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/160224_Code/160601_code.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Final" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ECG" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Final/main.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -525,19 +581,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.Statistics4" />
-      <item index="1" class="java.lang.String" itemvalue="Python.160530_DWT_fig_illustration" />
-      <item index="2" class="java.lang.String" itemvalue="Python.160530_SDA_parameter_chooser" />
-      <item index="3" class="java.lang.String" itemvalue="Python.160530_Fig1_notation" />
-      <item index="4" class="java.lang.String" itemvalue="Python.160530_Fig1_for_illustration" />
-      <item index="5" class="java.lang.String" itemvalue="Python.160601_code" />
+      <item index="1" class="java.lang.String" itemvalue="Python.160530_SDA_parameter_chooser" />
+      <item index="2" class="java.lang.String" itemvalue="Python.160530_Fig1_notation" />
+      <item index="3" class="java.lang.String" itemvalue="Python.160530_Fig1_for_illustration" />
+      <item index="4" class="java.lang.String" itemvalue="Python.160601_code" />
+      <item index="5" class="java.lang.String" itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.160601_code" />
-        <item index="1" class="java.lang.String" itemvalue="Python.160530_Fig1_for_illustration" />
-        <item index="2" class="java.lang.String" itemvalue="Python.160530_Fig1_notation" />
-        <item index="3" class="java.lang.String" itemvalue="Python.160530_SDA_parameter_chooser" />
-        <item index="4" class="java.lang.String" itemvalue="Python.160530_DWT_fig_illustration" />
+        <item index="0" class="java.lang.String" itemvalue="Python.main" />
+        <item index="1" class="java.lang.String" itemvalue="Python.160601_code" />
+        <item index="2" class="java.lang.String" itemvalue="Python.160530_Fig1_for_illustration" />
+        <item index="3" class="java.lang.String" itemvalue="Python.160530_Fig1_notation" />
+        <item index="4" class="java.lang.String" itemvalue="Python.160530_SDA_parameter_chooser" />
       </list>
     </recent_temporary>
   </component>
@@ -555,13 +611,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="44" y="23" width="1236" height="777" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32844576" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2394822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2394822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.398827" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -570,7 +627,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32848233" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -598,34 +654,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="282" max-vertical-offset="3855">
-          <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/DataConstruction1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2138" max-vertical-offset="4556">
-          <caret line="151" column="42" selection-start-line="151" selection-start-column="42" selection-end-line="151" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/KKSeo/KKSeo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5763" max-vertical-offset="7004">
-          <caret line="370" column="0" selection-start-line="370" selection-start-column="0" selection-end-line="370" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/14046_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2662.9907" vertical-offset="1728626" max-vertical-offset="1729275">
-          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GlobalExperiment/160223_Data_generator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1335" max-vertical-offset="2595">
@@ -978,8 +1006,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/160224_Code/160601_code.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="10.043478" vertical-offset="1496" max-vertical-offset="8534">
-          <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="4131" max-vertical-offset="8007">
+          <caret line="257" column="0" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="631">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/Class/Class_SparseLDA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1" max-vertical-offset="1395">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="e#116#134#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/methods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3930">
+          <caret line="4" column="49" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6138107" vertical-offset="420" max-vertical-offset="3360">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
