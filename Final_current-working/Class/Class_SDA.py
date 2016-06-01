@@ -1,46 +1,38 @@
-# -*- coding: utf-8 -*-
-'''
-Goal : 
-Author : Yonghan Jung, ISyE, KAIST 
-Date : 15
-Comment 
--
-'''
-
-''' Library '''
 import numpy as np
 from sklearn.linear_model import ElasticNet
-''' Function or Class '''
-
 
 class SDA:
-    def __init__(self, Dict_TrainingData, Flt_Lambda, Flt_L1):
-        # Only for two class
-        # Dict_Trainingdata
-            # Key : 0,1
-            # Row : data
-        self.Data1 = Dict_TrainingData[0] # N by 256 matrix
-        self.Data2 = Dict_TrainingData[1] # V by 256 matrix
-        self.Dim = len(self.Data1[0]) # 256
+    def __init__(self, dict_train, Flt_Lambda, Flt_L1):
+        '''
 
-        self.X = np.concatenate((self.Data1, self.Data2), axis=0) # N / V augmented matrix
+        :param dict_train: dictionary of training data (key: 0 - normal / 1 - PVC)
+        :param Flt_Lambda: L2 penalty value
+        :param Flt_L1: L1
+        :return:
+        '''
+        self.mat_wc_normal = dict_train[0] # N by 256 matrix
+        self.mat_wc_PVC = dict_train[1] # V by 256 matrix
+        self.dim = len(self.mat_wc_normal[0]) # 256
 
-        self.NumClass1 = len(self.Data1) # N
-        self.NumClass2 = len(self.Data2) # V
-        self.TotalNum = self.NumClass1 + self.NumClass2
+        self.X = np.concatenate((self.mat_wc_normal, self.mat_wc_PVC), axis=0) # N / V augmented matrix (transpose of [N|V])
+
+        self.number_normal = len(self.mat_wc_normal) # N
+        self.number_PVC = len(self.mat_wc_PVC) # V
+        self.number_total = self.number_normal + self.number_PVC
 
         self.Y = self.Construct_Y()
-        self.D = np.dot(np.transpose(self.Y), self.Y) / float(self.TotalNum) # P
+        self.D = np.dot(np.transpose(self.Y), self.Y) / float(self.number_total) # P
         self.Q = np.ones((2,1))
 
-        InitialTheta = np.array([2,5])
+        np.random.seed(123)
+        InitialTheta = np.random.random(2)
         I = np.eye(2)
         Theta = np.dot(I - np.dot(np.dot(self.Q, np.transpose(self.Q)), self.D ), InitialTheta)
         Theta /= np.sqrt(np.dot(np.dot(np.transpose(Theta), self.D), Theta))
 
         MaxIter = 10000
         PrevTheta = InitialTheta
-        PrevB = np.ones(self.Dim)
+        PrevB = np.ones(self.dim)
         for idx in range(MaxIter):
             NewResp = np.dot(self.Y, Theta)
             elas = ElasticNet(alpha=Flt_Lambda, l1_ratio=Flt_L1)
@@ -67,13 +59,14 @@ class SDA:
         self.B = B 
 
     def Construct_Y(self):
-        NumClass1 = len(self.Data1) # N
-        NumClass2 = len(self.Data2) # V
-        TotalNum = NumClass1 + NumClass2
+        '''
+        Construct Y matrix in Algorithm 1 in Sparse Discriminant Analysis (2012) by Clemmensen (Technometrics)
+        :return: Y matrix
+        '''
 
-        Y = np.zeros((TotalNum, 2))
+        Y = np.zeros((self.number_total, 2))
         for idx in range(len(Y)):
-            if idx < NumClass1:
+            if idx < self.number_normal:
                 Y[idx][0] = 1
             else:
                 Y[idx][1] = 1

@@ -24,7 +24,7 @@ AAMI_NonNormal= ['V','E','A','a','J','S']
 AAMI_Total_label = AAMI_Normal + AAMI_NonNormal
 
 ''' Control variables '''
-record_idx = 375 # from LongTerm_idx, INCART_idx, or MITBIH_idx
+record_idx = 119 # from LongTerm_idx, INCART_idx, or MITBIH_idx
 alpha = 0.01  # [0.5,0.25,0.1,0.05,0.01,0.0023]
 time_training = 300 # [240,180,120,60]
 

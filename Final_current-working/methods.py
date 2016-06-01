@@ -147,7 +147,7 @@ def Constructing_SDA_Vector(DictArray_TrainWCNormal,DictArray_TrainWCPVC,a,b):
     except:
         L1Ratio = 0.0
 
-    obj_SDA = SDA(Dict_TrainingData=DictArrayMatrix_for_SDA, Flt_Lambda=alpha, Flt_L1=L1Ratio)
+    obj_SDA = SDA(dict_train=DictArrayMatrix_for_SDA, Flt_Lambda=alpha, Flt_L1=L1Ratio)
     sparse_discriminant_vector = obj_SDA.B
     return sparse_discriminant_vector
 

@@ -23,11 +23,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="Class_SDA.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Final_current-working/Class/Class_SDA.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1245">
+              <caret line="4" column="33" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Final_current-working/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1167" max-vertical-offset="3285">
+              <caret line="85" column="33" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.11627907" vertical-offset="0" max-vertical-offset="765">
-              <caret line="3" column="90" selection-start-line="3" selection-start-column="90" selection-end-line="3" selection-end-column="90" />
+            <state vertical-scroll-proportion="-0.15503876" vertical-offset="195" max-vertical-offset="885">
+              <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -36,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Final_current-working/main.py">
+      <file leaf-file-name="methods.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Final_current-working/methods.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="990" max-vertical-offset="3285">
-              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4365">
+              <caret line="149" column="28" selection-start-line="149" selection-start-column="28" selection-end-line="149" selection-end-column="28" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -58,8 +82,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/LocalExperiment/Compete_SVM.py" />
-        <option value="$PROJECT_DIR$/LocalExperiment/Compete_NeuralNet.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/FeatureSelector3.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/160217_KKseo.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py" />
@@ -107,7 +129,9 @@
         <option value="$PROJECT_DIR$/Final/Class/Class_SDA.py" />
         <option value="$PROJECT_DIR$/Final_160601_current-working/methods.py" />
         <option value="$PROJECT_DIR$/Final_160601_current-working/main.py" />
+        <option value="$PROJECT_DIR$/Final_current-working/Class/Class_SDA.py" />
         <option value="$PROJECT_DIR$/Final_current-working/main.py" />
+        <option value="$PROJECT_DIR$/Final_current-working/methods.py" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -174,6 +198,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Final_current-working" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Final_current-working" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Class" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -631,10 +673,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Final_current-working/Class/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="427">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final_current-working/methods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2037" max-vertical-offset="4305">
+          <caret line="149" column="28" selection-start-line="149" selection-start-column="28" selection-end-line="149" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final_current-working/Class/Class_SDA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1245">
+          <caret line="4" column="33" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Final_current-working/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="990" max-vertical-offset="3285">
-          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1167" max-vertical-offset="3285">
+          <caret line="85" column="33" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -643,8 +713,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11627907" vertical-offset="0" max-vertical-offset="765">
-          <caret line="3" column="90" selection-start-line="3" selection-start-column="90" selection-end-line="3" selection-end-column="90" />
+        <state vertical-scroll-proportion="-0.15503876" vertical-offset="195" max-vertical-offset="885">
+          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
           <folding />
         </state>
       </provider>
