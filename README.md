@@ -1,7 +1,7 @@
 # Detection of Premature Ventricular Contraction using Wavelet-based Statistical ECG monitoring
 Last update : 160601
 
-You may only consdier the folder named 'Final_Current_Working'. Others are temporaily used for co-working with my advisory professor. I call this folder as 'Final' fron now. 
+You may only consdier the folder named 'Final_Current_Working'. Others are temporaily used. I call this folder as 'Final' fron now. 
 In the folder 'Final', there are one subfolder 'Class' and two python file 'main.py', and 'methods.py'. Details are following
 
 ## Class - Class_SDA.py
