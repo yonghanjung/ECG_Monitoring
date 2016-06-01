@@ -8,7 +8,7 @@ class SDA:
         :param dict_train: dictionary of training data (key: 0 - normal / 1 - PVC)
         :param Flt_Lambda: L2 penalty value
         :param Flt_L1: L1
-        :return: sparse discriminant vector 
+        :return: sparse discriminant vector
         '''
         self.mat_wc_normal = dict_train[0] # N by 256 matrix
         self.mat_wc_PVC = dict_train[1] # V by 256 matrix

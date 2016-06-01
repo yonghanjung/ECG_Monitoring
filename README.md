@@ -1,7 +1,7 @@
 # Detection of Premature Ventricular Contraction using Wavelet-based Statistical ECG monitoring
 Last update : 160601
 
-You may only consdier the folder named 'Final_Current_Working'. Others are temporaily used. I call this folder as 'Final' fron now.
+You may only consdier the folder named 'Final_Current_Working'. Other folders are temporaily used. I call this folder as 'Final' from now.
 For running this program, following Python libraries should be installed: 
 
 * numpy 
@@ -9,18 +9,13 @@ For running this program, following Python libraries should be installed:
 * pywt 
 * sklearn 
 
-
-In the folder 'Final', there are one subfolder 'Class' and two python file 'main.py', and 'methods.py'. Details are following
+In the folder 'Final', there are one subfolder 'Class' and two python file 'main.py', and 'methods.py'. Details are following.
 
 ## Class - Class_SDA.py
-In 'Class_SDA.py', the algorithm for constructing sparse discriminant vector, suggested in 'Sparse Discriminant Analysis (2012), Clemmensen et al (Technometrics)' are implemented.
- 
-For running this code, the python library 'numpy' and 'sklearn' should be installed. 
+In 'Class_SDA.py', the algorithm for constructing sparse discriminant vector, suggested in 'Sparse Discriminant Analysis (2012), Clemmensen et al (Technometrics)' are implemented. 
 
 ## methods.py 
-In 'methods.py', all functions used in 'main.py' are set. 
-For running this code, the python library 'pywt', 'scipy' should be installed. 
-
+In 'methods.py', all functions used in 'main.py' are set.  
 
 Functions in 'methods.py' are 
 
@@ -39,9 +34,6 @@ Functions in 'methods.py' are
 
 ## main.py
 'main.py' file loads functions in methods, and implement wavelet-based SPM for detecting PVC beats.
-
-For running this code, the python library 'sklearn', 'numpy', 'matplotlib','pybrain' should be installed.
-
 
 Procedures are: 
 

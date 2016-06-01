@@ -219,7 +219,7 @@ def Computing_UCL(num_train_beats, alpha):
     return (dim_projected*((num_train_beats-1)**2) * f.ppf(1-alpha, dim_projected, num_train_beats-dim_projected)) / (num_train_beats*(num_train_beats-dim_projected))
 
 
-def Evaluating_Performance_SPM(dict_test_T2stat, dict_test_label, UCL_val,AAMI_Normal,AAMI_PVC):
+def Evaluating_Performance_SPM(dict_test_T2stat, dict_test_label, UCL_val, AAMI_Normal, AAMI_PVC):
     '''
     Counting right and wrong classification result for evaluating performance of wavelet-based SPM
     :param dict_test_T2stat: dictionary of T2 statistics corresponding to test set (key: R_peak_index)

@@ -24,7 +24,7 @@ AAMI_NonNormal= ['V','E','A','a','J','S']
 AAMI_Total_label = AAMI_Normal + AAMI_NonNormal
 
 ''' Control variables '''
-record_idx = 119 # from LongTerm_idx, INCART_idx, or MITBIH_idx
+record_idx = 109 # from LongTerm_idx, INCART_idx, or MITBIH_idx
 alpha = 0.01  # [0.5,0.25,0.1,0.05,0.01,0.0023]
 time_training = 300 # [240,180,120,60]
 
@@ -33,7 +33,7 @@ SDA_L2_penalty = 0.5
 
 SPM_switch = True # if False, then SPM is not run in this program
 NeuralNetwork_switch = False  # if False, then Neural network is not run in this program
-SVM_switch = True # if False, then SVM is not run in this program
+SVM_switch = False # if False, then SVM is not run in this program
 plot_switch = False # if False, the plot for SPM is not drawn
 
 ''' 1. Reading ECG records and segmenting by beats '''
@@ -56,12 +56,11 @@ dict_ECG_beat_segmented, dict_ECG_beat_label = Segmenting_ECG_Beat(ECG_record,R_
 
 print("1. Reading ECG record " + str(record_idx) + " from " + data_name + "...")
 
-
 ''' 2. Constructing training set (initial 5min are segmented as training set) '''
 print("2. Constructing training set...")
 dict_train_ECG = {RIdx : dict_ECG_beat_segmented[RIdx] for RIdx in dict_ECG_beat_segmented.keys() if RIdx < sampling_rate * time_training}
 dict_train_ECG_normal = {RIdx : dict_ECG_beat_segmented[RIdx] for RIdx in dict_ECG_beat_segmented.keys() if RIdx < sampling_rate * time_training and dict_ECG_beat_label[RIdx] in AAMI_Normal}
-dict_train_ECG_PVC = {RIdx : dict_ECG_beat_segmented[RIdx] for RIdx in dict_ECG_beat_segmented.keys() if RIdx < sampling_rate * time_training and dict_ECG_beat_label[RIdx] in AAMI_NonNormal}
+dict_train_ECG_PVC = {RIdx : dict_ECG_beat_segmented[RIdx] for RIdx in dict_ECG_beat_segmented.keys() if RIdx < sampling_rate * time_training and dict_ECG_beat_label[RIdx] in AAMI_PVC}
 dict_train_label = {RIdx : dict_ECG_beat_label[RIdx] for RIdx in dict_ECG_beat_label.keys() if RIdx < sampling_rate * time_training}
 dict_test_ECG = {RIdx : dict_ECG_beat_segmented[RIdx] for RIdx in dict_ECG_beat_label.keys() if RIdx > sampling_rate * time_training}
 dict_test_label = {RIdx : dict_ECG_beat_label[RIdx] for RIdx in dict_ECG_beat_label.keys() if RIdx > sampling_rate * time_training}
@@ -192,11 +191,6 @@ if SVM_switch:
     SVM_accracy_dict = Evaluating_Performance_SVM_NN(SVM_ans_dict,dict_test_label)
     for idx,key in enumerate(sorted(SVM_accracy_dict)):
         print key, SVM_accracy_dict[key]
-
-
-
-''' Compute accuracy '''
-
 
 ''' Plot '''
 if plot_switch:
