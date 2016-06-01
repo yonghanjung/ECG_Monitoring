@@ -18,7 +18,7 @@ def Loading_ECG(ECG_record_number,sampling_rate):
 
 def Loading_R_Peak_and_Label(ECG_record_number):
     '''
-    Loading R peak index and label of the ECG record
+    Loading annotation file (R_peak_index and labels of ECG beats are in annotation file)
     :param: record_index
     :return: dictionary (key: 'Time','Sample','Type' / val: time_(sec)_R_peak, sample_index_R_peak, label_beat_R_peak
     '''
@@ -45,7 +45,7 @@ def Loading_R_Peak_and_Label(ECG_record_number):
 
 def SoftThreshold(X, Threshold):
     '''
-    Implementing the soft threshold for the universal thresholding (Donoho, 1994)
+    Implementing the soft threshold for the universal thresholding
     :param X: Signal to be thresheld
     :param thresholding_value
     :return: thesheld signal X
@@ -103,7 +103,7 @@ def Segmenting_ECG_Beat(ECG_record, Index_dict,AAMI_total_label,AAMI_normal,AAMI
 
 def Wavelet_Transformation(dict_ECG_beat):
     '''
-    Implementing discrete wavelet transformation to each ECG beat after denoising
+    Implementing discrete wavelet transformation to each ECG beat after denoising using universal threshold.
     :param dict_ECG_beat: dictionary of ECG beat (key: R_peak_index)
     :return denoised_coefs: dictionary containing denoised wavelet coefficients of each ECG beat
     '''

@@ -1,29 +1,40 @@
-# Research : ECG Monitoring
-Last update : 150528
+# Detection of Premature Ventricular Contraction using Wavelet-based Statistical ECG monitoring
+Last update : 160601
+You may only consdier the folder named 'Final_Current_Working'. Others are temporaily used for co-working with my advisory professor. I call this folder as 'Final' fron now. 
+In the folder 'Final', there are one subfolder 'Class' and two python file 'main.py', and 'methods.py'. Details are following
 
-## Module in order 
-* <code> Data_Preparation </code>
-: Load Data and Label file 
-* <code> Segment </code>
-: Segment into the fixed length window batch 
-* <code> Wavelet_Analysis </code>
-: Extract Wavelet coefficients 
-* <code> Training_Set </code>
-: Construct the training set 
-* <code> Compute_Fisher_Score </code> 
-: Compute Fisher score to extract the most seperating wavelet coefficients 
-* <code> Monitor_Stat </code>
-: Constructing the monitoring statistics with selected features
-* <code> Statistics </code>
-: Estimate the variance 
-: Assumed no correlation between beats' measurement error --> Diagonal variance assumption was made
+## Class - Class_SDA.py
+In 'Class_SDA.py', the algorithm for constructing sparse discriminant vector, suggested in 'Sparse Discriminant Analysis (2012), Clemmensen et al (Technometrics)' are implemented. 
+For running this code, the python library 'numpy' and 'sklearn' should be installed. 
 
+## methods.py 
+In 'methods.py', all functions used in 'main.py' are set. 
+For running this code, the python library 'pywt', 'scipy' should be installed. 
 
-## Issue 
-* Proper selection of Wavelet basis funtion 
-* I choose 'db8' as the most proper wavelet basis function
+Functions in 'methods.py' are 
 
-## Future work 
-* (Done) estimating variance
-* (Done) Reduce the dimension of the covariance matrix 
-* Fisher LDA applied before Fisher score selection
+ * __Loading_ECG__: Loading the ECG record 
+ * __Loading_R_Peak_and_Label__: Loading annotation file (R_peak_index and labels of ECG beats are in annotation file)
+ * __SoftThreshold__: Implementing the soft threshold for the universal thresholding
+ * __Segmenting_ECG_Beat__: Segmenting ECG record beat by beat. 
+ * __Wavelet_Transformation__: Implementing discrete wavelet transformation to each ECG beat after denoising using universal threshold.
+ * __Constructing_SDA_Vector__: Constructing sparse discriminant vector as suggested in Sparse Discriminant Analysis (Technometrics) by Clemmensen (2012)
+ * __Projecting_Lower_Dimensional_Vec__: Implementing low dimensional projection of vector using sparse discriminant vector
+ * __Projecting_Low_Dimensional_Cov__: Implementing low dimensional projection of covariance matrix using sparse discriminant vector
+ * __Constructing_T2_Stat__: Compute T2 statistics from low dimensional projected wavelet coefficients, using projected average and covariance matrix
+ * __Computing_UCL__: Computing upper control limit (UCL)
+ * __Evaluating_Performance_SPM__: Counting right and wrong classification result for evaluating performance of wavelet-based SPM
+ * __Evaluating_Performance_SVM_NN__: Counting right and wrong classification result for evaluating performance of SVM and neural network
+
+## main.py
+'main.py' file loads functions in methods, and implement wavelet-based SPM for detecting PVC beats.
+For running this code, the python library 'sklearn', 'numpy', 'matplotlib','pybrain' should be installed.
+
+Procedures are: 
+
+1. Reading ECG records and segmenting by beats
+2. Constructing training set (initial 5min are segmented as training set) 
+3. Applying wavelet transformation to each ECG beats in training and test set
+4. Constructing sparse discriminant vector and projecting to the low dimensional space
+5. Computing T2 statistics
+6. Evaluating accuracy by counting right and wrongly classified beats
