@@ -24,7 +24,7 @@ AAMI_NonNormal= ['V','E','A','a','J','S']
 AAMI_Total_label = AAMI_Normal + AAMI_NonNormal
 
 ''' Control variables '''
-record_idx = 119 # from LongTerm_idx, INCART_idx, or MITBIH_idx
+record_idx = 375 # from LongTerm_idx, INCART_idx, or MITBIH_idx
 alpha = 0.01  # [0.5,0.25,0.1,0.05,0.01,0.0023]
 time_training = 300 # [240,180,120,60]
 
@@ -54,11 +54,11 @@ time_domain, ECG_record = Loading_ECG(record_idx,sampling_rate)
 R_peak_and_label = Loading_R_Peak_and_Label(record_idx)
 dict_ECG_beat_segmented, dict_ECG_beat_label = Segmenting_ECG_Beat(ECG_record,R_peak_and_label,AAMI_Total_label,AAMI_Normal,AAMI_PVC) # key: R peak index
 
-print("Reading ECG record " + str(record_idx) + " from " + data_name + "...")
+print("1. Reading ECG record " + str(record_idx) + " from " + data_name + "...")
 
 
 ''' 2. Constructing training set (initial 5min are segmented as training set) '''
-print("Training set construction...")
+print("2. Constructing training set...")
 dict_train_ECG = {RIdx : dict_ECG_beat_segmented[RIdx] for RIdx in dict_ECG_beat_segmented.keys() if RIdx < sampling_rate * time_training}
 dict_train_ECG_normal = {RIdx : dict_ECG_beat_segmented[RIdx] for RIdx in dict_ECG_beat_segmented.keys() if RIdx < sampling_rate * time_training and dict_ECG_beat_label[RIdx] in AAMI_Normal}
 dict_train_ECG_PVC = {RIdx : dict_ECG_beat_segmented[RIdx] for RIdx in dict_ECG_beat_segmented.keys() if RIdx < sampling_rate * time_training and dict_ECG_beat_label[RIdx] in AAMI_NonNormal}
@@ -68,7 +68,7 @@ dict_test_label = {RIdx : dict_ECG_beat_label[RIdx] for RIdx in dict_ECG_beat_la
 
 
 ''' 3. Applying wavelet transformation to each ECG beats in training and test set '''
-print("Wavelet construction...")
+print("3. Applying wavelet transformation...")
 dict_train_wc = Wavelet_Transformation(dict_train_ECG)
 dict_train_wc_normal = Wavelet_Transformation(dict_train_ECG_normal)
 dict_train_wc_PVC = Wavelet_Transformation(dict_train_ECG_PVC)
@@ -83,7 +83,7 @@ average_train_wc_normal /= float(number_train_normal)
 
 
 ''' 4. Constructing sparse discriminant vector and projecting to the low dimensional space'''
-print("Constructing sparse discriminant vector and projecting to the low dimensional space...")
+print("4. Constructing sparse discriminant vector and projecting to the low dimensional space...")
 SDA_vector \
     = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
 
@@ -101,7 +101,7 @@ projected_average_train_wc_normal =\
 projected_Cov_train_wc_normal = Projecting_Low_Dimensional_Cov(SDA_vector,dict_train_wc_normal)
 
 ''' 5. Computing T2 statistics '''
-print("Computing T2 statistics...")
+print("5. Computing T2 statistics...")
 dict_test_T2stat \
     = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
 # Stat_dict_test = Constructing_T2_Stat(ReducedMean,ReducedCov,RedWavSegment_Test)
