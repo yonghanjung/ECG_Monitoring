@@ -23,57 +23,93 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Statistics4.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/LocalExperiment/Statistics4.py">
+      <file leaf-file-name="160530_T2_construction.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/160224_Code/160530_T2_construction.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.1547232" vertical-offset="2611" max-vertical-offset="14996">
-              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5826" max-vertical-offset="6300">
+              <caret line="414" column="9" selection-start-line="414" selection-start-column="9" selection-end-line="414" selection-end-column="9" />
               <folding>
-                <element signature="e#196#215#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataConstruction1.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LocalExperiment/DataConstruction1.py">
+      <file leaf-file-name="160601_code.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/160224_Code/160601_code.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5206">
-              <caret line="168" column="69" selection-start-line="168" selection-start-column="12" selection-end-line="168" selection-end-column="69" />
+            <state vertical-scroll-proportion="10.043478" vertical-offset="1496" max-vertical-offset="8534">
+              <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
               <folding>
-                <element signature="e#116#161#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Data_Preparation0.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py">
+      <file leaf-file-name="160530_SDA_parameter_chooser.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/160224_Code/160530_SDA_parameter_chooser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4526" max-vertical-offset="5140">
-              <caret line="199" column="47" selection-start-line="199" selection-start-column="47" selection-end-line="199" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="6539" max-vertical-offset="6945">
+              <caret line="442" column="31" selection-start-line="442" selection-start-column="31" selection-end-line="442" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="160530_Fig1_notation.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/160224_Code/160530_Fig1_notation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="5714" max-vertical-offset="6465">
+              <caret line="399" column="0" selection-start-line="399" selection-start-column="0" selection-end-line="401" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="160530_Fig1_for_illustration.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/160224_Code/160530_Fig1_for_illustration.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6345">
+              <caret line="380" column="22" selection-start-line="380" selection-start-column="22" selection-end-line="380" selection-end-column="22" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="160530_DWT_fig_illustration.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/160224_Code/160530_DWT_fig_illustration.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="6236" max-vertical-offset="6660">
+              <caret line="432" column="27" selection-start-line="431" selection-start-column="4" selection-end-line="432" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Data_Load.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data_Load.py">
+      <file leaf-file-name="160523_fig2.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/160224_Code/160523_fig2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="308" max-vertical-offset="1207">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5114" max-vertical-offset="5940">
+              <caret line="375" column="0" selection-start-line="375" selection-start-column="0" selection-end-line="375" selection-end-column="0" />
               <folding>
-                <element signature="e#74#89#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="zone1_downhill_hengame_labeled.csv" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/KKSeo/zone1_downhill_hengame_labeled.csv">
+      <file leaf-file-name="160523_figure_ECG_PVC_Normal.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/160224_Code/160523_figure_ECG_PVC_Normal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="108285">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5010" max-vertical-offset="5985">
+              <caret line="354" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="399" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -89,37 +125,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Compute_Fisher_Score/HansFisherScore.py" />
-        <option value="$PROJECT_DIR$/Monitor_Stat/MonitorStat.py" />
-        <option value="$PROJECT_DIR$/Compute_Fisher_Score/Applying_Fisher_Score.py" />
-        <option value="$PROJECT_DIR$/Statistics/ConstructStatistics.py" />
-        <option value="$PROJECT_DIR$/0_Data_Preparation.py" />
-        <option value="$PROJECT_DIR$/MainExcution.py" />
-        <option value="$PROJECT_DIR$/1_DataConstruction.py" />
-        <option value="$PROJECT_DIR$/2_InControlConstruction.py" />
-        <option value="$PROJECT_DIR$/Compute_Fisher_Score/FisherLDA.py" />
-        <option value="$PROJECT_DIR$/150628_Performance_Result" />
-        <option value="$PROJECT_DIR$/Data/215_anno.txt" />
-        <option value="$PROJECT_DIR$/Data_Preparation0.py" />
-        <option value="$PROJECT_DIR$/Data/116_anno.txt" />
-        <option value="$PROJECT_DIR$/Performance_Check5.py" />
-        <option value="$PROJECT_DIR$/Compute_Fisher_Score/NewtonMethodLDA_Ver1.py" />
-        <option value="$PROJECT_DIR$/FeatureSelector3.py" />
-        <option value="$PROJECT_DIR$/Compute_Fisher_Score/HansFisherLDA.py" />
-        <option value="$PROJECT_DIR$/InControlConstruction2.py" />
-        <option value="$PROJECT_DIR$/KalmanFilter_NoiseReduction_Ver0.py" />
-        <option value="$PROJECT_DIR$/Statistics4.py" />
-        <option value="$PROJECT_DIR$/DataConstruction1.py" />
-        <option value="$PROJECT_DIR$/Main/Main.py" />
-        <option value="$PROJECT_DIR$/Data_Segmentation/DataSegmentation.py" />
-        <option value="$PROJECT_DIR$/ParameterExtraction/ParameterExtraction.py" />
-        <option value="$PROJECT_DIR$/FeatureExtraction/FisherLDA.py" />
-        <option value="$PROJECT_DIR$/FeatureExtraction/FeatureExtraction.py" />
-        <option value="$PROJECT_DIR$/LocalExperiment/LocalExperiment.py" />
-        <option value="$PROJECT_DIR$/OldLocalExperiment/DataConstruction1.py" />
-        <option value="$PROJECT_DIR$/OldLocalExperiment/FeatureSelector3.py" />
-        <option value="$PROJECT_DIR$/OldLocalExperiment/Statistics4.py" />
-        <option value="$PROJECT_DIR$/LocalExperiment/InControlConstruction2.py" />
         <option value="$PROJECT_DIR$/Old/Compute_Fisher_Score/TwoClassFisherLDA.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Competite_SVM.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/PerformanceComparison.py" />
@@ -131,23 +136,54 @@
         <option value="$PROJECT_DIR$/LocalExperiment/Compete_SVM.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Compete_NeuralNet.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/FeatureSelector3.py" />
-        <option value="$PROJECT_DIR$/Performance_BoxPlot/performance.txt" />
-        <option value="$PROJECT_DIR$/Performance_BoxPlot/BoxPlot.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/160217_KKseo.py" />
-        <option value="$PROJECT_DIR$/Data_Preparation.py" />
-        <option value="$PROJECT_DIR$/KKSeo/KKSeo.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py" />
         <option value="$PROJECT_DIR$/Data_Load.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/Statistics4.py" />
+        <option value="$PROJECT_DIR$/KKSeo/KKSeo.py" />
+        <option value="$PROJECT_DIR$/Data_Preparation.py" />
+        <option value="$PROJECT_DIR$/GlobalExperiment/160223_Global_Classifier.py" />
+        <option value="$PROJECT_DIR$/GlobalExperiment/160223_Global_classifier.py" />
+        <option value="$PROJECT_DIR$/GlobalExperiment/160223_Wav_generator.py" />
+        <option value="$PROJECT_DIR$/GlobalExperiment/160223_Data_generator.py" />
         <option value="$PROJECT_DIR$/LocalExperiment/DataConstruction1.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160224_NN.py" />
+        <option value="$PROJECT_DIR$/GlobalExperiment/160223_Global.py" />
+        <option value="$PROJECT_DIR$/Data/160229_ECG_crawler.py" />
+        <option value="$PROJECT_DIR$/160224_Code/alphas.txt" />
+        <option value="$PROJECT_DIR$/160224_Code/160229_boxplot_for_alpha.py" />
+        <option value="$PROJECT_DIR$/160224_Code/training_time.txt" />
+        <option value="$PROJECT_DIR$/160224_Code/160229_boxplot_for_training_time.py" />
+        <option value="$PROJECT_DIR$/160224_Code/INCART.txt" />
+        <option value="$PROJECT_DIR$/160224_Code/Long.txt" />
+        <option value="$PROJECT_DIR$/160224_Code/160310_boxplot_for_Long.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160310_boxplot_for_INCART_alpha.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160503_fig2.py" />
+        <option value="$PROJECT_DIR$/Performance_BoxPlot/BoxPlot.py" />
+        <option value="$PROJECT_DIR$/Performance_BoxPlot/performance.txt" />
+        <option value="$PROJECT_DIR$/160224_Code/160523_figure_ECG_PVC_Normal.py" />
+        <option value="$PROJECT_DIR$/160224_Code/HansFisherLDA.py" />
+        <option value="$PROJECT_DIR$/160224_Code/Class_SparseLDA.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160523_dwt_demo.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160523_T2_stat.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160523_fig2.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160224_code.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160523_SDA_discriminant_vector.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160530_T2_construction.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160530_DWT_demo.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160530_DWT_fig_illustration.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160530_SDA_parameter_chooser.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160530_Fig1_notation.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160530_Fig1_for_illustration.py" />
+        <option value="$PROJECT_DIR$/160224_Code/160601_code.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1456" />
-    <option name="y" value="-18" />
-    <option name="width" value="1904" />
-    <option name="height" value="1057" />
+    <option name="x" value="44" />
+    <option name="y" value="23" />
+    <option name="width" value="1236" />
+    <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -204,7 +240,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="LocalExperiment" />
+              <option name="myItemId" value="Data_Segmentation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -218,7 +254,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="KKSeo" />
+              <option name="myItemId" value="160224_Code" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -243,106 +279,106 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/160224_Code" />
+      <recent name="$PROJECT_DIR$/GlobalExperiment" />
       <recent name="$PROJECT_DIR$/KKSeo" />
       <recent name="$PROJECT_DIR$/LocalExperiment" />
       <recent name="$PROJECT_DIR$/Data" />
-      <recent name="$PROJECT_DIR$/HRVAnalysis" />
-      <recent name="$PROJECT_DIR$/Old/Compute_Fisher_Score" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Data" />
       <recent name="$PROJECT_DIR$/Feature_selection+Monitoring_statistics" />
       <recent name="$PROJECT_DIR$/PLOT" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/150501_Segment" />
-      <recent name="$PROJECT_DIR$/Data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Statistics4 (1)">
-    <configuration default="false" name="160217_KKseo" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.160601_code">
+    <configuration default="false" name="160530_DWT_fig_illustration" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LocalExperiment" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/160224_Code" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ECG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LocalExperiment/160217_KKseo.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/160224_Code/160530_DWT_fig_illustration.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="Data_Load" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="160530_SDA_parameter_chooser" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/160224_Code" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ECG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Load.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/160224_Code/160530_SDA_parameter_chooser.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="Data_Preparation0" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="160530_Fig1_notation" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LocalExperiment" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/160224_Code" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ECG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/160224_Code/160530_Fig1_notation.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="KKSeo" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="160530_Fig1_for_illustration" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/KKSeo" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/160224_Code" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ECG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/KKSeo/KKSeo.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/160224_Code/160530_Fig1_for_illustration.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="Statistics4 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="160601_code" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LocalExperiment" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/160224_Code" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ECG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LocalExperiment/Statistics4.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/160224_Code/160601_code.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -489,19 +525,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.Statistics4" />
-      <item index="1" class="java.lang.String" itemvalue="Python.160217_KKseo" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Data_Load" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Data_Preparation0" />
-      <item index="4" class="java.lang.String" itemvalue="Python.KKSeo" />
-      <item index="5" class="java.lang.String" itemvalue="Python.Statistics4 (1)" />
+      <item index="1" class="java.lang.String" itemvalue="Python.160530_DWT_fig_illustration" />
+      <item index="2" class="java.lang.String" itemvalue="Python.160530_SDA_parameter_chooser" />
+      <item index="3" class="java.lang.String" itemvalue="Python.160530_Fig1_notation" />
+      <item index="4" class="java.lang.String" itemvalue="Python.160530_Fig1_for_illustration" />
+      <item index="5" class="java.lang.String" itemvalue="Python.160601_code" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Statistics4 (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Data_Load" />
-        <item index="2" class="java.lang.String" itemvalue="Python.KKSeo" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Data_Preparation0" />
-        <item index="4" class="java.lang.String" itemvalue="Python.160217_KKseo" />
+        <item index="0" class="java.lang.String" itemvalue="Python.160601_code" />
+        <item index="1" class="java.lang.String" itemvalue="Python.160530_Fig1_for_illustration" />
+        <item index="2" class="java.lang.String" itemvalue="Python.160530_Fig1_notation" />
+        <item index="3" class="java.lang.String" itemvalue="Python.160530_SDA_parameter_chooser" />
+        <item index="4" class="java.lang.String" itemvalue="Python.160530_DWT_fig_illustration" />
       </list>
     </recent_temporary>
   </component>
@@ -518,23 +554,23 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1456" y="-18" width="1904" height="1057" extended-state="0" />
-    <editor active="true" />
+    <frame x="44" y="23" width="1236" height="777" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32848233" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16334033" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2394822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.398827" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3191268" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3328446" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32848233" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -558,404 +594,394 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="6" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Data/228_info.txt">
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="380">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="282" max-vertical-offset="3855">
+          <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/228_header.txt">
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/DataConstruction1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="380">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2138" max-vertical-offset="4556">
+          <caret line="151" column="42" selection-start-line="151" selection-start-column="42" selection-end-line="151" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/233_header.txt">
+    <entry file="file://$PROJECT_DIR$/KKSeo/KKSeo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5763" max-vertical-offset="7004">
+          <caret line="370" column="0" selection-start-line="370" selection-start-column="0" selection-end-line="370" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/234_header.txt">
+    <entry file="file://$PROJECT_DIR$/Data/14046_anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="-2662.9907" vertical-offset="1728626" max-vertical-offset="1729275">
+          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/232_header.txt">
+    <entry file="file://$PROJECT_DIR$/GlobalExperiment/160223_Data_generator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1335" max-vertical-offset="2595">
+          <caret line="108" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/230_header.txt">
+    <entry file="file://$PROJECT_DIR$/Data/14134_anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/222_header.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/220_header.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/219_header.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/108_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.394958" vertical-offset="4425" max-vertical-offset="27465">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/221_header.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/222_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="39615">
-          <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/215_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.504202" vertical-offset="5535" max-vertical-offset="51105">
-          <caret line="0" column="15" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Old/Compute_Fisher_Score/HansFisherScore.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="756" max-vertical-offset="1485">
-          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/OptimalScoringLDA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="48" max-vertical-offset="405">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Old/Compute_Fisher_Score/TwoClassFisherLDA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="645" max-vertical-offset="1649">
-          <caret line="16" column="35" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="35" />
+        <state vertical-scroll-proportion="932.1951" vertical-offset="0" max-vertical-offset="746640">
+          <caret line="43316" column="24" selection-start-line="43316" selection-start-column="24" selection-end-line="43316" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LocalExperiment/NeuralNetwork_RBF.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1020">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.020771513" vertical-offset="241" max-vertical-offset="1020">
+          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/233_anno.txt">
+    <entry file="file:///Library/Python/2.7/site-packages/sklearn/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.680672" vertical-offset="7740" max-vertical-offset="47385">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ShortTest_with_ECG/ShortTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="231" max-vertical-offset="1944">
-          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ParameterExtraction/ParameterExtraction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1875">
-          <caret line="0" column="23" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/200_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="41985">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/219_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2063" max-vertical-offset="34785">
-          <caret line="392" column="27" selection-start-line="392" selection-start-column="26" selection-end-line="392" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/200.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="41985">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/120_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="31515">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Old/Compute_Fisher_Score/HansFisherLDA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1055" max-vertical-offset="3781">
-          <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/119_anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-58.42857" vertical-offset="30990" max-vertical-offset="31515">
-          <caret line="21" column="27" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.3323442" vertical-offset="631" max-vertical-offset="1365">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/228_anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-30.197823" vertical-offset="16639" max-vertical-offset="32220">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="32220">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/234_anno.txt">
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/Compete_NeuralNet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="18695" max-vertical-offset="41565">
-          <caret line="1252" column="0" selection-start-line="1252" selection-start-column="0" selection-end-line="1252" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5423" max-vertical-offset="6290">
+          <caret line="222" column="0" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/sklearn/svm/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3323442" vertical-offset="7321" max-vertical-offset="13830">
+          <caret line="520" column="0" selection-start-line="520" selection-start-column="0" selection-end-line="520" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/Compete_SVM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3280" max-vertical-offset="4700">
+          <caret line="194" column="43" selection-start-line="194" selection-start-column="29" selection-end-line="194" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/Statistics4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="7684" max-vertical-offset="11101">
+          <caret line="464" column="18" selection-start-line="464" selection-start-column="18" selection-end-line="464" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/209_anno.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2835" max-vertical-offset="45885">
+          <caret line="2" column="37" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GlobalExperiment/160223_Global.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.529148" vertical-offset="891" max-vertical-offset="1560">
+          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/160229_ECG_crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.090361446" vertical-offset="0" max-vertical-offset="780">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/ECG_crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49698794" vertical-offset="0" max-vertical-offset="495">
+          <caret line="11" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/training_time.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+          <caret line="21" column="157" selection-start-line="21" selection-start-column="157" selection-end-line="21" selection-end-column="157" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/alphas.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+          <caret line="5" column="140" selection-start-line="5" selection-start-column="140" selection-end-line="5" selection-end-column="140" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/160224_Code/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/INCART.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1215">
+          <caret line="75" column="143" selection-start-line="75" selection-start-column="143" selection-end-line="75" selection-end-column="143" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example_Plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.597146" vertical-offset="0" max-vertical-offset="911">
+          <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/160224_Code/160229_boxplot_for_training_time.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.0238726" vertical-offset="2141" max-vertical-offset="2895">
+          <caret line="44" column="33" selection-start-line="44" selection-start-column="33" selection-end-line="44" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/160224_Code/160229_boxplot_for_alpha.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2715">
+          <caret line="17" column="25" selection-start-line="0" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/Long.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+          <caret line="6" column="125" selection-start-line="6" selection-start-column="125" selection-end-line="6" selection-end-column="125" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GlobalExperiment/160223_Wav_generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3094629" vertical-offset="869" max-vertical-offset="1260">
+          <caret line="70" column="36" selection-start-line="70" selection-start-column="36" selection-end-line="70" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Old/Wavelet_Analysis/Wavelet_Analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Performance_BoxPlot/BoxPlot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2506" max-vertical-offset="2910">
+          <caret line="186" column="46" selection-start-line="186" selection-start-column="31" selection-end-line="186" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Performance_BoxPlot/performance.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+          <caret line="21" column="77" selection-start-line="21" selection-start-column="77" selection-end-line="21" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/160224_Code/160310_boxplot_for_Long.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1901" max-vertical-offset="2670">
+          <caret line="140" column="44" selection-start-line="140" selection-start-column="44" selection-end-line="140" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/160224_Code/160310_boxplot_for_INCART_alpha.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="885" max-vertical-offset="2490">
+          <caret line="97" column="72" selection-start-line="97" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/OptimalScoringLDA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Old/Compute_Fisher_Score/FisherLDA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2685">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/160224_Code/HansFisherScore.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1485">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/numpy/lib/function_base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33147633" vertical-offset="9466" max-vertical-offset="61920">
+          <caret line="667" column="0" selection-start-line="667" selection-start-column="0" selection-end-line="667" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Old/Compute_Fisher_Score/HansFisherLDA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32920793" vertical-offset="0" max-vertical-offset="3876">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LocalExperiment/Class_SparseLDA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.8960396" vertical-offset="991" max-vertical-offset="1395">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/160224_Code/Class_SparseLDA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="419" max-vertical-offset="1674">
+          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Performance_BoxPlot/BoxPlot.py">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160523_T2_stat.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15607986" vertical-offset="1969" max-vertical-offset="2520">
-          <caret line="140" column="56" selection-start-line="140" selection-start-column="56" selection-end-line="140" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="6374" max-vertical-offset="6780">
+          <caret line="300" column="0" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/Compete_SVM.py">
+    <entry file="file://$PROJECT_DIR$/160224_Code/HansFisherLDA.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2041" max-vertical-offset="3450">
-          <caret line="147" column="22" selection-start-line="147" selection-start-column="22" selection-end-line="147" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1656" max-vertical-offset="4646">
+          <caret line="157" column="32" selection-start-line="157" selection-start-column="32" selection-end-line="157" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/zone3_uphill_hengame_labeled.csv">
+    <entry file="file://$PROJECT_DIR$/Data/119_anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30252102" vertical-offset="0" max-vertical-offset="92610">
-          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="31515">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/Compete_NeuralNet.py">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160530_DWT_demo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2550" max-vertical-offset="5550">
-          <caret line="180" column="7" selection-start-line="180" selection-start-column="7" selection-end-line="180" selection-end-column="7" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5046" max-vertical-offset="7530">
+          <caret line="386" column="0" selection-start-line="386" selection-start-column="0" selection-end-line="386" selection-end-column="0" />
+          <folding>
+            <element signature="e#176#427#0" expanded="false" />
+            <element signature="e#463#1208#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/pandas/io/parsers.py">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160523_fig2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.4935898" vertical-offset="11522" max-vertical-offset="36285">
-          <caret line="730" column="0" selection-start-line="730" selection-start-column="0" selection-end-line="730" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/160217_KKseo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.4102564" vertical-offset="0" max-vertical-offset="1892">
-          <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5264" max-vertical-offset="5940">
+          <caret line="375" column="0" selection-start-line="375" selection-start-column="0" selection-end-line="375" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/zone3_downhill_hengame_labeled.csv">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160523_figure_ECG_PVC_Normal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="51450">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5823" max-vertical-offset="6783">
+          <caret line="354" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="399" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/KKSeo/zone2_downhill_hengame_labeled.csv">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160523_SDA_discriminant_vector.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="192855">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="-1.6086956" vertical-offset="6794" max-vertical-offset="7545">
+          <caret line="418" column="64" selection-start-line="418" selection-start-column="64" selection-end-line="418" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/KKSeo/zone3_downhill_hengame_labeled.csv">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160530_T2_construction.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="51450">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/Class_SparseLDA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40865386" vertical-offset="0" max-vertical-offset="1425">
-          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5826" max-vertical-offset="6300">
+          <caret line="414" column="9" selection-start-line="414" selection-start-column="9" selection-end-line="414" selection-end-column="9" />
           <folding>
-            <element signature="e#116#134#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/KKSeo/zone1_downhill_hengame_labeled.csv">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160530_SDA_parameter_chooser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="108285">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/KKSeo/Class_SparseLDA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1395">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Old/Wavelet_Analysis/Wavelet_Analysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3228477" vertical-offset="0" max-vertical-offset="604">
-          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/InControlConstruction2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.11164274" vertical-offset="359" max-vertical-offset="986">
-          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data_Preparation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.93301433" vertical-offset="1005" max-vertical-offset="1755">
-          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/KKSeo/KKSeo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38277513" vertical-offset="2760" max-vertical-offset="4965">
-          <caret line="279" column="29" selection-start-line="279" selection-start-column="29" selection-end-line="279" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="6269" max-vertical-offset="6945">
+          <caret line="442" column="31" selection-start-line="442" selection-start-column="31" selection-end-line="442" selection-end-column="31" />
           <folding>
-            <element signature="e#29#48#0" expanded="true" />
-            <element signature="e#5160#6056#0" expanded="false" />
-            <element signature="e#6152#6722#0" expanded="false" />
-            <element signature="e#6835#7499#0" expanded="false" />
-            <element signature="e#7598#8534#0" expanded="false" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/Data_Preparation0.py">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160530_DWT_fig_illustration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4526" max-vertical-offset="5140">
-          <caret line="199" column="47" selection-start-line="199" selection-start-column="47" selection-end-line="199" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="6101" max-vertical-offset="6660">
+          <caret line="432" column="27" selection-start-line="431" selection-start-column="4" selection-end-line="432" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data_Load.py">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160530_Fig1_notation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="308" max-vertical-offset="1207">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5714" max-vertical-offset="6465">
+          <caret line="399" column="0" selection-start-line="399" selection-start-column="0" selection-end-line="401" selection-end-column="23" />
           <folding>
-            <element signature="e#74#89#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/DataConstruction1.py">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160530_Fig1_for_illustration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5206">
-          <caret line="168" column="69" selection-start-line="168" selection-start-column="12" selection-end-line="168" selection-end-column="69" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6345">
+          <caret line="380" column="22" selection-start-line="380" selection-start-column="22" selection-end-line="380" selection-end-column="22" />
           <folding>
-            <element signature="e#116#161#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/FeatureSelector3.py">
+    <entry file="file://$PROJECT_DIR$/160224_Code/160601_code.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33224756" vertical-offset="156" max-vertical-offset="4635">
-          <caret line="24" column="6" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
+        <state vertical-scroll-proportion="10.043478" vertical-offset="1496" max-vertical-offset="8534">
+          <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
           <folding>
-            <element signature="e#116#172#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/zone3_downhill_hengame_labeled.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-59.52153" vertical-offset="37365" max-vertical-offset="51450">
-          <caret line="3" column="57" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LocalExperiment/Statistics4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1547232" vertical-offset="2611" max-vertical-offset="14996">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding>
-            <element signature="e#196#215#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>

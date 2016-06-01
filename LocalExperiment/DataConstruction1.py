@@ -24,8 +24,8 @@ class DataConstruction(Data_Preparation):
     def __init__(self, RecordNum, RecordType, Seconds, StrWaveletBasis, IntDecompLevel):
         ## Data Load
         Data_Preparation.__init__(self, RecordNum, RecordType)
-        # self.Sampling_rate = 360
-        self.Sampling_rate = 50
+        self.Sampling_rate = 360
+        # self.Sampling_rate = 50
         self.SecondsToSample = Seconds * self.Sampling_rate
         self.StrWaveletBasis = StrWaveletBasis
         self.IntDecompLevel = IntDecompLevel

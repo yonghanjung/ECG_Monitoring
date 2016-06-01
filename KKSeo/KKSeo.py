@@ -16,6 +16,8 @@ def ECG_Load(recordNum):
     mat = scipy.io.loadmat(FileName)
     SamplingRate = 360.0
     Time_domain = np.array([x / float(SamplingRate) for x in range(len(mat['val'][0]))])
+    ECG = mat['val'][0]
+
     return Time_domain, mat['val'][0]
 
 def Index_Loading(recordNum):

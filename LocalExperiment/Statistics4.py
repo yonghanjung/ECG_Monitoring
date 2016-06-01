@@ -291,43 +291,43 @@ class ConstructStatistics(FeatureSelector):
         # return (S*((N-1)**2) * f.ppf(Alpha, S, N-S)) / (N*(N-S))
         return (S*((N-1)**2) * f.ppf(self.alpha, S, N-S)) / (N*(N-S))
 
-    def Compute_Accuracy_CUSUM(self, K):
-        DictFloat_CUSUMStat = self.Construct_CUSUMStat_Test(K)
-        Alpha_VEB, Threshold = self.Compute_PValue()
-        DictInt_Accuracy = dict()
-
-        Int_TotalTestPoint = 0
-        Int_Type1_Error = 0
-        Int_Type1_Duzi = 0
-        Int_Type2_Error = 0
-        Int_Type2_Duzi = 0
-
-        for idx, key in enumerate(sorted(DictFloat_CUSUMStat)):
-            # VEBSVEB
-            Int_TotalTestPoint += 1
-            if self.Dict_TestLabel[key] == 'N' or self.Dict_TestLabel[key] == 'L' or self.Dict_TestLabel[key] == 'R' or self.Dict_TestLabel[key] == 'e' or self.Dict_TestLabel[key] == 'j' :
-                if DictFloat_CUSUMStat[key] < Threshold: # Normal In Control
-                    Int_Type1_Duzi += 1 # Normal 을 Normal 로
-                elif DictFloat_CUSUMStat[key] > Threshold: # Normal Out Control
-                    # print self.Dict_TestLabel[key], DictFloat_Stat[key],  UCLVAL
-                    Int_Type1_Error += 1 # Normal 을 VEB / SVEB 로
-            # SVEB
-            # elif self.Dict_TestLabel[key] == 'A' or self.Dict_TestLabel[key] == 'a' or self.Dict_TestLabel[key] == 'S' or self.Dict_TestLabel[key] == 'J':
-            # VEB
-            elif self.Dict_TestLabel[key] == 'V' or self.Dict_TestLabel[key] == 'E' :
-                if DictFloat_CUSUMStat[key] < Threshold: # PVC In Control
-                    Int_Type2_Error += 1 # VEB / SVEB 를 Normal 로
-                elif DictFloat_CUSUMStat[key] > Threshold: # PVC Out Control
-                    Int_Type2_Duzi += 1 # VEB / SVEB 를 VEB/SVEB 로
-            # except:
-            #     pass
-
-        DictInt_Accuracy['Normal(G) as VEB'] = Int_Type1_Error # Normal 을 VEB / SVEB 로
-        DictInt_Accuracy['Normal(G) as Normal'] = Int_Type1_Duzi # Normal 을 Normal 로
-        DictInt_Accuracy['VEB(G) as Normal'] = Int_Type2_Error # VEB / SVEB 를 Normal 로
-        DictInt_Accuracy['VEB(G) as VEB'] = Int_Type2_Duzi # VEB / SVEB 를 VEB/SVEB 로
-
-        return DictInt_Accuracy
+    # def Compute_Accuracy_CUSUM(self, K):
+    #     DictFloat_CUSUMStat = self.Construct_CUSUMStat_Test(K)
+    #     Alpha_VEB, Threshold = self.Compute_PValue()
+    #     DictInt_Accuracy = dict()
+    #
+    #     Int_TotalTestPoint = 0
+    #     Int_Type1_Error = 0
+    #     Int_Type1_Duzi = 0
+    #     Int_Type2_Error = 0
+    #     Int_Type2_Duzi = 0
+    #
+    #     for idx, key in enumerate(sorted(DictFloat_CUSUMStat)):
+    #         # VEBSVEB
+    #         Int_TotalTestPoint += 1
+    #         if self.Dict_TestLabel[key] == 'N' or self.Dict_TestLabel[key] == 'L' or self.Dict_TestLabel[key] == 'R' or self.Dict_TestLabel[key] == 'e' or self.Dict_TestLabel[key] == 'j' :
+    #             if DictFloat_CUSUMStat[key] < Threshold: # Normal In Control
+    #                 Int_Type1_Duzi += 1 # Normal 을 Normal 로
+    #             elif DictFloat_CUSUMStat[key] > Threshold: # Normal Out Control
+    #                 # print self.Dict_TestLabel[key], DictFloat_Stat[key],  UCLVAL
+    #                 Int_Type1_Error += 1 # Normal 을 VEB / SVEB 로
+    #         # SVEB
+    #         # elif self.Dict_TestLabel[key] == 'A' or self.Dict_TestLabel[key] == 'a' or self.Dict_TestLabel[key] == 'S' or self.Dict_TestLabel[key] == 'J':
+    #         # VEB
+    #         elif self.Dict_TestLabel[key] == 'V' or self.Dict_TestLabel[key] == 'E' :
+    #             if DictFloat_CUSUMStat[key] < Threshold: # PVC In Control
+    #                 Int_Type2_Error += 1 # VEB / SVEB 를 Normal 로
+    #             elif DictFloat_CUSUMStat[key] > Threshold: # PVC Out Control
+    #                 Int_Type2_Duzi += 1 # VEB / SVEB 를 VEB/SVEB 로
+    #         # except:
+    #         #     pass
+    #
+    #     DictInt_Accuracy['Normal(G) as VEB'] = Int_Type1_Error # Normal 을 VEB / SVEB 로
+    #     DictInt_Accuracy['Normal(G) as Normal'] = Int_Type1_Duzi # Normal 을 Normal 로
+    #     DictInt_Accuracy['VEB(G) as Normal'] = Int_Type2_Error # VEB / SVEB 를 Normal 로
+    #     DictInt_Accuracy['VEB(G) as VEB'] = Int_Type2_Duzi # VEB / SVEB 를 VEB/SVEB 로
+    #
+    #     return DictInt_Accuracy
 
 
 
@@ -494,6 +494,7 @@ class ConstructStatistics(FeatureSelector):
 
 
 if __name__ == "__main__":
+    np.random.seed(123)
     List_RecordNum = [100, 105, 106, 108, 109, 113, 114, 116, 118, 119,
                       200, 201, 202, 203, 207, 208, 209, 210, 213, 214,
                       215, 219, 220, 221, 223, 228, 233]
@@ -503,8 +504,8 @@ if __name__ == "__main__":
     VEB = [200, 202, 210, 213, 214, 219, 221, 228, 231, 233, 234]
     SVEB = [200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
-    IntRecordNum = 219
-    IntRecordType = 1
+    IntRecordNum = 105
+    IntRecordType = 0
     IntSeconds = 60*5
 
     BoolLDAorNOT = True
@@ -574,8 +575,8 @@ if __name__ == "__main__":
     List_Pvalue = ObjConstructStatistics.Compute_PValue()
     print "-" * 50
     # print "Hotelling T"
-    for idx,elem in enumerate(List_Pvalue):
-        print idx, elem
+    # for idx,elem in enumerate(List_Pvalue):
+    #     print idx, elem, ObjConstructStatistics.Dict_TestLabel[ObjConstructStatistics.Dict_TestLabel.keys()[idx]]
 
     print ""
     print IntRecordNum
@@ -637,7 +638,7 @@ if __name__ == "__main__":
     #
     # print len(ObjConstructStatistics.DictArray_TrainWCNormal)
 
-    ObjConstructStatistics.StatPlot()
+    # ObjConstructStatistics.StatPlot()
 
 
 

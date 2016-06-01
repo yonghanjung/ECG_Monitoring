@@ -30,9 +30,9 @@ class Data_Preparation:
             Data_Loading(self.record_num,record_type=self.show_record, Sampling_rate=self.Sampling_rate).Data_Loading()
         return Time_domain, ECG_Dyadic_Sample, Dyad_length
 
-    def Segment(self,TimeSeries, StepData):
-        for i in range(len(StepData)):
-            StepStatus = StepData[i]
+    # def Segment(self,TimeSeries, StepData):
+    #     for i in range(len(StepData)):
+    #         StepStatus = StepData[i]
 
 
     def Index_Loading(self):
