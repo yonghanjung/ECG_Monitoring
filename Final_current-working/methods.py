@@ -71,7 +71,6 @@ def Segmenting_ECG_Beat(ECG_record, Index_dict):
     Segment ECG record beat by beat
     :param ECG_record: ECG record
     :param Index_dict: dictionary providing information about ECG beat
-    :param AAMI_total_label: Total label that should be imported
     :return dict_ECG_beat (key: R_peak_index, val: ECG_beat)
     :return dict_label_beat (key: R_peak_index, val: labe_ECG_beat)
     '''

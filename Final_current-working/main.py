@@ -17,7 +17,7 @@ LongTerm_idx = [14046, 14134, 14149, 14157, 14172, 14184, 15814] # sampling rate
 INCART_idx = range(301,376) # 301 - 375
 MITBIH_idx = [105, 106, 108, 109, 114, 118, 119, 200, 202, 203, 205, 208, 209, 210, 213, 214, 215, 219, 221, 223, 228, 233]
 
-''' ECG label ''' 
+''' ECG label '''
 AAMI_Normal = ['N','L','R','e','j'] # Those label in MIT-BIH are considered as Normal in AAMI
 AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as Normal in AAMI
 
