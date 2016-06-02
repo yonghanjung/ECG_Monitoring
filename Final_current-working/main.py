@@ -17,11 +17,9 @@ LongTerm_idx = [14046, 14134, 14149, 14157, 14172, 14184, 15814] # sampling rate
 INCART_idx = range(301,376) # 301 - 375
 MITBIH_idx = [105, 106, 108, 109, 114, 118, 119, 200, 202, 203, 205, 208, 209, 210, 213, 214, 215, 219, 221, 223, 228, 233]
 
-''' ECG labels '''
+''' ECG label ''' 
 AAMI_Normal = ['N','L','R','e','j'] # Those label in MIT-BIH are considered as Normal in AAMI
 AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as Normal in AAMI
-AAMI_NonNormal= ['V','E','A','a','J','S']
-AAMI_Total_label = AAMI_Normal + AAMI_NonNormal
 
 ''' Control variables '''
 record_idx = 109 # from LongTerm_idx, INCART_idx, or MITBIH_idx
@@ -52,7 +50,7 @@ elif record_idx in LongTerm_idx:
 
 time_domain, ECG_record = Loading_ECG(record_idx,sampling_rate)
 R_peak_and_label = Loading_R_Peak_and_Label(record_idx)
-dict_ECG_beat_segmented, dict_ECG_beat_label = Segmenting_ECG_Beat(ECG_record,R_peak_and_label,AAMI_Total_label,AAMI_Normal,AAMI_PVC) # key: R peak index
+dict_ECG_beat_segmented, dict_ECG_beat_label = Segmenting_ECG_Beat(ECG_record,R_peak_and_label) # key: R peak index
 
 print("1. Reading ECG record " + str(record_idx) + " from " + data_name + "...")
 

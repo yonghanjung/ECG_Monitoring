@@ -66,7 +66,7 @@ def SoftThreshold(X, Threshold):
             ResultList.append(0.0)
     return np.asarray(ResultList)
 
-def Segmenting_ECG_Beat(ECG_record, Index_dict,AAMI_total_label,AAMI_normal,AAMI_PVC):
+def Segmenting_ECG_Beat(ECG_record, Index_dict):
     '''
     Segment ECG record beat by beat
     :param ECG_record: ECG record
@@ -78,6 +78,11 @@ def Segmenting_ECG_Beat(ECG_record, Index_dict,AAMI_total_label,AAMI_normal,AAMI
     # one ECG beat = 128 points to the left and right from R_peak
     distance_to_left = 128 # 128 points to the left from R_peak
     distance_to_right = 128 # 128 points to the right from R_peak
+
+    AAMI_Normal = ['N','L','R','e','j'] # Those label in MIT-BIH are considered as Normal in AAMI
+    AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as Normal in AAMI
+    AAMI_Others = ['A','a','J','S']
+    AAMI_total_label = AAMI_Normal + AAMI_PVC + AAMI_Others
 
     dict_ECG_beat = dict()
     dict_label_beat = dict()
@@ -91,11 +96,11 @@ def Segmenting_ECG_Beat(ECG_record, Index_dict,AAMI_total_label,AAMI_normal,AAMI
             if list_label[iter_idx] in AAMI_total_label:
                 dict_ECG_beat[each_r] = ECG_beat
                 label_of_beat = list_label[iter_idx]
-                if label_of_beat in AAMI_normal:
+                if label_of_beat in AAMI_Normal:
                     AAMI_label = 'N'
                 elif label_of_beat in AAMI_PVC:
                     AAMI_label = 'V'
-                elif label_of_beat not in AAMI_normal and label_of_beat not in AAMI_PVC and label_of_beat in AAMI_total_label:
+                elif label_of_beat in AAMI_Others:
                     AAMI_label = 'S'
                 dict_label_beat[each_r] = AAMI_label
         iter_idx += 1
