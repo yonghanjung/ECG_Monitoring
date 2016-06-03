@@ -15,26 +15,25 @@ from methods import Evaluating_Performance_SVM_NN
 ''' ECG record number '''
 LongTerm_idx = [14046, 14134, 14149, 14157, 14172, 14184, 15814] # sampling rate = 128.0
 INCART_idx = range(301,376) # 301 - 375
-MITBIH_idx = [105, 106, 108, 109, 114, 118, 119, 200, 202, 203, 205, 208, 209, 210, 213, 214, 215, 219, 221, 223, 228, 233]
+MITBIH_idx = [105, 106, 108, 109, 114, 118, 119, 200, 202, 203, 205, 208, 209, 210, 213, 214, 215, 219, 221, 223, 228, 233] # 22
 
 ''' ECG label '''
-AAMI_Normal = ['N','L','R','e','j'] # Those label in MIT-BIH are considered as Normal in AAMI
-AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as Normal in AAMI
+AAMI_Normal = ['N','L','R','e','j'] # Those labels in MIT-BIH are considered as normal in AAMI recommended practice
+AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI recommended practice
 
 ''' Control variables '''
-record_idx = 109 # from LongTerm_idx, INCART_idx, or MITBIH_idx
-alpha = 0.01  # [0.5,0.25,0.1,0.05,0.01,0.0023]
-time_training = 300 # [240,180,120,60]
+record_idx = 109 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
+alpha = 0.01
+time_training = 300 # seconds (= Initial 5 minutes)
 
 SDA_L1_penalty = 0.7
 SDA_L2_penalty = 0.5
 
-SPM_switch = True # if False, then SPM is not run in this program
-NeuralNetwork_switch = False  # if False, then Neural network is not run in this program
-SVM_switch = False # if False, then SVM is not run in this program
-plot_switch = False # if False, the plot for SPM is not drawn
+SPM_switch = True # if False, then SPM will not be run in this program
+NeuralNetwork_switch = False  # if False, then Neural network will not be run in this program
+SVM_switch = False # if False, then SVM will not be run in this program
 
-''' 1. Reading ECG records and segmenting by beats '''
+''' 1. Loading ECG records and segmenting by beats '''
 sampling_rate_MITBIH = 360. # MIT BIH
 sampling_rate_INCART = 257. # INCART
 sampling_rate_LongTerm = 128. # LONG
@@ -47,12 +46,11 @@ elif record_idx in INCART_idx:
 elif record_idx in LongTerm_idx:
     data_name = 'LongTerm'
     sampling_rate = sampling_rate_LongTerm
+print("1. Loading ECG record " + str(record_idx) + " from " + data_name + "...")
 
 time_domain, ECG_record = Loading_ECG(record_idx,sampling_rate)
 R_peak_and_label = Loading_R_Peak_and_Label(record_idx)
 dict_ECG_beat_segmented, dict_ECG_beat_label = Segmenting_ECG_Beat(ECG_record,R_peak_and_label) # key: R peak index
-
-print("1. Reading ECG record " + str(record_idx) + " from " + data_name + "...")
 
 ''' 2. Constructing training set (initial 5min are segmented as training set) '''
 print("2. Constructing training set...")
@@ -63,7 +61,6 @@ dict_train_label = {RIdx : dict_ECG_beat_label[RIdx] for RIdx in dict_ECG_beat_l
 dict_test_ECG = {RIdx : dict_ECG_beat_segmented[RIdx] for RIdx in dict_ECG_beat_label.keys() if RIdx > sampling_rate * time_training}
 dict_test_label = {RIdx : dict_ECG_beat_label[RIdx] for RIdx in dict_ECG_beat_label.keys() if RIdx > sampling_rate * time_training}
 
-
 ''' 3. Applying wavelet transformation to each ECG beats in training and test set '''
 print("3. Applying wavelet transformation...")
 dict_train_wc = Wavelet_Transformation(dict_train_ECG)
@@ -71,6 +68,7 @@ dict_train_wc_normal = Wavelet_Transformation(dict_train_ECG_normal)
 dict_train_wc_PVC = Wavelet_Transformation(dict_train_ECG_PVC)
 dict_test_wc = Wavelet_Transformation(dict_test_ECG)
 
+# Computing average of wavelet coefficients of normal ECG beats in training set
 average_train_wc_normal = np.zeros(256)
 number_train_normal = 0
 for idx, key in enumerate(sorted(dict_train_wc_normal)):
@@ -81,27 +79,18 @@ average_train_wc_normal /= float(number_train_normal)
 
 ''' 4. Constructing sparse discriminant vector and projecting to the low dimensional space'''
 print("4. Constructing sparse discriminant vector and projecting to the low dimensional space...")
-SDA_vector \
-    = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
+sparse_discriminant_vector = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
+dict_train_projected_normal = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_normal)
+dict_train_projected_PVC = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_PVC)
+dict_train_projected = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector, dict_train_wc)
+dict_test_projected  = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_test_wc)
 
-dict_train_projected_normal \
-    = Projecting_Lower_Dimensional_Vec(SDA_vector,dict_train_wc_normal)
-dict_train_projected_PVC \
-    = Projecting_Lower_Dimensional_Vec(SDA_vector,dict_train_wc_PVC)
-dict_train_projected \
-    = Projecting_Lower_Dimensional_Vec(SDA_vector, dict_train_wc)
-dict_test_projected \
-    = Projecting_Lower_Dimensional_Vec(SDA_vector,dict_test_wc)
-
-projected_average_train_wc_normal =\
-    np.dot(SDA_vector,average_train_wc_normal)
-projected_Cov_train_wc_normal = Projecting_Low_Dimensional_Cov(SDA_vector,dict_train_wc_normal)
+projected_average_train_wc_normal = np.dot(sparse_discriminant_vector,average_train_wc_normal)
+projected_Cov_train_wc_normal = Projecting_Low_Dimensional_Cov(sparse_discriminant_vector,dict_train_wc_normal)
 
 ''' 5. Computing T2 statistics '''
 print("5. Computing T2 statistics...")
-dict_test_T2stat \
-    = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
-# Stat_dict_test = Constructing_T2_Stat(ReducedMean,ReducedCov,RedWavSegment_Test)
+dict_test_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
 dict_train_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_train_projected)
 UCL = Computing_UCL(len(dict_train_wc_normal),alpha)
 
@@ -122,30 +111,28 @@ if NeuralNetwork_switch:
     from pybrain.supervised.trainers import BackpropTrainer
 
     dim = 256
-    numHidden = 256
-    ds = SupervisedDataSet(dim,1)
-    # net = buildNetwork(dim,numHidden,1,outclass=SoftmaxLayer, bias = True)
-    # net = buildNetwork(dim,numHidden,1,outclass=GaussianLayer, bias = True)
-    net = buildNetwork(dim,numHidden,1)
+    number_hidden_neural = 256 
+    ds = SupervisedDataSet(dim,1) # SupervisedDataSet(input_dimension, output_dimension) // output = 0 or 1
+    net = buildNetwork(dim,number_hidden_neural,1) # buildNetwork( num_input_neuron, num_hidden_neuron, output_dimension), bias = True (default)
 
-    # Dataset regeneration for pybrain
+    # Regression for response variable of 0 (PVC) and 1 (normal)
     Wav_train_list = list()
     Train_label_list = list()
     for idx,key in enumerate(sorted(dict_train_wc)):
         Label = dict_train_label[key]
         if Label in AAMI_Normal:
-            ds.addSample(dict_train_wc[key],1)
+            ds.addSample(dict_train_wc[key],1) # ds.addSample(input_vector, output_response)
         elif Label in AAMI_PVC:
-            ds.addSample(dict_train_wc[key],0)
+            ds.addSample(dict_train_wc[key],0) # ds.addSample(input_vector, output_response)
 
     trainer = BackpropTrainer(net, dataset=ds)
-    trainer.trainUntilConvergence(dataset=ds, maxEpochs=100)
+    trainer.trainUntilConvergence(dataset=ds, maxEpochs=500) # 500 iterations
     NN_ans_dict = dict()
 
     for idx, key in enumerate(sorted(dict_test_wc)):
         Label = dict_test_label[key]
         NN_ans = net.activate(dict_test_wc[key])
-        if abs(NN_ans[0] - 1 ) < abs(NN_ans[0] - 0): # NN_ans : Normal
+        if abs(NN_ans[0] - 1 ) < abs(NN_ans[0] - 0): # Compare the distance
             NN_ans_dict[key] = 'N'
         else:
             NN_ans_dict[key] = 'V'
@@ -190,17 +177,3 @@ if SVM_switch:
     for idx,key in enumerate(sorted(SVM_accracy_dict)):
         print key, SVM_accracy_dict[key]
 
-''' Plot '''
-if plot_switch:
-    import matplotlib.pyplot as plt
-    plt.figure()
-    for idx,key in enumerate(sorted(dict_test_wc)):
-        plt.plot(idx,UCL,'m.')
-        if dict_test_label[key] == 'N':
-            plt.plot(idx,dict_test_T2stat[key],'bo')
-        elif dict_test_label[key] == 'V':
-            plt.plot(idx,dict_test_T2stat[key],'ro')
-        else:
-            plt.plot(idx,dict_test_T2stat[key],'go')
-
-    plt.show()
