@@ -22,15 +22,15 @@ AAMI_Normal = ['N','L','R','e','j'] # Those labels in MIT-BIH are considered as 
 AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI recommended practice
 
 ''' Control variables '''
-record_idx = 109 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
+record_idx = 119 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
 alpha = 0.01
 time_training = 300 # seconds (= Initial 5 minutes)
 
 SDA_L1_penalty = 0.7
 SDA_L2_penalty = 0.5
 
-SPM_switch = True # if False, then SPM will not be run in this program
-NeuralNetwork_switch = False  # if False, then Neural network will not be run in this program
+SPM_switch = False # if False, then SPM will not be run in this program
+NeuralNetwork_switch = True  # if False, then Neural network will not be run in this program
 SVM_switch = False # if False, then SVM will not be run in this program
 
 ''' 1. Loading ECG records and segmenting by beats '''
@@ -106,14 +106,29 @@ if SPM_switch:
 if NeuralNetwork_switch:
     print ""
     print("Evaluating Neural network for record number " + str(record_idx) + " in " + data_name)
-    from pybrain.datasets import SupervisedDataSet
-    from pybrain.tools.shortcuts import buildNetwork
+    print("It might take some minutes for training...")
+    from pybrain.datasets import ClassificationDataSet
     from pybrain.supervised.trainers import BackpropTrainer
+    from pybrain.structure import FeedForwardNetwork, FullConnection
+    from pybrain.structure import LinearLayer, SigmoidLayer
+
 
     dim = 256
-    number_hidden_neural = 256 
-    ds = SupervisedDataSet(dim,1) # SupervisedDataSet(input_dimension, output_dimension) // output = 0 or 1
-    net = buildNetwork(dim,number_hidden_neural,1) # buildNetwork( num_input_neuron, num_hidden_neuron, output_dimension), bias = True (default)
+    number_hidden_neural = 256
+    ds = ClassificationDataSet(dim,1,nb_classes=2) # SupervisedDataSet(input_dimension, output_dimension) // output = 0 or 1
+    net = FeedForwardNetwork()
+    inLayer = LinearLayer(dim)
+    hiddenLayer = SigmoidLayer(number_hidden_neural)
+    outLayer = LinearLayer(1)
+    net.addInputModule(inLayer)
+    net.addModule(hiddenLayer)
+    net.addOutputModule(outLayer)
+    in_to_hidden = FullConnection(inLayer, hiddenLayer)
+    hidden_to_out = FullConnection(hiddenLayer, outLayer)
+
+    net.addConnection(in_to_hidden)
+    net.addConnection(hidden_to_out)
+    net.sortModules() # Initialize all neurons automatically
 
     # Regression for response variable of 0 (PVC) and 1 (normal)
     Wav_train_list = list()
@@ -126,12 +141,13 @@ if NeuralNetwork_switch:
             ds.addSample(dict_train_wc[key],0) # ds.addSample(input_vector, output_response)
 
     trainer = BackpropTrainer(net, dataset=ds)
-    trainer.trainUntilConvergence(dataset=ds, maxEpochs=500) # 500 iterations
+    trainer.trainUntilConvergence(dataset=ds, maxEpochs=20) # 500 iterations
     NN_ans_dict = dict()
 
     for idx, key in enumerate(sorted(dict_test_wc)):
         Label = dict_test_label[key]
         NN_ans = net.activate(dict_test_wc[key])
+        print NN_ans
         if abs(NN_ans[0] - 1 ) < abs(NN_ans[0] - 0): # Compare the distance
             NN_ans_dict[key] = 'N'
         else:
