@@ -152,45 +152,53 @@ def Constructing_SDA_Vector(DictArray_TrainWCNormal,DictArray_TrainWCPVC,a,b):
         L1Ratio = 0.0
 
     obj_SDA = SDA(dict_train=DictArrayMatrix_for_SDA, Flt_Lambda=alpha, Flt_L1=L1Ratio)
-    sparse_discriminant_vector = obj_SDA.sparse_discriminant_vector
-    return sparse_discriminant_vector
+    sparse_discriminant_matrix = obj_SDA.sparse_discriminant_matrix
+    non_zero_elem = obj_SDA.non_zero_elem
+    return sparse_discriminant_matrix, non_zero_elem
 
-def Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_wc):
+def Shrinking_Vector(non_zero_elem, vec):
+    shrinked_vec = vec[0][non_zero_elem]
+    shrinked_vec = np.reshape(shrinked_vec,(1,len(non_zero_elem)))
+    return shrinked_vec
+
+def Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem,dict_wc):
     '''
     Implementing low dimensional projection of vector using sparse discriminant vector
     :param sparse_discriminant_vector: sparse discriminant vector constructed from 'Constructing_SDA_vector' function
     :param dict_wc: dictionary containing wavelet coefficients of each ECG beats (key: R_peak_index)
     :return: dictionary of low dimensional projected wavelet coefficients of each ECG beats (key: R_peak_index)
     '''
+
     dict_low_dim_projected = dict()
 
     for idx, key in enumerate(sorted(dict_wc)):
-        # 1 by 64
-        wavelet_coefs = np.reshape(dict_wc[key], (len(dict_wc[key]),1 ))
-        low_dim_projected = np.dot(np.transpose(sparse_discriminant_vector), wavelet_coefs)
-        low_dim_projected = np.squeeze(np.asarray(low_dim_projected))
-        low_dim_projected = float(low_dim_projected)
-        dict_low_dim_projected[key] = low_dim_projected
+        wavelet_coefs = np.reshape(dict_wc[key], (1, len(dict_wc[key])))
+        projected_onto_SDmatrix = np.dot(wavelet_coefs, sparse_discriminant_matrix)
+        shrinked_vt = Shrinking_Vector(non_zero_elem,projected_onto_SDmatrix)
+        dict_low_dim_projected[key] = shrinked_vt
     return dict_low_dim_projected
 
-def Projecting_Low_Dimensional_Cov(sparse_discriminant_vector, dict_train_normal_wc):
+def Projecting_Low_Dimensional_Cov(sparse_discriminant_matrix,non_zero_elem,dict_train_normal_wc):
     '''
     Implementing low dimensional projection of covariance matrix using sparse discriminant vector
     :param sparse_discriminant_vector: sparse discriminant vector constructed from 'Constructing_SDA_vector' function
     :param dict_train_normal_wc: dictionary containing wavelet coefficients of ECG beats in training set (key: R_peak_index)
     :return:
     '''
+
     # 1. Computing covariance matrix of wavelet coefficients of normal ECG beats in training set
-    mat_wc_normal = list()
+    new_dim = len(non_zero_elem)
+    mat_wc_normal = np.zeros((len(dict_train_normal_wc),new_dim))
+
     for idx, key in enumerate(sorted(dict_train_normal_wc)):
         wc_train_normal = dict_train_normal_wc[key]
-        mat_wc_normal.append(wc_train_normal)
-    mat_wc_normal = np.array(mat_wc_normal)
+        wc_train_normal = np.reshape(wc_train_normal, (1, len(wc_train_normal)))
+        projected_onto_SDmatrix = np.dot(wc_train_normal, sparse_discriminant_matrix)
+        reduced_projected = Shrinking_Vector(non_zero_elem,projected_onto_SDmatrix)
+        mat_wc_normal[idx]=reduced_projected
     mat_Cov = np.var(mat_wc_normal, axis=0)
     mat_Cov = np.diag(mat_Cov)
-    sparse_discriminant_vector = np.reshape(sparse_discriminant_vector,(len(sparse_discriminant_vector),1))
-    low_dim_projected_Cov = np.dot(np.dot(np.transpose(sparse_discriminant_vector), mat_Cov), sparse_discriminant_vector)
-    return np.ravel(low_dim_projected_Cov)
+    return mat_Cov
 
 def Constructing_T2_Stat(projected_average_wc_normal, projected_Cov_wc_normal, dict_test_projected_wc):
     '''
@@ -202,25 +210,26 @@ def Constructing_T2_Stat(projected_average_wc_normal, projected_Cov_wc_normal, d
     '''
 
     dict_test_T2stat = dict()
+    try:
+        invserse_COV = np.linalg.inv(projected_Cov_wc_normal)
+    except:
+        invserse_COV = np.linalg.inv(projected_Cov_wc_normal+1e-16*np.eye(np.shape(projected_Cov_wc_normal)))
     for idx, key in sorted(enumerate(dict_test_projected_wc)):
-        wc_test_projected = dict_test_projected_wc[key] # 1 Dim
-        wc_test_projected = np.array(wc_test_projected)
+        wc_test_projected = dict_test_projected_wc[key]
         wc_test_centered_projected = np.array(wc_test_projected - projected_average_wc_normal)
-
-        T2_stat = wc_test_centered_projected * (projected_Cov_wc_normal**(-1)) * wc_test_centered_projected.T
+        T2_stat = np.dot(wc_test_centered_projected, np.dot( invserse_COV, np.transpose(wc_test_centered_projected) ))
         T2_stat = np.squeeze(np.asarray(T2_stat))
         dict_test_T2stat[key] = T2_stat
     return dict_test_T2stat
 
-def Computing_UCL(num_train_beats, alpha):
+def Computing_UCL(num_train_beats,dim_proejected, alpha):
     '''
     Computing upper control limit (UCL)
     :param num_train_beats: number of ECG beats in training set
     :param alpha: predefined alpha level (0.01 in the paper)
     :return: UCL value
     '''
-    dim_projected = 1
-    return (dim_projected*((num_train_beats-1)**2) * f.ppf(1-alpha, dim_projected, num_train_beats-dim_projected)) / (num_train_beats*(num_train_beats-dim_projected))
+    return (dim_proejected*((num_train_beats-1)*(num_train_beats+1)) * f.ppf(1-alpha, dim_proejected, num_train_beats-dim_proejected)) / (num_train_beats*(num_train_beats-dim_proejected))
 
 
 def Evaluating_Performance_SPM(dict_test_T2stat, dict_test_label, UCL_val, AAMI_Normal, AAMI_PVC):

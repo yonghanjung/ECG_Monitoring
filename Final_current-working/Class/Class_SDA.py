@@ -55,6 +55,18 @@ class SDA:
             # print B
             self.sparse_discriminant_vector = beta
 
+        ''' 160612 constructing sparse discriminant 'matrix' for two class case for applying T2.'''
+        sparse_discriminant_matrix = np.zeros((self.dim, self.dim))
+        non_zero_elem = list()
+
+        for idx in range(self.dim):
+            sparse_discriminant_matrix[idx][idx] = self.sparse_discriminant_vector[idx]
+            if self.sparse_discriminant_vector[idx] != 0.0:
+                non_zero_elem.append(idx)
+        self.sparse_discriminant_matrix = sparse_discriminant_matrix
+        self.non_zero_elem = non_zero_elem
+
+
     def Construct_Y(self):
         '''
         Construct Y matrix in Algorithm 1 in Sparse Discriminant Analysis (2012) by Clemmensen (Technometrics)

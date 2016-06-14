@@ -5,6 +5,7 @@ from methods import Loading_R_Peak_and_Label
 from methods import Segmenting_ECG_Beat
 from methods import Wavelet_Transformation
 from methods import Constructing_SDA_Vector
+from methods import Shrinking_Vector
 from methods import Projecting_Lower_Dimensional_Vec
 from methods import Projecting_Low_Dimensional_Cov
 from methods import Constructing_T2_Stat
@@ -22,15 +23,16 @@ AAMI_Normal = ['N','L','R','e','j'] # Those labels in MIT-BIH are considered as 
 AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI recommended practice
 
 ''' Control variables '''
-record_idx = 119 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
-alpha = 0.01
+record_idx = 202 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
+alpha = 1-0.999999998026825 # 6-sigma under normal distribution assumption
+# alpha = 1-0.9927 # 3-sigma under normal distribution assumption
 time_training = 300 # seconds (= Initial 5 minutes)
 
-SDA_L1_penalty = 0.7
-SDA_L2_penalty = 0.5
+SDA_L1_penalty = 9.
+SDA_L2_penalty = 1.
 
-SPM_switch = False # if False, then SPM will not be run in this program
-NeuralNetwork_switch = True  # if False, then Neural network will not be run in this program
+SPM_switch = True # if False, then SPM will not be run in this program
+NeuralNetwork_switch = False  # if False, then Neural network will not be run in this program
 SVM_switch = False # if False, then SVM will not be run in this program
 
 ''' 1. Loading ECG records and segmenting by beats '''
@@ -75,24 +77,26 @@ for idx, key in enumerate(sorted(dict_train_wc_normal)):
     average_train_wc_normal += np.array(dict_train_wc_normal[key])
     number_train_normal += 1
 average_train_wc_normal /= float(number_train_normal)
+average_train_wc_normal = np.reshape(average_train_wc_normal, (1,len(average_train_wc_normal)))
 
 
 ''' 4. Constructing sparse discriminant vector and projecting to the low dimensional space'''
 print("4. Constructing sparse discriminant vector and projecting to the low dimensional space...")
-sparse_discriminant_vector = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
-dict_train_projected_normal = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_normal)
-dict_train_projected_PVC = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_PVC)
-dict_train_projected = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector, dict_train_wc)
-dict_test_projected  = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_test_wc)
+sparse_discriminant_matrix, non_zero_elem = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
+# sparse_discriminant_vector = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
+dict_train_projected_normal = Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem, dict_train_wc_normal)
+dict_train_projected_PVC = Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem,dict_train_wc_PVC)
+dict_train_projected = Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem, dict_train_wc)
+dict_test_projected  = Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem,dict_test_wc)
 
-projected_average_train_wc_normal = np.dot(sparse_discriminant_vector,average_train_wc_normal)
-projected_Cov_train_wc_normal = Projecting_Low_Dimensional_Cov(sparse_discriminant_vector,dict_train_wc_normal)
+shrinked_average_train_wc_normal = Shrinking_Vector(non_zero_elem, np.dot(average_train_wc_normal,sparse_discriminant_matrix))
+projected_Cov_train_wc_normal = Projecting_Low_Dimensional_Cov(sparse_discriminant_matrix,non_zero_elem,dict_train_wc_normal)
 
 ''' 5. Computing T2 statistics '''
 print("5. Computing T2 statistics...")
-dict_test_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
-dict_train_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_train_projected)
-UCL = Computing_UCL(len(dict_train_wc_normal),alpha)
+dict_test_T2stat = Constructing_T2_Stat(shrinked_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
+dict_train_T2stat = Constructing_T2_Stat(shrinked_average_train_wc_normal,projected_Cov_train_wc_normal,dict_train_projected)
+UCL = Computing_UCL(len(dict_train_wc_normal),len(non_zero_elem),alpha)
 
 ''' 6. Evaluating accuracy by counting right and wrongly classified beats '''
 if SPM_switch:
@@ -101,6 +105,7 @@ if SPM_switch:
     DictInt_Accuracy = Evaluating_Performance_SPM(dict_test_T2stat, dict_test_label,UCL,AAMI_Normal,AAMI_PVC)
     for idx,key in enumerate(sorted(DictInt_Accuracy)):
         print key, DictInt_Accuracy[key]
+    print len(non_zero_elem)
 
 ''' Competiting method: NN '''
 if NeuralNetwork_switch:
