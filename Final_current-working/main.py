@@ -16,24 +16,25 @@ from methods import Evaluating_Performance_SVM_NN
 ''' ECG record number '''
 LongTerm_idx = [14046, 14134, 14149, 14157, 14172, 14184, 15814] # sampling rate = 128.0
 INCART_idx = range(301,376) # 301 - 375
-MITBIH_idx = [105, 106, 108, 109, 114, 118, 119, 200, 202, 203, 205, 208, 209, 210, 213, 214, 215, 219, 221, 223, 228, 233] # 22
+MITBIH_idx = [105, 106, 108, 109, 114, 118, 119, 200, 202, 203, 205, 208, 210, 213, 214, 215, 219, 221, 223, 228, 233] # 22
 
 ''' ECG label '''
 AAMI_Normal = ['N','L','R','e','j'] # Those labels in MIT-BIH are considered as normal in AAMI recommended practice
 AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI recommended practice
 
 ''' Control variables '''
-record_idx = 202 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
-alpha = 1-0.999999998026825 # 6-sigma under normal distribution assumption
+record_idx = 375 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
+# alpha = 1-0.999999998026825 # 6-sigma under normal distribution assumption
 # alpha = 1-0.9927 # 3-sigma under normal distribution assumption
+alpha = 1-0.99 # 3-sigma under normal distribution assumption
 time_training = 300 # seconds (= Initial 5 minutes)
 
 SDA_L1_penalty = 9.
 SDA_L2_penalty = 1.
 
 SPM_switch = True # if False, then SPM will not be run in this program
-NeuralNetwork_switch = False  # if False, then Neural network will not be run in this program
-SVM_switch = False # if False, then SVM will not be run in this program
+NeuralNetwork_switch = True  # if False, then Neural network will not be run in this program
+SVM_switch = True # if False, then SVM will not be run in this program
 
 ''' 1. Loading ECG records and segmenting by beats '''
 sampling_rate_MITBIH = 360. # MIT BIH
@@ -117,9 +118,8 @@ if NeuralNetwork_switch:
     from pybrain.structure import FeedForwardNetwork, FullConnection
     from pybrain.structure import LinearLayer, SigmoidLayer
 
-
-    dim = 256
-    number_hidden_neural = 256
+    dim = len(non_zero_elem)
+    number_hidden_neural = len(non_zero_elem)
     ds = ClassificationDataSet(dim,1,nb_classes=2) # SupervisedDataSet(input_dimension, output_dimension) // output = 0 or 1
     net = FeedForwardNetwork()
     inLayer = LinearLayer(dim)
@@ -138,21 +138,19 @@ if NeuralNetwork_switch:
     # Regression for response variable of 0 (PVC) and 1 (normal)
     Wav_train_list = list()
     Train_label_list = list()
-    for idx,key in enumerate(sorted(dict_train_wc)):
+    for idx,key in enumerate(sorted(dict_train_projected)):
         Label = dict_train_label[key]
         if Label in AAMI_Normal:
-            ds.addSample(dict_train_wc[key],1) # ds.addSample(input_vector, output_response)
+            ds.addSample(np.squeeze(dict_train_projected[key]),1) # ds.addSample(input_vector, output_response)
         elif Label in AAMI_PVC:
-            ds.addSample(dict_train_wc[key],0) # ds.addSample(input_vector, output_response)
+            ds.addSample(np.squeeze(dict_train_projected[key]),0) # ds.addSample(input_vector, output_response)
 
     trainer = BackpropTrainer(net, dataset=ds)
-    trainer.trainUntilConvergence(dataset=ds, maxEpochs=20) # 500 iterations
+    trainer.trainUntilConvergence(dataset=ds, maxEpochs=200) # 200 iterations
     NN_ans_dict = dict()
 
     for idx, key in enumerate(sorted(dict_test_wc)):
-        Label = dict_test_label[key]
-        NN_ans = net.activate(dict_test_wc[key])
-        print NN_ans
+        NN_ans = net.activate(np.squeeze(dict_test_projected[key]))
         if abs(NN_ans[0] - 1 ) < abs(NN_ans[0] - 0): # Compare the distance
             NN_ans_dict[key] = 'N'
         else:
@@ -171,24 +169,24 @@ if SVM_switch:
     X = list()
     y = list()
 
-    for idx,key in enumerate(sorted(dict_train_T2stat)):
+    for idx,key in enumerate(sorted(dict_train_projected)):
         Label = dict_train_label[key]
         if Label in AAMI_Normal:
-            X.append(dict_train_T2stat[key])
+            X.append(dict_train_projected[key])
             y.append(1)
         elif Label in AAMI_PVC:
-            X.append(dict_train_T2stat[key])
+            X.append(dict_train_projected[key])
             y.append(0)
 
-    X = np.reshape(X, (len(X),1))
+    X = np.reshape(X, (len(X),len(non_zero_elem)))
     y = np.array(y)
 
     clf = SVC(kernel='linear')
     clf.fit(X,y)
     SVM_ans_dict = dict()
-    for idx, key in enumerate(sorted(dict_test_T2stat)):
+    for idx, key in enumerate(sorted(dict_test_projected)):
         Label = dict_test_label[key]
-        SVM_ans = clf.predict(dict_test_T2stat[key])
+        SVM_ans = clf.predict(dict_test_projected[key])
         if abs(SVM_ans[0] - 1 ) < abs(SVM_ans[0] - 0): # NN_ans : Normal
             SVM_ans_dict[key] = 'N'
         else:
