@@ -23,18 +23,16 @@ AAMI_Normal = ['N','L','R','e','j'] # Those labels in MIT-BIH are considered as 
 AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI recommended practice
 
 ''' Control variables '''
-record_idx = 375 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
-# alpha = 1-0.999999998026825 # 6-sigma under normal distribution assumption
-# alpha = 1-0.9927 # 3-sigma under normal distribution assumption
-alpha = 1-0.99 # 3-sigma under normal distribution assumption
+record_idx = 304 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
+alpha = 0.001
 time_training = 300 # seconds (= Initial 5 minutes)
 
 SDA_L1_penalty = 9.
 SDA_L2_penalty = 1.
 
 SPM_switch = True # if False, then SPM will not be run in this program
-NeuralNetwork_switch = True  # if False, then Neural network will not be run in this program
-SVM_switch = True # if False, then SVM will not be run in this program
+NeuralNetwork_switch = False  # if False, then Neural network will not be run in this program
+SVM_switch = False # if False, then SVM will not be run in this program
 
 ''' 1. Loading ECG records and segmenting by beats '''
 sampling_rate_MITBIH = 360. # MIT BIH
