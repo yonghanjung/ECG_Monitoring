@@ -77,8 +77,8 @@ class Main:
         average_train_wc_normal = np.reshape(average_train_wc_normal, (1,len(average_train_wc_normal)))
 
 
-        ''' 4. Constructing sparse discriminant vector and projecting to the low dimensional space'''
-        print("4. Constructing sparse discriminant vector and projecting to the low dimensional space...")
+        ''' 4. Constructing covariance matrix '''
+        print("4. Constructing Covariance matrix...")
         cov_matrix = Computing_Cov(dict_train_wc_normal)
 
         ''' 5. Computing T2 statistics '''
