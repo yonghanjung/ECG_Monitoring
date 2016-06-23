@@ -2,7 +2,7 @@ import numpy as np
 import scipy.io
 import pywt
 from scipy.stats import f
-from Class_SDA import SDA
+from Class_SDA_noSDA import SDA
 
 def Loading_ECG(ECG_record_number,sampling_rate):
     '''
@@ -10,12 +10,8 @@ def Loading_ECG(ECG_record_number,sampling_rate):
     :param: record_number
     :return: time_domain (seconds) / ECG_record
     '''
-    try:
-        ECG_file_name = '../../Data/'+str(ECG_record_number)+'_file.mat'
-        ECG_file = scipy.io.loadmat(ECG_file_name)
-    except:
-        ECG_file_name = '../Data/'+str(ECG_record_number)+'_file.mat'
-        ECG_file = scipy.io.loadmat(ECG_file_name)
+    ECG_file_name = '../Data/'+str(ECG_record_number)+'_file.mat'
+    ECG_file = scipy.io.loadmat(ECG_file_name)
     time_index = np.array([x / float(sampling_rate) for x in range(len(ECG_file['val'][0]))])
     ECG_record = ECG_file['val'][0]
     return time_index, ECG_record
@@ -27,9 +23,9 @@ def Loading_R_Peak_and_Label(ECG_record_number):
     :return: dictionary (key: 'Time','Sample','Type' / val: time_(sec)_R_peak, sample_index_R_peak, label_beat_R_peak
     '''
     try:
-        annotation_file = open('../Data/'+str(ECG_record_number)+'_anno.txt','rb')
+        annotation_file = open('Data/'+str(ECG_record_number)+'_anno.txt','rb')
     except:
-        annotation_file = open('../../Data/'+str(ECG_record_number)+'_anno.txt','rb')
+        annotation_file = open('../Data/'+str(ECG_record_number)+'_anno.txt','rb')
     dict_annotation = dict()
     dict_annotation['Time'] = list() # time index (sec) for R_peak
     dict_annotation['Sample'] = list() # sample index for R_peak
@@ -182,7 +178,7 @@ def Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem,di
         dict_low_dim_projected[key] = shrinked_vt
     return dict_low_dim_projected
 
-def Projecting_Low_Dimensional_Cov(sparse_discriminant_matrix,non_zero_elem,dict_train_normal_wc):
+def Computing_Cov(dict_train_normal_wc):
     '''
     Implementing low dimensional projection of covariance matrix using sparse discriminant vector
     :param sparse_discriminant_vector: sparse discriminant vector constructed from 'Constructing_SDA_vector' function
@@ -191,15 +187,11 @@ def Projecting_Low_Dimensional_Cov(sparse_discriminant_matrix,non_zero_elem,dict
     '''
 
     # 1. Computing covariance matrix of wavelet coefficients of normal ECG beats in training set
-    new_dim = len(non_zero_elem)
-    mat_wc_normal = np.zeros((len(dict_train_normal_wc),new_dim))
+    mat_wc_normal = np.zeros((len(dict_train_normal_wc),256))
 
     for idx, key in enumerate(sorted(dict_train_normal_wc)):
         wc_train_normal = dict_train_normal_wc[key]
-        wc_train_normal = np.reshape(wc_train_normal, (1, len(wc_train_normal)))
-        projected_onto_SDmatrix = np.dot(wc_train_normal, sparse_discriminant_matrix)
-        reduced_projected = Shrinking_Vector(non_zero_elem,projected_onto_SDmatrix)
-        mat_wc_normal[idx]=reduced_projected
+        mat_wc_normal[idx]=wc_train_normal
     mat_Cov = np.var(mat_wc_normal, axis=0)
     mat_Cov = np.diag(mat_Cov)
     return mat_Cov
@@ -217,7 +209,7 @@ def Constructing_T2_Stat(projected_average_wc_normal, projected_Cov_wc_normal, d
     try:
         invserse_COV = np.linalg.inv(projected_Cov_wc_normal)
     except:
-        invserse_COV = np.linalg.inv(projected_Cov_wc_normal+1e-16*np.eye(np.shape(projected_Cov_wc_normal)))
+        invserse_COV = np.linalg.inv(projected_Cov_wc_normal+1e-16*np.eye(256))
     for idx, key in sorted(enumerate(dict_test_projected_wc)):
         wc_test_projected = dict_test_projected_wc[key]
         wc_test_centered_projected = np.array(wc_test_projected - projected_average_wc_normal)

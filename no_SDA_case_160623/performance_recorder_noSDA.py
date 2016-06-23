@@ -1,6 +1,6 @@
 __author__ = 'jeong-yonghan'
 
-from Class.MainRun import Main
+from Class.MainRun_noSDA import Main
 import csv
 
 ''' ECG record number '''
@@ -27,14 +27,12 @@ time_training = 300 # seconds (= Initial 5 minutes)
 data_ECG = Compare_idx
 
 
-# record_idx = 119
-
 # TN = obj_main.DictInt_Accuracy['Normal as Normal']
 # FP = obj_main.DictInt_Accuracy['Normal as PVC']
 # FN = obj_main.DictInt_Accuracy['PVC as Normal']
 # TP = obj_main.DictInt_Accuracy['PVC as PVC']
 
-with open('performance_records/performance.csv','w') as csvfile:
+with open('performance_records/performance_noSDA.csv','w') as csvfile:
     fieldnames = ['TN','FP','FN','TP']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
@@ -44,12 +42,16 @@ with open('performance_records/performance.csv','w') as csvfile:
             SDA_L1_penalty = 9.
             SDA_L2_penalty = 1.
             obj_main = Main(record_idx=record_idx,alpha=alpha,SDA_L1_penalty=SDA_L1_penalty, SDA_L2_penalty=SDA_L2_penalty)
+            print obj_main.DictInt_Accuracy
             writer.writerow({'TN' : obj_main.DictInt_Accuracy['Normal as Normal'], 'FP': obj_main.DictInt_Accuracy['Normal as PVC'], 'FN':obj_main.DictInt_Accuracy['PVC as Normal'], 'TP':obj_main.DictInt_Accuracy['PVC as PVC'] })
+            print str(record_idx) + " is written"
         except:
             SDA_L1_penalty = 4.
             SDA_L2_penalty = 1.
             obj_main = Main(record_idx=record_idx,alpha=alpha,SDA_L1_penalty=SDA_L1_penalty, SDA_L2_penalty=SDA_L2_penalty)
+            print obj_main.DictInt_Accuracy
             writer.writerow({'TN' : obj_main.DictInt_Accuracy['Normal as Normal'], 'FP': obj_main.DictInt_Accuracy['Normal as PVC'], 'FN':obj_main.DictInt_Accuracy['PVC as Normal'], 'TP':obj_main.DictInt_Accuracy['PVC as PVC'] })
+            print str(record_idx) + " is written"
 
 
 

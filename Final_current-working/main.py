@@ -5,7 +5,6 @@ from methods import Loading_R_Peak_and_Label
 from methods import Segmenting_ECG_Beat
 from methods import Wavelet_Transformation
 from methods import Constructing_SDA_Vector
-from methods import Shrinking_Vector
 from methods import Projecting_Lower_Dimensional_Vec
 from methods import Projecting_Low_Dimensional_Cov
 from methods import Constructing_T2_Stat
@@ -16,19 +15,19 @@ from methods import Evaluating_Performance_SVM_NN
 ''' ECG record number '''
 LongTerm_idx = [14046, 14134, 14149, 14157, 14172, 14184, 15814] # sampling rate = 128.0
 INCART_idx = range(301,376) # 301 - 375
-MITBIH_idx = [105, 106, 108, 109, 114, 118, 119, 200, 202, 203, 205, 208, 210, 213, 214, 215, 219, 221, 223, 228, 233] # 22
+MITBIH_idx = [105, 106, 108, 109, 114, 118, 119, 200, 202, 203, 205, 208, 209, 210, 213, 214, 215, 219, 221, 223, 228, 233] # 22
 
 ''' ECG label '''
 AAMI_Normal = ['N','L','R','e','j'] # Those labels in MIT-BIH are considered as normal in AAMI recommended practice
 AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI recommended practice
 
 ''' Control variables '''
-record_idx = 304 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
-alpha = 0.001
+record_idx = 202 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
+alpha = 0.01
 time_training = 300 # seconds (= Initial 5 minutes)
 
-SDA_L1_penalty = 9.
-SDA_L2_penalty = 1.
+SDA_L1_penalty = 0.5
+SDA_L2_penalty = 0.
 
 SPM_switch = True # if False, then SPM will not be run in this program
 NeuralNetwork_switch = False  # if False, then Neural network will not be run in this program
@@ -76,26 +75,24 @@ for idx, key in enumerate(sorted(dict_train_wc_normal)):
     average_train_wc_normal += np.array(dict_train_wc_normal[key])
     number_train_normal += 1
 average_train_wc_normal /= float(number_train_normal)
-average_train_wc_normal = np.reshape(average_train_wc_normal, (1,len(average_train_wc_normal)))
 
 
 ''' 4. Constructing sparse discriminant vector and projecting to the low dimensional space'''
 print("4. Constructing sparse discriminant vector and projecting to the low dimensional space...")
-sparse_discriminant_matrix, non_zero_elem = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
-# sparse_discriminant_vector = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
-dict_train_projected_normal = Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem, dict_train_wc_normal)
-dict_train_projected_PVC = Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem,dict_train_wc_PVC)
-dict_train_projected = Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem, dict_train_wc)
-dict_test_projected  = Projecting_Lower_Dimensional_Vec(sparse_discriminant_matrix,non_zero_elem,dict_test_wc)
+sparse_discriminant_vector = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
+dict_train_projected_normal = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_normal)
+dict_train_projected_PVC = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_PVC)
+dict_train_projected = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector, dict_train_wc)
+dict_test_projected  = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_test_wc)
 
-shrinked_average_train_wc_normal = Shrinking_Vector(non_zero_elem, np.dot(average_train_wc_normal,sparse_discriminant_matrix))
-projected_Cov_train_wc_normal = Projecting_Low_Dimensional_Cov(sparse_discriminant_matrix,non_zero_elem,dict_train_wc_normal)
+projected_average_train_wc_normal = np.dot(sparse_discriminant_vector,average_train_wc_normal)
+projected_Cov_train_wc_normal = Projecting_Low_Dimensional_Cov(sparse_discriminant_vector,dict_train_wc_normal)
 
 ''' 5. Computing T2 statistics '''
 print("5. Computing T2 statistics...")
-dict_test_T2stat = Constructing_T2_Stat(shrinked_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
-dict_train_T2stat = Constructing_T2_Stat(shrinked_average_train_wc_normal,projected_Cov_train_wc_normal,dict_train_projected)
-UCL = Computing_UCL(len(dict_train_wc_normal),len(non_zero_elem),alpha)
+dict_test_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
+dict_train_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_train_projected)
+UCL = Computing_UCL(len(dict_train_wc_normal),alpha)
 
 ''' 6. Evaluating accuracy by counting right and wrongly classified beats '''
 if SPM_switch:
@@ -104,7 +101,6 @@ if SPM_switch:
     DictInt_Accuracy = Evaluating_Performance_SPM(dict_test_T2stat, dict_test_label,UCL,AAMI_Normal,AAMI_PVC)
     for idx,key in enumerate(sorted(DictInt_Accuracy)):
         print key, DictInt_Accuracy[key]
-    print len(non_zero_elem)
 
 ''' Competiting method: NN '''
 if NeuralNetwork_switch:
@@ -116,8 +112,9 @@ if NeuralNetwork_switch:
     from pybrain.structure import FeedForwardNetwork, FullConnection
     from pybrain.structure import LinearLayer, SigmoidLayer
 
-    dim = len(non_zero_elem)
-    number_hidden_neural = len(non_zero_elem)
+
+    dim = 256
+    number_hidden_neural = 256
     ds = ClassificationDataSet(dim,1,nb_classes=2) # SupervisedDataSet(input_dimension, output_dimension) // output = 0 or 1
     net = FeedForwardNetwork()
     inLayer = LinearLayer(dim)
@@ -136,19 +133,21 @@ if NeuralNetwork_switch:
     # Regression for response variable of 0 (PVC) and 1 (normal)
     Wav_train_list = list()
     Train_label_list = list()
-    for idx,key in enumerate(sorted(dict_train_projected)):
+    for idx,key in enumerate(sorted(dict_train_wc)):
         Label = dict_train_label[key]
         if Label in AAMI_Normal:
-            ds.addSample(np.squeeze(dict_train_projected[key]),1) # ds.addSample(input_vector, output_response)
+            ds.addSample(dict_train_wc[key],1) # ds.addSample(input_vector, output_response)
         elif Label in AAMI_PVC:
-            ds.addSample(np.squeeze(dict_train_projected[key]),0) # ds.addSample(input_vector, output_response)
+            ds.addSample(dict_train_wc[key],0) # ds.addSample(input_vector, output_response)
 
     trainer = BackpropTrainer(net, dataset=ds)
-    trainer.trainUntilConvergence(dataset=ds, maxEpochs=200) # 200 iterations
+    trainer.trainUntilConvergence(dataset=ds, maxEpochs=20) # 500 iterations
     NN_ans_dict = dict()
 
     for idx, key in enumerate(sorted(dict_test_wc)):
-        NN_ans = net.activate(np.squeeze(dict_test_projected[key]))
+        Label = dict_test_label[key]
+        NN_ans = net.activate(dict_test_wc[key])
+        print NN_ans
         if abs(NN_ans[0] - 1 ) < abs(NN_ans[0] - 0): # Compare the distance
             NN_ans_dict[key] = 'N'
         else:
@@ -167,24 +166,24 @@ if SVM_switch:
     X = list()
     y = list()
 
-    for idx,key in enumerate(sorted(dict_train_projected)):
+    for idx,key in enumerate(sorted(dict_train_T2stat)):
         Label = dict_train_label[key]
         if Label in AAMI_Normal:
-            X.append(dict_train_projected[key])
+            X.append(dict_train_T2stat[key])
             y.append(1)
         elif Label in AAMI_PVC:
-            X.append(dict_train_projected[key])
+            X.append(dict_train_T2stat[key])
             y.append(0)
 
-    X = np.reshape(X, (len(X),len(non_zero_elem)))
+    X = np.reshape(X, (len(X),1))
     y = np.array(y)
 
     clf = SVC(kernel='linear')
     clf.fit(X,y)
     SVM_ans_dict = dict()
-    for idx, key in enumerate(sorted(dict_test_projected)):
+    for idx, key in enumerate(sorted(dict_test_T2stat)):
         Label = dict_test_label[key]
-        SVM_ans = clf.predict(dict_test_projected[key])
+        SVM_ans = clf.predict(dict_test_T2stat[key])
         if abs(SVM_ans[0] - 1 ) < abs(SVM_ans[0] - 0): # NN_ans : Normal
             SVM_ans_dict[key] = 'N'
         else:
@@ -193,4 +192,3 @@ if SVM_switch:
     SVM_accracy_dict = Evaluating_Performance_SVM_NN(SVM_ans_dict,dict_test_label)
     for idx,key in enumerate(sorted(SVM_accracy_dict)):
         print key, SVM_accracy_dict[key]
-

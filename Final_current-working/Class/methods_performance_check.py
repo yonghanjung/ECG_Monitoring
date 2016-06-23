@@ -2,7 +2,7 @@ import numpy as np
 import scipy.io
 import pywt
 from scipy.stats import f
-from Class.Class_SDA import SDA
+from Class_SDA import SDA
 
 def Loading_ECG(ECG_record_number,sampling_rate):
     '''

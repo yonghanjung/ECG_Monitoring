@@ -1,15 +1,13 @@
 import numpy as np
 
-from methods_performance_check import Loading_ECG
-from methods_performance_check import Loading_R_Peak_and_Label
-from methods_performance_check import Segmenting_ECG_Beat
-from methods_performance_check import Wavelet_Transformation
-from methods_performance_check import Constructing_SDA_Vector
-from methods_performance_check import Projecting_Lower_Dimensional_Vec
-from methods_performance_check import Projecting_Low_Dimensional_Cov
-from methods_performance_check import Constructing_T2_Stat
-from methods_performance_check import Computing_UCL
-from methods_performance_check import Evaluating_Performance_SPM
+from methods_noSDA import Loading_ECG
+from methods_noSDA import Loading_R_Peak_and_Label
+from methods_noSDA import Segmenting_ECG_Beat
+from methods_noSDA import Wavelet_Transformation
+from methods_noSDA import Computing_Cov
+from methods_noSDA import Constructing_T2_Stat
+from methods_noSDA import Computing_UCL
+from methods_noSDA import Evaluating_Performance_SPM
 
 ''' ECG record number '''
 LongTerm_idx = [14046, 14134, 14149, 14157, 14172, 14184, 15814] # sampling rate = 128.0
@@ -76,25 +74,18 @@ class Main:
             average_train_wc_normal += np.array(dict_train_wc_normal[key])
             number_train_normal += 1
         average_train_wc_normal /= float(number_train_normal)
+        average_train_wc_normal = np.reshape(average_train_wc_normal, (1,len(average_train_wc_normal)))
 
 
         ''' 4. Constructing sparse discriminant vector and projecting to the low dimensional space'''
         print("4. Constructing sparse discriminant vector and projecting to the low dimensional space...")
-        sparse_discriminant_vector = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
-        dict_train_projected_normal = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_normal)
-        dict_train_projected_PVC = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_PVC)
-        dict_train_projected = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector, dict_train_wc)
-        dict_test_projected  = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_test_wc)
-
-
-        projected_average_train_wc_normal = np.dot(sparse_discriminant_vector,average_train_wc_normal)
-        projected_Cov_train_wc_normal = Projecting_Low_Dimensional_Cov(sparse_discriminant_vector,dict_train_wc_normal)
+        cov_matrix = Computing_Cov(dict_train_wc_normal)
 
         ''' 5. Computing T2 statistics '''
         print("5. Computing T2 statistics...")
-        dict_test_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
-        dict_train_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_train_projected)
-        UCL = Computing_UCL(len(dict_train_wc_normal),alpha)
+        dict_test_T2stat = Constructing_T2_Stat(average_train_wc_normal,cov_matrix,dict_test_wc)
+        UCL = Computing_UCL(len(dict_train_wc_normal),256,alpha)
+        print len(dict_train_wc_normal), UCL
 
         ''' 6. Evaluating accuracy by counting right and wrongly classified beats '''
         print("Evaluating of wavelet-based SPM for record number " + str(record_idx) + " in " + data_name)
