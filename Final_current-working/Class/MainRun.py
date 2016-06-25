@@ -10,6 +10,7 @@ from methods_performance_check import Projecting_Low_Dimensional_Cov
 from methods_performance_check import Constructing_T2_Stat
 from methods_performance_check import Computing_UCL
 from methods_performance_check import Evaluating_Performance_SPM
+from methods_performance_check import Evaluating_Performance_SVM_NN
 
 ''' ECG record number '''
 LongTerm_idx = [14046, 14134, 14149, 14157, 14172, 14184, 15814] # sampling rate = 128.0
@@ -103,3 +104,35 @@ class Main:
             #     print key, DictInt_Accuracy[key]
             # print len(non_zero_elem)
         self.DictInt_Accuracy = DictInt_Accuracy
+
+        ''' 7. Compare the performance with SVM'''
+        # Without applying SDA
+        print("Evaluating SVM for record number "+ str(record_idx) + " in " + data_name)
+        from sklearn.svm import SVC
+        X = list()
+        y = list()
+
+        for idx,key in enumerate(sorted(dict_train_T2stat)):
+            Label = dict_train_label[key]
+            if Label in AAMI_Normal:
+                X.append(dict_train_wc[key])
+                y.append(1)
+            elif Label in AAMI_PVC:
+                X.append(dict_train_wc[key])
+                y.append(0)
+
+        X = np.reshape(X, (len(X),256))
+        y = np.array(y)
+
+        clf = SVC(kernel='linear')
+        clf.fit(X,y)
+        SVM_ans_dict = dict()
+        for idx, key in enumerate(sorted(dict_test_wc)):
+            Label = dict_test_label[key]
+            SVM_ans = clf.predict(dict_test_wc[key])
+            if abs(SVM_ans[0] - 1 ) < abs(SVM_ans[0] - 0): # NN_ans : Normal
+                SVM_ans_dict[key] = 'N'
+            else:
+                SVM_ans_dict[key] = 'V'
+
+        self.SVM_accracy_dict = Evaluating_Performance_SVM_NN(SVM_ans_dict,dict_test_label)

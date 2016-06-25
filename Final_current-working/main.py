@@ -22,16 +22,16 @@ AAMI_Normal = ['N','L','R','e','j'] # Those labels in MIT-BIH are considered as 
 AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI recommended practice
 
 ''' Control variables '''
-record_idx = 202 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
-alpha = 0.01
+record_idx = 105 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
+alpha = 0.05
 time_training = 300 # seconds (= Initial 5 minutes)
 
 SDA_L1_penalty = 0.5
 SDA_L2_penalty = 0.
 
-SPM_switch = True # if False, then SPM will not be run in this program
+SPM_switch = False # if False, then SPM will not be run in this program
 NeuralNetwork_switch = False  # if False, then Neural network will not be run in this program
-SVM_switch = False # if False, then SVM will not be run in this program
+SVM_switch = True # if False, then SVM will not be run in this program
 
 ''' 1. Loading ECG records and segmenting by beats '''
 sampling_rate_MITBIH = 360. # MIT BIH
@@ -169,21 +169,21 @@ if SVM_switch:
     for idx,key in enumerate(sorted(dict_train_T2stat)):
         Label = dict_train_label[key]
         if Label in AAMI_Normal:
-            X.append(dict_train_T2stat[key])
+            X.append(dict_train_wc[key])
             y.append(1)
         elif Label in AAMI_PVC:
-            X.append(dict_train_T2stat[key])
+            X.append(dict_train_wc[key])
             y.append(0)
 
-    X = np.reshape(X, (len(X),1))
+    X = np.reshape(X, (len(X),256))
     y = np.array(y)
 
     clf = SVC(kernel='linear')
     clf.fit(X,y)
     SVM_ans_dict = dict()
-    for idx, key in enumerate(sorted(dict_test_T2stat)):
+    for idx, key in enumerate(sorted(dict_test_wc)):
         Label = dict_test_label[key]
-        SVM_ans = clf.predict(dict_test_T2stat[key])
+        SVM_ans = clf.predict(dict_test_wc[key])
         if abs(SVM_ans[0] - 1 ) < abs(SVM_ans[0] - 0): # NN_ans : Normal
             SVM_ans_dict[key] = 'N'
         else:
