@@ -18,7 +18,7 @@ INCART_idx = range(301,376) # 301 - 375
 MITBIH_idx = [105, 106, 108, 109, 114, 118, 119, 200, 202, 203, 205, 208, 210, 213, 214, 215, 219, 221, 223, 228, 233] # 22
 
 class Main:
-    def __init__(self, record_idx, alpha, SDA_L1_penalty, SDA_L2_penalty):
+    def __init__(self, record_idx, alpha, SDA_L1_penalty, SDA_L2_penalty,true_SVM):
         ''' ECG label '''
         AAMI_Normal = ['N','L','R','e','j'] # Those labels in MIT-BIH are considered as normal in AAMI recommended practice
         AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI recommended practice
@@ -107,32 +107,33 @@ class Main:
 
         ''' 7. Compare the performance with SVM'''
         # Without applying SDA
-        print("Evaluating SVM for record number "+ str(record_idx) + " in " + data_name)
-        from sklearn.svm import SVC
-        X = list()
-        y = list()
+        if true_SVM:
+            print("Evaluating SVM for record number "+ str(record_idx) + " in " + data_name)
+            from sklearn.svm import SVC
+            X = list()
+            y = list()
 
-        for idx,key in enumerate(sorted(dict_train_T2stat)):
-            Label = dict_train_label[key]
-            if Label in AAMI_Normal:
-                X.append(dict_train_wc[key])
-                y.append(1)
-            elif Label in AAMI_PVC:
-                X.append(dict_train_wc[key])
-                y.append(0)
+            for idx,key in enumerate(sorted(dict_train_T2stat)):
+                Label = dict_train_label[key]
+                if Label in AAMI_Normal:
+                    X.append(dict_train_wc[key])
+                    y.append(1)
+                elif Label in AAMI_PVC:
+                    X.append(dict_train_wc[key])
+                    y.append(0)
 
-        X = np.reshape(X, (len(X),256))
-        y = np.array(y)
+            X = np.reshape(X, (len(X),256))
+            y = np.array(y)
 
-        clf = SVC(kernel='linear')
-        clf.fit(X,y)
-        SVM_ans_dict = dict()
-        for idx, key in enumerate(sorted(dict_test_wc)):
-            Label = dict_test_label[key]
-            SVM_ans = clf.predict(dict_test_wc[key])
-            if abs(SVM_ans[0] - 1 ) < abs(SVM_ans[0] - 0): # NN_ans : Normal
-                SVM_ans_dict[key] = 'N'
-            else:
-                SVM_ans_dict[key] = 'V'
+            clf = SVC(kernel='linear')
+            clf.fit(X,y)
+            SVM_ans_dict = dict()
+            for idx, key in enumerate(sorted(dict_test_wc)):
+                Label = dict_test_label[key]
+                SVM_ans = clf.predict(dict_test_wc[key])
+                if abs(SVM_ans[0] - 1 ) < abs(SVM_ans[0] - 0): # NN_ans : Normal
+                    SVM_ans_dict[key] = 'N'
+                else:
+                    SVM_ans_dict[key] = 'V'
 
-        self.SVM_accracy_dict = Evaluating_Performance_SVM_NN(SVM_ans_dict,dict_test_label)
+            self.SVM_accracy_dict = Evaluating_Performance_SVM_NN(SVM_ans_dict,dict_test_label)

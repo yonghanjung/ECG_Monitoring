@@ -4,7 +4,7 @@ import scipy.io
 import pywt
 from scipy.stats import f
 from Class_SparseLDA import SparseLDA
-from HansFisherLDA import FisherLDA
+# from HansFisherLDA import FisherLDA
 import matplotlib.pyplot as plt
 
 
@@ -399,6 +399,7 @@ RedWavSegment_Train_Danger = LDA_Application(LDA_Operator,Wav_train_V_dict)
 RedWavSegment_Train = LDA_Application(LDA_Operator, Wav_train_dict)
 RedWavSegment_Test = LDA_Application(LDA_Operator,Wav_test_dict)
 
+
 ReducedMean = np.dot(LDA_Operator,Wav_train_N_mean)
 ReducedCov = LDAON_ReducedCoVarComputation(LDA_Operator,Wav_train_N_dict)
 Stat_dict_test = StatisticsConstruction(ReducedMean,ReducedCov,RedWavSegment_Test)
@@ -409,7 +410,26 @@ Normal_1_idx = 2294
 PVC_1_idx = 2488
 Normal_2_idx = 2956
 
+print ("SDA...")
+print LDA_Operator
+print RedWavSegment_Train[Normal_1_idx]
+print RedWavSegment_Train[PVC_1_idx]
+print RedWavSegment_Train[Normal_2_idx]
+print ""
+print ("Statistics...")
 print Stat_dict_train[Normal_1_idx]
 print Stat_dict_train[PVC_1_idx]
 print Stat_dict_train[Normal_2_idx]
 print UCL
+
+ax = plt.figure(1,figsize=(10,5))
+ax_SD = ax.add_subplot(1,1,1)
+ax_SD.vlines(np.linspace(0,len(LDA_Operator), len(LDA_Operator)),[0], LDA_Operator  )
+# ax_N1.yaxis.set_visible(False)
+ax_SD.set_xlim(0,18)
+plt.axhline(y=0.0, c='black')
+plt.xticks(fontsize=33)
+plt.yticks(fontsize=33)
+plt.tight_layout()
+# plt.show()
+plt.savefig('Fig_chosen-WC-SDA_N1.eps',format='eps')
