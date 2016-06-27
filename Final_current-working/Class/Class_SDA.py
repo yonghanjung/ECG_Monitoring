@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.linear_model import ElasticNet
+from sklearn.preprocessing import scale
 
 class SDA:
     def __init__(self, dict_train, Flt_Lambda, Flt_L1):
@@ -15,6 +16,9 @@ class SDA:
         self.dim = len(self.mat_wc_normal[0]) # 256
 
         self.X = np.concatenate((self.mat_wc_normal, self.mat_wc_PVC), axis=0) # N / V augmented matrix (transpose of [N|V])
+        self.X = (self.X - np.mean(self.X,axis=0))
+
+
 
         self.number_normal = len(self.mat_wc_normal) # N
         self.number_PVC = len(self.mat_wc_PVC) # V
@@ -39,7 +43,6 @@ class SDA:
                 response = np.dot(self.Y, theta)
                 elas = ElasticNet(alpha=Flt_Lambda, l1_ratio=Flt_L1) # alpha * l1_ration = lambda // 0.5 * alpha * (1 - l1_ratio) = gamma
                 beta = elas.fit(X=self.X, y= response).coef_
-
                 theta_factor_1 = I - np.dot(np.dot(self.Q, np.transpose(self.Q)),self.D)
                 theta_factor_2 = np.dot(theta_factor_1, np.linalg.inv(self.D))
                 theta_factor_3 = np.dot(theta_factor_2, np.transpose(self.Y))

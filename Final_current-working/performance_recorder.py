@@ -18,7 +18,7 @@ AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI reco
 
 ECG_record_list = [MITBIH_idx, LongTerm_idx, INCART_idx]
 
-alpha = 0.001
+alpha = 0.01
 time_training = 300 # seconds (= Initial 5 minutes)
 
 # data_ECG = MITBIH_idx
@@ -27,7 +27,8 @@ time_training = 300 # seconds (= Initial 5 minutes)
 data_ECG = Compare_idx
 
 true_SVM = False
-
+SDA_L1_penalty = 0.7
+SDA_L2_penalty = 0.5
 
 # record_idx = 119
 
@@ -46,16 +47,12 @@ with open('performance_records/performance.csv','w') as csvfile:
 
     for record_idx in data_ECG:
         try:
-            SDA_L1_penalty = 0.7
-            SDA_L2_penalty = 0.5
             obj_main = Main(record_idx=record_idx,alpha=alpha,SDA_L1_penalty=SDA_L1_penalty, SDA_L2_penalty=SDA_L2_penalty, true_SVM=true_SVM)
             if true_SVM:
                 writer.writerow({'TN_SVM' : obj_main.SVM_accracy_dict['Normal as Normal'], 'FP_SVM': obj_main.SVM_accracy_dict['Normal as PVC'], 'FN_SVM':obj_main.SVM_accracy_dict['PVC as Normal'], 'TP_SVM':obj_main.SVM_accracy_dict['PVC as PVC'], 'TN' : obj_main.DictInt_Accuracy['Normal as Normal'], 'FP': obj_main.DictInt_Accuracy['Normal as PVC'], 'FN':obj_main.DictInt_Accuracy['PVC as Normal'], 'TP':obj_main.DictInt_Accuracy['PVC as PVC'] })
             else:
                 writer.writerow({'TN' : obj_main.DictInt_Accuracy['Normal as Normal'], 'FP': obj_main.DictInt_Accuracy['Normal as PVC'], 'FN':obj_main.DictInt_Accuracy['PVC as Normal'], 'TP':obj_main.DictInt_Accuracy['PVC as PVC'] })
         except:
-            SDA_L1_penalty = 0.7
-            SDA_L2_penalty = 0.5
             obj_main = Main(record_idx=record_idx,alpha=alpha,SDA_L1_penalty=SDA_L1_penalty, SDA_L2_penalty=SDA_L2_penalty, true_SVM=true_SVM)
             if true_SVM:
                 writer.writerow({'TN_SVM' : obj_main.SVM_accracy_dict['Normal as Normal'], 'FP_SVM': obj_main.SVM_accracy_dict['Normal as PVC'], 'FN_SVM':obj_main.SVM_accracy_dict['PVC as Normal'], 'TP_SVM':obj_main.SVM_accracy_dict['PVC as PVC'], 'TN' : obj_main.DictInt_Accuracy['Normal as Normal'], 'FP': obj_main.DictInt_Accuracy['Normal as PVC'], 'FN':obj_main.DictInt_Accuracy['PVC as Normal'], 'TP':obj_main.DictInt_Accuracy['PVC as PVC'] })

@@ -10,7 +10,7 @@ Comment
 
 ''' Library '''
 import numpy as np
-from sklearn.linear_model import Lasso
+from sklearn.preprocessing import scale
 from sklearn.linear_model import ElasticNet
 ''' Function or Class '''
 
@@ -26,6 +26,7 @@ class SparseLDA:
         self.Dim = len(self.Data1[0]) # 256
 
         self.X = np.concatenate((self.Data1, self.Data2), axis=0) # N / V augmented matrix
+        self.X = self.X - np.mean(self.X,axis=0)
 
         self.NumClass1 = len(self.Data1) # N
         self.NumClass2 = len(self.Data2) # V

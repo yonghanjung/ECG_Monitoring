@@ -120,8 +120,8 @@ def Wavelet_Transformation(dict_ECG_beat):
         # universal thresholding
         WaveletThreshold = np.sqrt(2 * np.log(256)) * (np.median(np.abs(np.array(dict_wc[key][DecompLevel]) - np.median(dict_wc[key][DecompLevel]))) / 0.6745)
         wavelet_coefs = np.concatenate([dict_wc[key][0],dict_wc[key][1],dict_wc[key][2],dict_wc[key][3],dict_wc[key][4]])
-        denoised_coefs = SoftThreshold(wavelet_coefs, WaveletThreshold)
-        dict_wc[key] = denoised_coefs
+        wavelet_coefs = SoftThreshold(wavelet_coefs, WaveletThreshold)
+        dict_wc[key] = wavelet_coefs
     return dict_wc
 
 def Constructing_SDA_Vector(DictArray_TrainWCNormal,DictArray_TrainWCPVC,a,b):

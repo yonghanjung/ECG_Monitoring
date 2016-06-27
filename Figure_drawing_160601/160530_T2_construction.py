@@ -336,8 +336,8 @@ alpha = 0.01
 Training_list = [240,180,120,60]
 Training_seconds = 300
 
-a = 0.7 # SDA, for L1
-b = 0.5 # SDA, for L2
+a = 0.1 # SDA, for L1
+b = 0.9 # SDA, for L2
 
 
 Acc_SPC = True
@@ -422,14 +422,14 @@ print Stat_dict_train[PVC_1_idx]
 print Stat_dict_train[Normal_2_idx]
 print UCL
 
-ax = plt.figure(1,figsize=(10,5))
-ax_SD = ax.add_subplot(1,1,1)
-ax_SD.vlines(np.linspace(0,len(LDA_Operator), len(LDA_Operator)),[0], LDA_Operator  )
-# ax_N1.yaxis.set_visible(False)
-ax_SD.set_xlim(0,18)
-plt.axhline(y=0.0, c='black')
-plt.xticks(fontsize=33)
-plt.yticks(fontsize=33)
-plt.tight_layout()
-# plt.show()
-plt.savefig('Fig_chosen-WC-SDA_N1.eps',format='eps')
+# ax = plt.figure(1,figsize=(10,5))
+# ax_SD = ax.add_subplot(1,1,1)
+# ax_SD.vlines(np.linspace(0,len(LDA_Operator), len(LDA_Operator)),[0], LDA_Operator  )
+# # ax_N1.yaxis.set_visible(False)
+# ax_SD.set_xlim(0,18)
+# plt.axhline(y=0.0, c='black')
+# plt.xticks(fontsize=33)
+# plt.yticks(fontsize=33)
+# plt.tight_layout()
+# # plt.show()
+# # plt.savefig('Fig_chosen-WC-SDA_N1.eps',format='eps')
