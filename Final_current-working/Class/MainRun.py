@@ -81,7 +81,7 @@ class Main:
 
         ''' 4. Constructing sparse discriminant vector and projecting to the low dimensional space'''
         print("4. Constructing sparse discriminant vector and projecting to the low dimensional space...")
-        sparse_discriminant_vector = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
+        sparse_discriminant_vector, nonzero_elem = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
         dict_train_projected_normal = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_normal)
         dict_train_projected_PVC = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_PVC)
         dict_train_projected = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector, dict_train_wc)
@@ -96,6 +96,7 @@ class Main:
         dict_test_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
         dict_train_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_train_projected)
         UCL = Computing_UCL(len(dict_train_wc_normal),alpha)
+        # UCL = Computing_UCL(len(nonzero_elem),alpha)
 
         ''' 6. Evaluating accuracy by counting right and wrongly classified beats '''
         print("Evaluating of wavelet-based SPM for record number " + str(record_idx) + " in " + data_name)

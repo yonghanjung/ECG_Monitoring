@@ -22,12 +22,12 @@ AAMI_Normal = ['N','L','R','e','j'] # Those labels in MIT-BIH are considered as 
 AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI recommended practice
 
 ''' Control variables '''
-record_idx = 15814 # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
-alpha = 0.01
+record_idx = 119     # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
+alpha = 0.1
 time_training = 300 # seconds (= Initial 5 minutes)
 
-SDA_L1_penalty = 0.1
-SDA_L2_penalty = 0.9
+SDA_L1_penalty = 1.
+SDA_L2_penalty = 1.
 
 SPM_switch = True # if False, then SPM will not be run in this program
 NeuralNetwork_switch = False  # if False, then Neural network will not be run in this program
@@ -79,7 +79,7 @@ average_train_wc_normal /= float(number_train_normal)
 
 ''' 4. Constructing sparse discriminant vector and projecting to the low dimensional space'''
 print("4. Constructing sparse discriminant vector and projecting to the low dimensional space...")
-sparse_discriminant_vector = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
+sparse_discriminant_vector, nonzero_elem = Constructing_SDA_Vector(dict_train_wc_normal,dict_train_wc_PVC,SDA_L1_penalty,SDA_L2_penalty)
 dict_train_projected_normal = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_normal)
 dict_train_projected_PVC = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_train_wc_PVC)
 dict_train_projected = Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector, dict_train_wc)
@@ -93,6 +93,7 @@ print("5. Computing T2 statistics...")
 dict_test_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
 dict_train_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_train_projected)
 UCL = Computing_UCL(len(dict_train_wc_normal),alpha)
+# UCL = Computing_UCL(len(nonzero_elem),alpha)
 
 ''' 6. Evaluating accuracy by counting right and wrongly classified beats '''
 if SPM_switch:

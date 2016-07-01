@@ -2,6 +2,7 @@ import numpy as np
 import scipy.io
 import pywt
 from scipy.stats import f
+from scipy.stats import t
 from Class_SDA import SDA
 
 def Loading_ECG(ECG_record_number,sampling_rate):
@@ -153,7 +154,8 @@ def Constructing_SDA_Vector(DictArray_TrainWCNormal,DictArray_TrainWCPVC,a,b):
 
     obj_SDA = SDA(dict_train=DictArrayMatrix_for_SDA, Flt_Lambda=alpha, Flt_L1=L1Ratio)
     sparse_discriminant_vector = obj_SDA.sparse_discriminant_vector
-    return sparse_discriminant_vector
+    nonzero_elem = obj_SDA.non_zero_elem
+    return sparse_discriminant_vector, nonzero_elem
 
 def Projecting_Lower_Dimensional_Vec(sparse_discriminant_vector,dict_wc):
     '''
@@ -209,6 +211,7 @@ def Constructing_T2_Stat(projected_average_wc_normal, projected_Cov_wc_normal, d
 
         T2_stat = wc_test_centered_projected * (projected_Cov_wc_normal**(-1)) * wc_test_centered_projected.T
         T2_stat = np.squeeze(np.asarray(T2_stat))
+        T2_stat = np.sqrt(T2_stat)
         dict_test_T2stat[key] = T2_stat
     return dict_test_T2stat
 
@@ -220,7 +223,8 @@ def Computing_UCL(num_train_beats, alpha):
     :return: UCL value
     '''
     dim_projected = 1
-    return (dim_projected*((num_train_beats-1)**2) * f.ppf(1-alpha, dim_projected, num_train_beats-dim_projected)) / (num_train_beats*(num_train_beats-dim_projected))
+    return t.ppf(1-alpha,num_train_beats-1)
+    # return (dim_projected*((num_train_beats-1)**2) * f.ppf(1-alpha, dim_projected, num_train_beats-dim_projected)) / (num_train_beats*(num_train_beats-dim_projected))
 
 
 def Evaluating_Performance_SPM(dict_test_T2stat, dict_test_label, UCL_val, AAMI_Normal, AAMI_PVC):
