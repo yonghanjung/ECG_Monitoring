@@ -23,7 +23,7 @@ AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI reco
 
 ''' Control variables '''
 record_idx = 119     # You may choose from LongTerm_idx, INCART_idx, or MITBIH_idx
-alpha = 0.1
+alpha = 0.01
 time_training = 300 # seconds (= Initial 5 minutes)
 
 SDA_L1_penalty = 1.
@@ -93,7 +93,6 @@ print("5. Computing T2 statistics...")
 dict_test_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_test_projected)
 dict_train_T2stat = Constructing_T2_Stat(projected_average_train_wc_normal,projected_Cov_train_wc_normal,dict_train_projected)
 UCL = Computing_UCL(len(dict_train_wc_normal),alpha)
-# UCL = Computing_UCL(len(nonzero_elem),alpha)
 
 ''' 6. Evaluating accuracy by counting right and wrongly classified beats '''
 if SPM_switch:

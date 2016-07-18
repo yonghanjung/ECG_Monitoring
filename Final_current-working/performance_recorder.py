@@ -18,7 +18,7 @@ AAMI_PVC = ['V','E'] # Those label in MIT-BIH are considered as PVC in AAMI reco
 
 ECG_record_list = [MITBIH_idx, LongTerm_idx, INCART_idx]
 
-alpha = 0.01
+alpha = 0.1
 time_training = 300 # seconds (= Initial 5 minutes)
 
 data = [MITBIH_idx, LongTerm_idx, INCART_idx, Compare_idx]
